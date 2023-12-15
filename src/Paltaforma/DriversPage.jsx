@@ -24,7 +24,7 @@ const adddriver =()=>{
         </div>
         <div className="next-page bsns-next">
             <span className="next-step">Next step</span>
-            <span className="vehicles">About business</span>
+            <span className="vehicles"  onClick={()=>{handleNavigationClick("about")}}>About business</span>
 
         </div>
        </div>

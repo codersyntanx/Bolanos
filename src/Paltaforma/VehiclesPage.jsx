@@ -66,7 +66,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
         </div>
         <div className="next-page">
             <span className="next-step">Next step</span>
-            <span className="vehicles">Drivers</span>
+            <span className="vehicles"  onClick={()=>{handleNavigationClick("drivers")}}>Drivers</span>
 
         </div>
        </div>

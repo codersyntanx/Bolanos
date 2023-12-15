@@ -17,7 +17,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
         </div>
         <div className="next-page">
             <span className="next-step">Next step</span>
-            <span className="vehicles">Coverages</span>
+            <span className="vehicles"onClick={()=>{handleNavigationClick("coverages")}}>Coverages</span>
 
         </div>
        </div>

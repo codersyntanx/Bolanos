@@ -36,7 +36,7 @@ function CoveragesPage({ changeIcon,handleNavigationClick }){
         <div className="Page_Position gap-2 d-flex  align-items-center">
            
             <span className="circle_position"><span className="first_name">5</span><span className="outof">/5</span></span>
-            <span className="Page_Name">About Business</span>
+            <span className="Page_Name" onClick={()=>{handleNavigationClick("about")}}>About Business</span>
            
         </div>
         <div className="next-page">
