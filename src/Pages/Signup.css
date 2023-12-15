@@ -1,0 +1,164 @@
+.signuppage {
+    overflow-x: hidden; /* Hide horizontal overflow */
+}
+body {
+    overflow-y: auto; /* Allow vertical overflow to be scrollable */
+}
+
+.centerdiv {
+    margin-top: 40px;
+}
+
+.signuplogo {
+    width: 100px;
+}
+
+
+
+.account {
+    font-size: 32px;
+    margin-bottom: -3px;
+}
+
+.signupinputs {
+    background-color: rgb(223, 226, 225);
+}
+
+.maincard input:focus {
+    box-shadow: none;
+    border: 2px solid black;
+}
+
+.maincard input {
+    height: 64px;
+}
+
+.white-truck {
+    background-color: white;
+    width: 35%;
+    padding: 2%;
+    border-radius: 10px;
+    font-size: small;
+    font-weight: bold;
+    padding-bottom: 1%;
+    position: absolute;
+    top: 20%;
+    right: 80%;
+}
+
+.white-protect {
+    background-color: white;
+    width: 35%;
+    padding: 2%;
+    border-radius: 10px;
+    font-size: small;
+    font-weight: bold;
+    padding-bottom: 1%;
+    position: absolute;
+    top: 70%;
+    left: 30%;
+}
+
+.leftsider {
+    background-color: #F0F8FF;
+}
+
+.typo {
+    color: #FFF;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+    text-transform: capitalize;
+}
+
+.typo span {
+    font-size: 38px;
+}
+
+.white-truck p {
+    font-size: small;
+    font-weight: bold;
+}
+
+.white-protect p {
+    font-size: small;
+    font-weight: bold;
+}
+
+.sugnupbtn {
+    padding: 20px;
+    width: 100%;
+    height: 64px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+    .signupheadings{
+        display: flex;
+        flex-direction: column;
+        row-gap: 15px;
+    }
+    .white-truck {
+        width: 35%;
+        right: 70%;
+        font-size: small;
+        font-weight: 300;
+    }
+
+    .white-protect {
+        width: 35%;
+        right: 70%;
+        font-size: small;
+        font-weight: 300;
+    }
+
+    .centeralign {
+        text-align: center;
+        position: relative;
+        margin-top: 0px;
+    }
+
+  
+
+    .account {
+        line-height: normal;
+    }
+}
+
+.rightside {
+    background-image: url(./images/loginglobe.png);
+    background-color: rgb(92, 92, 114);
+}
+
+@media only screen and (max-width: 500px) {
+    .rightside {
+        display: none;
+    }
+    .account {
+        font-size: 24px;
+    }
+    .centerdiv {
+        margin-top: 0px;
+    }
+
+    /* .access {
+        margin-right: 25px;
+
+    } */
+
+    .sugnupbtn {
+        padding: 20px;
+    }
+
+    .leftsider {
+        height: 130vh;
+        background-color: white;
+    }
+
+    .signuplogo {
+        width: 150px;
+    }
+}

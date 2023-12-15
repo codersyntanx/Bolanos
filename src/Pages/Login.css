@@ -1,0 +1,198 @@
+.mainlogin {
+    overflow-x: hidden;
+}
+
+row {
+    height: 100%;
+}
+
+.loginscreen {
+    background-color: #F0F8FF;
+}
+
+.centeralign {
+    margin: auto;
+    width: 80%;
+    margin-top: 40px;
+}
+
+.account {
+    font-size: 32px;
+    margin-bottom: -3px;
+}
+
+.account span {
+    font-size: small;
+    color: rgb(208, 209, 209);
+}
+
+.signupinputs {
+    background-color: rgb(223, 226, 225);
+   
+}
+.maincard{
+    width: 472px;
+}
+.maincard input:focus {
+    box-shadow: none;
+    border: 2px solid black;
+}
+
+.white-truck {
+    background-color: white;
+    width: 35%;
+    padding: 2%;
+    border-radius: 10px;
+    font-size: small;
+    font-weight: bold;
+    padding-bottom: 1%;
+    position: absolute;
+    top: 20%;
+    right: 80%;
+}
+
+.white-protect {
+    background-color: white;
+    width: 35%;
+    padding: 2%;
+    border-radius: 10px;
+    font-size: small;
+    font-weight: bold;
+    padding-bottom: 1%;
+    position: absolute;
+    top: 70%;
+    left: 30%;
+}
+
+.loginlin {
+    color: black;
+    width: 34%;
+}
+
+.typo {
+    color: #FFF;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+    text-transform: capitalize;
+}
+
+.typo span {
+    font-size: 38px;
+}
+
+.white-truck p {
+    font-size: small;
+    font-weight: bold;
+}
+
+.white-protect p {
+    font-size: small;
+    font-weight: bold;
+}
+
+.loginbtn {
+    padding: 20px;
+    width: 100%;
+    height: 64px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+    .white-truck {
+        width: 35%;
+        right: 70%;
+        font-size: small;
+        font-weight: 300;
+    }
+
+    .white-protect {
+        width: 35%;
+        right: 70%;
+        font-size: small;
+        font-weight: 300;
+    }
+
+    .centeralign {
+        position: relative;
+        top: 0%;
+        padding-top: 0px;
+    }
+
+  
+
+    .account {
+        line-height: normal;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .rightside {
+        display: none;
+    }
+ leftside{
+    margin: auto;
+ }
+    .account {
+        text-align: left;
+        font-size: 24px;
+
+    }
+    .maincard{
+        width: 294px;
+    }
+    .loginlogo {
+        width: 128px;
+        height: 63px;
+        margin-top: 0px;
+    }
+
+    .access {
+        font-size: 16px;
+    }
+
+    .loginscreen {
+     
+        background-color: white;
+    }
+
+    .centeralign span {
+        text-align: left;
+    }
+
+    .inputss {
+        margin-top: 40px;
+    }
+
+    .signupinputs {
+        margin-top: 30px;
+    }
+
+    .loginlin {
+        color: black;
+        width: 20%;
+    }
+
+    .forget {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    .loginbtn {
+        padding: 20px;
+        width: 100%;
+        height: 64px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .newuser {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+}

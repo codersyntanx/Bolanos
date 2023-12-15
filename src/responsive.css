@@ -1,0 +1,1199 @@
+
+@media (min-width: 1550px) and (max-width: 2050px) {
+   
+.quotes__content {
+    padding: 0px;
+    padding-left: 20px;
+}
+.container{
+    max-width: 1450px;
+}
+.main__menu ul li a {
+    font-size: 13px;
+    gap: 6px;
+}
+}
+
+@media (min-width: 1200px) and (max-width: 1550px) {
+    .quotes__content {
+        padding: 0 28px;
+        padding-left: 25px;
+    }
+
+    .quotes__thumb {
+        padding-left: 40px;
+        padding-right: 20px;
+    }
+
+    .manage__inner__blk {
+        margin-top: 56px;
+        padding-bottom: 0;
+    }
+
+    .main__menu ul li a {
+        font-size: 13px;
+        gap: 8px;
+    }
+
+    .main__menu ul li {
+        margin-left: 30px;
+    }
+
+    .header__btn a {
+        width: 122px;
+        font-size: 13px;
+        padding: 11px 14px;
+        border: 1px solid #fff;
+    }
+
+    .main__menu {
+        margin-right: 71px;
+    }
+
+    .dropdown__menu ul li {
+        margin: 0;
+    }
+.owl-item .active{
+    height: 500px;
+}
+    .leadership__blk .owl-nav {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+    }
+
+    .leadership__blk {
+        padding-bottom: 85px;
+    }
+
+    .testimonial__area {
+        padding-bottom: 50px;
+    }
+
+    .hero__content h1 {
+        font-size: 30px;
+        margin-top: 18px;
+        max-width: 427px;
+    }
+
+    .hero__content p {
+        font-size: 14px;
+        max-width: 472px;
+    }
+
+    .hero__single__counter__content h4 {
+        font-size: 36px;
+        gap: 10px;
+    }
+
+    .hero__single__counter__content h4 span {
+        font-size: 21px;
+    }
+
+    .hero__form__title h4 {
+        font-size: 26px;
+    }
+
+    .hero__form__title p {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    .hero__form__wrapper form {
+        border-radius: 18px;
+        padding: 15px 25px;
+        max-width: 446px;
+    }
+
+    .hero__single__form__step input {
+        font-size: 16px;
+        padding: 13px 14px;
+    }
+    .hero__single__form__step2 input {
+        font-size: 16px;
+        padding: 13px 14px;
+    }
+
+    .section__title h3 {
+        font-size: 26px;
+    }
+
+    .quotes__area {
+        padding: 100px 0;
+    }
+
+    .single__quotes__content h5 {
+        font-size: 16px;
+    }
+
+    .single__quotes__content p {
+        font-size: 14px;
+    }
+
+    .single__quotes__content {
+        padding-bottom: 15px;
+    }
+
+    .single__quotes__content__blk {
+        margin-bottom: 35px;
+    }
+
+    .hero__area {
+        min-height: 799px;
+        padding-top: 198px;
+    }
+
+    .quotes__slide__wrapper .owl-dots {
+        height: 69%;
+    }
+
+    .trucking__card h4 {
+        font-size: 20px;
+    }
+
+    .trucking__card__wrapper {
+        padding-top: 50px;
+        padding-bottom: 40px;
+    }
+
+    .section__title p {
+        font-size: 17px;
+    }
+
+    .platform__content {
+        padding-top: 35px;
+    }
+
+    .single__platform__step a {
+        font-size: 16px;
+        padding-bottom: 15px;
+    }
+
+    .single__platform__step {
+        margin-bottom: 20px;
+    }
+
+    .single__platform__step a span img {
+        height: 27px;
+    }
+
+    .platform__thumb {
+        padding-left: 30px;
+    }
+
+    .manage__single__card__blk h2 {
+        font-size: 46px;
+    }
+
+    .manage__single__card__blk span {
+        font-size: 26px;
+        margin-bottom: 12px;
+    }
+
+    .manage__single__card__blk {
+        padding: 20px;
+        min-height: 494px;
+    }
+
+    .manage__single__card__blk p {
+        font-size: 15px;
+        min-height: 74px;
+        margin-bottom: 35px;
+    }
+
+    .quote__ico img {
+        height: 44px;
+    }
+
+    .contact__info h4 {
+        font-size: 18px;
+    }
+
+    .contact__info a {
+        font-size: 14px;
+    }
+
+    .quote__ico {
+        margin-bottom: 20px;
+    }
+
+    .single__review__card h4 {
+        font-size: 18px;
+    }
+
+    .single__review__card p {
+        font-size: 14px;
+    }
+
+    .review__inner__blk .owl-nav {
+        bottom: 0;
+    }
+
+    .trucking__area {
+        background-position: center left;
+    }
+
+    .similar__btn__blk a {
+        font-size: 16px;
+        height: 56px;
+        width: 243px;
+    }
+
+    .contact__content>h4 {
+        font-size: 34px;
+        padding-bottom: 50px;
+    }
+
+    .single__ask__question a {
+        font-size: 16px;
+        padding: 16px 26px;
+        gap: 15px;
+    }
+
+    .manage__card__list ul li {
+        font-size: 14px;
+        gap: 11px;
+        margin-bottom: 32px;
+    }
+
+    .manage__card__list ul li span img {
+        height: 30px;
+    }
+}
+
+
+/* LG Device :992px. */
+
+@media (min-width: 992px) and (max-width: 1200px) {
+
+    .header__right__blk {
+        display: none;
+    }
+
+    .quotes__thumb__left__radius img {
+        border-radius: 17px;
+        border-top-left-radius: 50px;
+    }
+
+    .breadcrumb__inner__blk p {
+        position: unset;
+        margin-bottom: 10px;
+    }
+
+    .breadcrumb__inner__blk h4 {
+        text-align: left;
+    }
+
+    .similar__btn__blk a {
+        font-size: 18px;
+        height: 52px;
+        width: 200px;
+    }
+
+    .similar__btn__blk {
+        justify-content: center;
+        padding-top: 20px;
+    }
+
+    .open__menu {
+        display: block;
+    }
+
+    .hero__content h1 {
+        font-size: 40px;
+    }
+
+    .hero__single__counter__content h4 {
+        font-size: 38px;
+    }
+
+    .hero__single__counter__content h4 span {
+        font-size: 20px;
+    }
+
+    .offcanvas__menu.active {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .offcanvas__menu .header__right__blk {
+        display: block;
+    }
+
+    .hero__single__form__step input {
+        font-size: 15px;
+        padding: 12px 14px;
+    }
+
+    .hero__area {
+        min-height: 794px;
+        padding-top: 198px;
+    }
+
+    .quotes__content {
+        padding: 0 28px;
+        padding-left: 25px;
+    }
+
+    .quotes__thumb {
+        padding-left: 40px;
+        padding-right: 20px;
+    }
+
+    .quotes__slide__wrapper {
+        padding: 0;
+        margin: 0;
+        padding-top: 100px;
+        margin-top: 50px;
+    }
+
+    .quotes__slide__wrapper .owl-nav button.owl-prev {
+        transform: unset;
+        left: auto;
+        right: 0;
+        bottom: auto;
+        top: 0;
+    }
+
+    .quotes__slide__wrapper .owl-nav button.owl-next {
+        bottom: auto;
+        top: 0;
+        transform: unset;
+        right: 0;
+        left: auto;
+    }
+
+    .quotes__slide__wrapper .owl-dots {
+        width: 85%;
+        height: 7px;
+        top: 27px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .quotes__slide__wrapper .owl-dots .owl-dot {
+        height: 7px;
+        width: 50%;
+        position: relative;
+        top: -14px;
+    }
+
+    .quotes__slide__wrapper .quotes__thumb__blk {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .platform__area .section__title {
+        margin: 0 auto;
+        text-align: center !important;
+        margin-bottom: 30px;
+        padding: 0 !important;
+    }
+
+    .platform__thumb {
+        padding: 0;
+        margin-top: 20px;
+    }
+
+    .manage__inner__blk {
+        margin-top: 56px;
+        padding-bottom: 48px;
+    }
+
+    .testimonial__area .section__title {
+        text-align: center !important;
+    }
+
+    .trucking__area {
+        background-position: center left;
+    }
+
+    .testimonial__left__content__ara {
+        padding: 0;
+        padding-bottom: 15px;
+    }
+
+    .review__inner__blk .owl-stage-outer {
+        margin-right: 0;
+    }
+
+    .review__inner__blk .owl-nav {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .review__inner__blk {
+        padding-bottom: 80px;
+    }
+
+    .testimonial__area {
+        padding-bottom: 40px;
+    }
+
+    .manage__area {
+        padding-bottom: 50px;
+    }
+
+    .manage__single__card__blk h2 {
+        font-size: 36px;
+    }
+
+    .manage__single__card__blk span {
+        font-size: 24px;
+    }
+
+    .manage__single__card__blk p {
+        font-size: 17px;
+        margin-bottom: 20px;
+    }
+
+    .manage__single__card__blk {
+    }
+
+    .brand__title {
+        padding: 0;
+        border: 0;
+        display: block;
+        text-align: center !important;
+    }
+
+    .brand__title .section__title {
+        text-align: center !important;
+    }
+
+    .quotes__area {
+        padding: 100px 0;
+        padding-top: 35px;
+    }
+
+    .leadership__blk .owl-nav {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+    }
+
+    .leadership__blk {
+        padding-bottom: 85px;
+    }
+
+    .testimonial__area {
+        padding-bottom: 50px;
+    }
+}
+
+
+/* MD Device :768px. */
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .header__right__blk {
+        display: none;
+    }
+
+    .leadership__blk .owl-nav {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+    }
+
+    .leadership__blk {
+        padding-bottom: 85px;
+    }
+
+    .leadership__text h4 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .testimonial__area {
+        padding-bottom: 50px;
+    }
+
+    .breadcrumb__inner__blk p {
+        position: unset;
+        margin-bottom: 10px;
+    }
+
+    .breadcrumb__inner__blk h4 {
+        text-align: left;
+    }
+
+    .quotes__thumb__left__radius img {
+        border-radius: 17px;
+        border-top-left-radius: 50px;
+    }
+
+    .similar__btn__blk a {
+        font-size: 18px;
+        height: 52px;
+        width: 200px;
+    }
+
+    .similar__btn__blk {
+        justify-content: center;
+        padding-top: 20px;
+    }
+
+    .open__menu {
+        display: block;
+    }
+
+    .hero__content h1 {
+        font-size: 40px;
+    }
+
+    .hero__single__counter__content h4 {
+        font-size: 38px;
+    }
+
+    .hero__single__counter__content h4 span {
+        font-size: 20px;
+    }
+
+    .offcanvas__menu.active {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .offcanvas__menu .header__right__blk {
+        display: block;
+    }
+
+    .hero__single__form__step input {
+        font-size: 15px;
+        padding: 12px 14px;
+    }
+
+    .hero__area {
+        min-height: 794px;
+        padding-top: 198px;
+    }
+
+    .quotes__content {
+        padding: 0 28px;
+        padding-left: 25px;
+    }
+
+    .quotes__thumb {
+        padding-left: 40px;
+        padding-right: 20px;
+    }
+
+    .quotes__slide__wrapper {
+        padding: 0;
+        margin: 0;
+        padding-top: 100px;
+        margin-top: 50px;
+    }
+
+    .quotes__slide__wrapper .owl-nav button.owl-prev {
+        transform: unset;
+        left: auto;
+        right: 0;
+        bottom: auto;
+        top: 0;
+    }
+
+    .quotes__slide__wrapper .owl-nav button.owl-next {
+        bottom: auto;
+        top: 0;
+        transform: unset;
+        right: 0;
+        left: auto;
+    }
+
+    .quotes__slide__wrapper .owl-dots {
+        width: 80%;
+        height: 7px;
+        top: 27px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .quotes__slide__wrapper .owl-dots .owl-dot {
+        height: 7px;
+        width: 50%;
+        position: relative;
+        top: -14px;
+    }
+
+    .quotes__slide__wrapper .quotes__thumb__blk {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .platform__area .section__title {
+        margin: 0 auto;
+        text-align: center !important;
+        margin-bottom: 30px;
+        padding: 0 !important;
+    }
+
+    .platform__thumb {
+        padding: 0;
+        margin-top: 20px;
+    }
+
+    .manage__inner__blk {
+        margin-top: 56px;
+        padding-bottom: 48px;
+    }
+
+    .testimonial__area .section__title {
+        text-align: center !important;
+    }
+
+    .trucking__area {
+        background-position: center left;
+        padding-top: 285px;
+    }
+
+    .testimonial__left__content__ara {
+        padding: 0;
+        padding-bottom: 15px;
+    }
+
+    .review__inner__blk .owl-stage-outer {
+        margin-right: 0;
+    }
+
+    .review__inner__blk .owl-nav {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .review__inner__blk {
+        padding-bottom: 80px;
+    }
+
+    .testimonial__area {
+        padding-bottom: 40px;
+    }
+
+    .manage__area {
+        padding-bottom: 50px;
+    }
+
+    .manage__single__card__blk h2 {
+        font-size: 36px;
+    }
+
+    .manage__single__card__blk span {
+        font-size: 24px;
+    }
+
+    .manage__single__card__blk p {
+        font-size: 17px;
+        margin-bottom: 20px;
+    }
+
+    .manage__single__card__blk {
+        min-height: 600px;
+    }
+
+    .brand__title {
+        padding: 0;
+        border: 0;
+        display: block;
+        text-align: center !important;
+    }
+
+    .brand__title .section__title {
+        text-align: center !important;
+    }
+
+    .quotes__area {
+        padding: 100px 0;
+        padding-top: 35px;
+    }
+
+    .hero__form__wrapper form {
+        position: unset;
+        right: 0;
+        margin: 0 auto;
+        margin-bottom: -40px;
+        margin-top: 30px;
+    }
+
+    .quote__ico {
+        margin-bottom: 20px;
+    }
+
+    .single__review__card h4 span {
+        flex: 0 0 auto;
+    }
+
+    .quote__ico img {
+        height: 44px;
+    }
+
+    .footer__list {
+        width: 33.33%;
+    }
+
+    .footer__btn {
+        text-align: left;
+    }
+
+    .leadership__text p {
+        font-size: 16px;
+    }
+
+}
+
+
+/* SM Small Device :320px. */
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .brand__area {
+        padding-top: 230px;
+    }
+    .reverser{
+        flex-direction: column-reverse;
+    }
+    .reversertwo{
+        flex-direction: row-reverse;
+    }
+    .breadcrumb__area{
+        padding-top: 136px;
+    }
+    .hero__area {
+        min-height: auto;
+        padding-top: 120px;
+        height: 650px;
+    }
+    .header__right__blk {
+        display: none;
+    }
+.borderforbottom{
+    border-bottom: 1px solid #cecdcd;
+    width: fit-content;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-bottom: 15px;
+    margin-bottom: 15px !important;
+}
+    .single__quotes__content h5 {
+        font-size: 17px;
+    }
+
+    .breadcrumb__inner__blk p {
+        position: unset;
+        margin-bottom: 20px;
+    }
+
+    .leadership__text h4 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .leadership__text p {
+        font-size: 16px;
+    }
+
+    .breadcrumb__inner__blk h4 {
+        text-align: left;
+        font-size: 28px;
+    }
+
+    .platform__thumb img {
+        border-radius: 17px;
+        border-top-right-radius: 50px;
+    }
+
+    .contact__inner__blk {
+        padding: 0;
+    }
+
+    .contact__content {
+        padding: 30px;
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+
+    .contact__area {
+        padding-bottom: 200px;
+    }
+
+    .contact__content>h4 {
+        font-size: 32px;
+        padding-bottom: 20px;
+    }
+
+    .single__ask__question a img {
+        flex: 0 0 auto;
+    }
+
+    .quotes__second__style {
+        padding-top: 20px;
+    }
+
+    .single__ask__question a {
+        font-size: 15px;
+        border-radius: 13px;
+        padding: 17px 40px;
+        gap: 15px;
+    }
+
+    .leadership__blk .owl-nav {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+    }
+
+    .leadership__blk {
+        padding-bottom: 85px;
+    }
+
+    .testimonial__area {
+        padding-bottom: 50px;
+    }
+
+    .similar__btn__blk a {
+        font-size: 18px;
+        height: 52px;
+        width: 100%;
+    }
+
+    .similar__btn__blk {
+        justify-content: center;
+        padding-top: 20px;
+        flex-direction: column;
+    }
+
+    .quotes__thumb__left__radius img {
+        border-radius: 17px;
+        border-top-right-radius: 50px;
+    }
+
+    .open__menu {
+        display: block;
+    }
+
+    .hero__content h1 {
+        font-size: 32px;
+    }
+
+    .hero__single__counter__content h4 {
+        font-size: 38px;
+    }
+
+    .hero__single__counter__content h4 span {
+        font-size: 20px;
+    }
+
+    .offcanvas__menu.active {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .offcanvas__menu .header__right__blk {
+        display: block;
+    }
+
+    .hero__single__form__step input {
+        font-size: 15px;
+        padding: 12px 14px;
+    }
+
+    .hero__area {
+        min-height: 794px;
+        padding-top: 120px;
+    }
+
+    .quotes__content {
+        padding: 0 28px;
+        padding-left: 25px;
+        padding: 0;
+    }
+
+    .quotes__thumb {
+        padding-left: 40px;
+        padding-right: 20px;
+    }
+
+    .quotes__slide__wrapper {
+        padding: 0;
+        margin: 0;
+        padding-top: 100px;
+        margin-top: 50px;
+    }
+
+    .quotes__slide__wrapper .owl-nav button.owl-prev {
+        transform: unset;
+        left: auto;
+        right: 0;
+        bottom: auto;
+        top: 0;
+    }
+
+    .quotes__slide__wrapper .owl-nav button.owl-next {
+        bottom: auto;
+        top: 0;
+        transform: unset;
+        right: 0;
+        left: auto;
+    }
+
+    .quotes__slide__wrapper .owl-dots {
+        width: 80%;
+        height: 5px;
+        top: 22px;
+        left: 57%;
+        transform: translateX(-50%);
+    }
+
+    .quotes__slide__wrapper .owl-dots .owl-dot {
+        height: 5px;
+        width: 50%;
+        position: relative;
+        top: -15px;
+    }
+
+    .quotes__slide__wrapper .quotes__thumb__blk {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .platform__area .section__title {
+        margin: 0 auto;
+        text-align: center !important;
+        margin-bottom: 30px;
+        padding: 0 !important;
+    }
+
+    .platform__thumb {
+        padding: 0;
+        margin-top: 20px;
+    }
+
+    .manage__inner__blk {
+        margin-top: 56px;
+        padding-bottom: 48px;
+    }
+
+    .testimonial__area .section__title {
+        text-align: center !important;
+    }
+
+  
+
+    .testimonial__left__content__ara {
+        padding: 0;
+        padding-bottom: 15px;
+    }
+
+    .review__inner__blk .owl-stage-outer {
+        margin-right: 0;
+    }
+
+    .review__inner__blk .owl-nav {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .review__inner__blk {
+        padding-bottom: 80px;
+    }
+
+    .testimonial__area {
+        padding-bottom: 40px;
+    }
+
+    .manage__area {
+        padding-bottom: 50px;
+    }
+
+    .manage__single__card__blk h2 {
+        font-size: 36px;
+    }
+
+    .manage__single__card__blk span {
+        font-size: 24px;
+    }
+
+    .manage__single__card__blk p {
+        font-size: 17px;
+        margin-bottom: 20px;
+    }
+
+    .manage__single__card__blk {
+        padding: 20px;
+    }
+.manage__single__card__blk{
+}
+    .brand__title {
+        padding: 0;
+        border: 0;
+        display: block;
+        text-align: center !important;
+    }
+
+    .brand__title .section__title {
+        text-align: center !important;
+    }
+
+    .quotes__area {
+        padding: 100px 0;
+        padding-top: 35px;
+    }
+
+    .hero__form__wrapper form {
+        position: unset;
+        right: 0;
+        margin: 0 auto;
+        margin-bottom: -40px;
+        margin-top: 0;
+        padding: 20px;
+    }
+
+    .quote__ico {
+        margin-bottom: 20px;
+    }
+
+    .single__review__card h4 span {
+        flex: 0 0 auto;
+    }
+
+    .quote__ico img {
+        height: 44px;
+    }
+
+    .footer__list {
+        width: 100%;
+    }
+
+    .footer__btn {
+        text-align: left;
+        display: none;
+    }
+
+    .none__phone {
+        display: none;
+    }
+
+    .header__area {
+        padding: 21px 0;
+    }
+
+    .hero__form__title h4 {
+        font-size: 20px;
+    }
+
+    .hero__form__title p {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    .brand__slide {
+        justify-content: center;
+    }
+
+    .section__title span {
+        font-size: 14px;
+    }
+
+    .section__title h3 {
+        font-size: 24px;
+    }
+
+    .section__title p {
+        font-size: 16px;
+    }
+
+    .quotes__slide__wrapper .owl-nav button {
+        height: 44px;
+        width: 44px;
+        font-size: 23px !important;
+    }
+
+    .quotes__thumb__card p {
+        font-size: 11px;
+        margin-top: 3px;
+    }
+
+    .quotes__thumb__card {
+        border-radius: 9px;
+        padding: 10px;
+    }
+
+    .medal__content h4 {
+        display: flex;
+        line-height: normal;
+        gap: 10px;
+    }
+
+    .medal__content h4 span {
+        flex: 0 0 auto;
+    }
+
+    .trucking__card h4 {
+        font-size: 20px;
+    }
+
+    .platform__area {
+        padding: 60px 0;
+    }
+
+    .single__platform__step a {
+        font-size: 16px;
+        gap: 11px;
+        padding-bottom: 10px;
+    }
+
+    .manage__card__list ul li {
+        font-size: 16px;
+        gap: 11px;
+        margin-bottom: 32px;
+    }
+
+    .review__inner__blk .owl-nav button {
+        height: 42px;
+        width: 42px;
+        font-size: 18px !important;
+    }
+
+    .footer__area .col-xl-3 {
+        display: none;
+    }
+
+    .footer__right__blk {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .single__footer__bottom__step {
+        display: block;
+        text-align: left !important; /* Align items to the left */
+        gap: 48px;
+    }
+    
+    .single__footer__bottom__step a {
+        color: #FFF;
+        font-family: Montserrat;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 105%;
+        letter-spacing: -0.16px;
+        display: block;
+       margin-top: 15px;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    
+    
+    
+
+    .footer__copyright__area {
+        margin-top: 0;
+    }
+}
+
+
+/* SM Small Device :550px. */
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {}
