@@ -5,6 +5,8 @@ import truck from "./images/Rectangle 34627019.png"
 import truck2 from "./images/box truck.png"
 import truck3 from "./images/cargo.png"
 import truck4 from "./images/flatebed.png"
+import unknown from "./images/unknown.png"
+
 function CoveragesPage({ changeIcon,handleNavigationClick }){
     const [isopened, setIsopned]=useState(true)
     const [selectedVehicle, setSelectedVehicle] = useState(null);
@@ -14,7 +16,7 @@ function CoveragesPage({ changeIcon,handleNavigationClick }){
       { title: 'Box Truck', image: truck2 },
       { title: 'Pickup Truck', image: truck3 },
       { title: 'Flatbed Truck', image: truck4 },
-      { title: 'Cargo Truck', image: truck3 },
+      { title: 'Cargo Truck', image: unknown },
     ];
     const newpage=()=>{
         setIsopned(!isopened)

@@ -4,14 +4,35 @@ import truck2 from "./images/Rectangle 34627020.png"
 import truck3 from "./images/Rectangle 34627021.png"
 import truck4 from "./images/Rectangle 34627022.png"
 import truck5 from "./images/Rectangle 34627023.png"
+import unknown from "./images/unknown.png"
 import Modal from "./Modal"
 import "./Table.css"
 function VehiclesPage({ changeIcon, handleNavigationClick }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTruck, setSelectedTruck] = useState(null);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
-  const [isConfirmed, setIsConfirmed] = useState(false); 
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [zipCode, setZipCode] = useState('');
+  const [distance, setDistance] = useState('');
+  const [loanLease, setLoanLease] = useState('');
+  const [needCoverage, setNeedCoverage] = useState('');
+  const [equipmentValue, setEquipmentValue] = useState('');
+  const [vehicleWorth, setVehicleWorth] = useState('');
+  const [vehicalby, setVehicalby]=useState("")
+  const [Vin, setVin]=useState("")
 
+
+
+  const handleRadio = (event) => {
+    setVehicalby(event.target.value);
+};
+const handleLoanLease = (event) => {
+  setLoanLease(event.target.value);
+};
+const handleCoverage = (event) => {
+  setNeedCoverage(event.target.value);
+};
+console.log(loanLease)
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -24,9 +45,37 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
   };
 
   const handleButtonClick = () => {
-    changeIcon("fa-regular fa-circle-check green-icon");
-    handleNavigationClick("drivers");
+    // Check if all fields are filled
+    if (!selectedTruck || !selectedVehicle || !zipCode || !distance || !loanLease || !needCoverage || !equipmentValue || !vehicleWorth || !vehicalby ) {
+      // Show an error message or handle the error in your preferred way
+      alert("Please fill in all fields before continuing.");
+      return;
+    }
+  
+    // If all fields are filled, save data in local storage
+    const postData = {
+      selectedTruck,
+      selectedVehicle,
+      zipCode,
+      distance,
+      loanLease,
+      needCoverage,
+      equipmentValue,
+      vehicleWorth,
+      vehicalby
+    };
+  
+    // Save data in local storage
+    localStorage.setItem('vehiclesPageData', JSON.stringify(postData));
+  
+    // Perform post request here if needed
+    // ...
+  
+    // Navigate to the next page
+    changeIcon('fa-regular fa-circle-check green-icon');
+    handleNavigationClick('drivers');
   };
+  
 
   const truckData = [
     { title: 'Truck Tractor ', image: truck },
@@ -34,7 +83,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
     { title: 'Pickup Truck', image: truck3 },
     { title: 'Flatbed Truck', image: truck4 },
     { title: 'Cargo Van', image: truck5 },
-    { title: 'Other/ Not listed', image: truck },
+    { title: 'Other/ Not listed', image: unknown },
   ];
   
 
@@ -47,7 +96,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
   };
 
   const rows = [
-    { Vehicle: "2019 ford f350 1ft8w3ct9ct", Comp: 'N/A', 'Fire & Theft': "N/A", Coll: 'N/A', StatedAmt: "$0" },
+    // { Vehicle: "2019 ford f350 1ft8w3ct9ct", Comp: 'N/A', 'Fire & Theft': "N/A", Coll: 'N/A', StatedAmt: "$0" },
   ];
 
   const handleRadioChange = (rowId) => {
@@ -207,10 +256,12 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
             </div>
             <div className="col-md-7 vehicle_typeans">
         
-  <input className="inputfield" type="radio" id="age1" name="age" defaultValue={30} />
+  <input className="inputfield" type="radio" id="age1" name="age1"
+                                onChange={handleRadio} defaultValue={"Year,Make Model"} />
   <label className="loanlbl" htmlFor="age1">Year,Make Model</label>
 
-  <input className="mx-2 inputfield"  type="radio" id="age2" name="age" defaultValue={60} />
+  <input className="mx-2 inputfield"  type="radio" id="age2" name="age1" 
+                                onChange={handleRadio} defaultValue={"VIN"} />
   <label className="loanlbl" htmlFor="age2">VIN</label>
 
             </div>
@@ -220,7 +271,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
           </div>
           <div className="row mt-2">
             <div className="col-md-4">
-              <input className="text_input" type="text"/>
+              <input className="text_input" onChange={(e)=>{setVin(e.target.value)}} type="text"/>
             </div>
             <div className="col-md-3">
               <button className="btn_vin">
@@ -242,7 +293,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
             Zip Code where the vehicle is located?
             </div>
             <div className="col-md-4">
-              <input className="text_input px-3" placeholder="20744" type="text"/>
+              <input className="text_input px-3" onChange={(e)=>{setZipCode(e.target.value)}} placeholder="20744" type="text"/>
             </div>
           </div>
           <div className="row mt-4 ">
@@ -250,7 +301,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
             Farthest one-way distance this vehicle typically travels(90% or more of the <br></br> time)
             </div>
             <div className="col-md-4">
-              <input className="text_input px-3"  type="text"/>
+              <input className="text_input px-3" onChange={(e)=>{setDistance(e.target.value)}}  type="text"/>
             </div>
           </div>
           <div className="row mt-3">
@@ -259,12 +310,12 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
             </div>
             <div className="col-md-7 vehicle_typeans typeans">
         
-  <input className="inputfield" type="radio" id="age2" name="age" defaultValue={30} />
+  <input className="inputfield" type="radio" id="age2" name="age3" onChange={handleLoanLease} defaultValue={"Yes- Loan"} />
   <label className="loanlbl" htmlFor="age1">Yes- Loan</label>
 
-  <input className="mx-2 inputfield"  type="radio" id="age2" name="age" defaultValue={60} />
+  <input className="mx-2 inputfield"  type="radio" id="age2" name="age3"  onChange={handleLoanLease} defaultValue={"Yes-Lease"} />
   <label className="loanlbl" htmlFor="age2">Yes-Lease</label>
-  <input className="mx-2 inputfield"  type="radio" id="age2" name="age" defaultValue={60} />
+  <input className="mx-2 inputfield"  type="radio" id="age2" name="age3"  onChange={handleLoanLease} defaultValue={"No"} />
   <label className="loanlbl" htmlFor="age2">No</label>
             </div>
           </div>
@@ -274,10 +325,10 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
             </div>
             <div className="col-md-7 vehicle_typeans ">
         
-  <input className="inputfield" type="radio" id="age1" name="age" defaultValue={30} />
+  <input className="inputfield" type="radio" id="age1" name="age4" onChange={handleCoverage} defaultValue={"Yes- Loan"} />
   <label className="loanlbl" htmlFor="age1">Yes- Loan</label>
 
-  <input className="mx-2 inputfield"  type="radio" id="age2" name="age" defaultValue={60} />
+  <input className="mx-2 inputfield"  type="radio" id="age2" name="age4" onChange={handleCoverage} defaultValue={"Yes-Lease"} />
   <label className="loanlbl" htmlFor="age2">Yes-Lease</label>
 
             </div>
@@ -301,7 +352,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
             If this vehicle was sold today,how much would it be worth (excluding any permanent attached equipment)?
             </div>
             <div className="col-md-4">
-              <input className="text_input px-3" placeholder="$45,000" type="text"/>
+              <input className="text_input px-3" placeholder="$45,000" type="text" onChange={(e)=>{setVehicleWorth(e.target.value)}} />
             </div>
           </div>
           <div className="row mt-3 align-items-center">
@@ -309,7 +360,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
             Total stated amount (including permanently attached equipment)
             </div>
             <div className="col-md-4 vehicle_money">
-            $45,000
+            <input className="text_input px-3" placeholder="$45,000" onChange={(e)=>{setVehicleWorth(e.target.value)}} type="text"/>
             </div>
           </div>
           <div className="btns_position">

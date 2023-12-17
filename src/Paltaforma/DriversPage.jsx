@@ -1,13 +1,40 @@
 import React, { useState } from 'react';
 function DriversPage({ changeIcon, handleNavigationClick }) {
   const [isSectionVisible, setIsSectionVisible] = useState(true);
+  const [fullName, setFullName] = useState('');
+  const [middleInitial, setMiddleInitial] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [dob, setDob] = useState('');
+  const [licenseState, setLicenseState] = useState('');
+  const [licenseNumber, setLicenseNumber] = useState('');
 
   const handleButtonClick = () => {
-    changeIcon("fa-regular fa-circle-check green-icon");
-  
-      handleNavigationClick("about");
- 
- 
+    if (
+      fullName &&
+      middleInitial &&
+      lastName &&
+      dob &&
+      licenseState &&
+      licenseNumber
+    ) {
+      // Save data to local storage
+      const driverData = {
+        fullName,
+        middleInitial,
+        lastName,
+        dob,
+        licenseState,
+        licenseNumber,
+      };
+      localStorage.setItem('driverData', JSON.stringify(driverData));
+
+      // Change icon and navigate to the next page
+      changeIcon('fa-regular fa-circle-check green-icon');
+      handleNavigationClick('about');
+    } else {
+      // Display error alert if fields are not complete
+      alert('Please fill in all required fields.');
+    }
   };
 const adddriver =()=>{
   setIsSectionVisible(!isSectionVisible);
@@ -73,13 +100,13 @@ const adddriver =()=>{
               </label>
               <div className='namepart col-sm-8'>
               <div className="fnam">
-                <input type="text" className="form-control" id="fullName" placeholder="Full Name" />
+                <input type="text" className="form-control" id="fullName" placeholder="Full Name" onChange={(e)=>{setFullName(e.target.value)}} />
               </div>
               <div className="nmi">
-                <input type="text" className="form-control" id="middleInitial" placeholder="MI" />
+                <input type="text" className="form-control" id="middleInitial" placeholder="MI" onChange={(e)=>{setMiddleInitial(e.target.value)}}/>
               </div>
               <div className="lnam">
-                <input type="text" className="form-control" id="lastName" placeholder="Last Name" />
+                <input type="text" className="form-control" id="lastName" placeholder="Last Name" onChange={(e)=>{setLastName(e.target.value)}} />
               </div>
               </div>
              
@@ -88,21 +115,21 @@ const adddriver =()=>{
             <div class="row newdriver align-items-end">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">Date of Birth::</label>
   <div class="col-sm-8">
-    <input type="email" class="form-control "  placeholder="04/28/1995"/>
+    <input type="date" class="form-control " onChange={(e)=>{setDob(e.target.value)}}   placeholder="04/28/1995"/>
   </div>
 
 </div>
 <div class="row newdriver align-items-end">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">Driver’s License State:</label>
   <div class="col-sm-8">
-    <input type="email" class="form-control "  placeholder="Maryland"/>
+    <input type="text" class="form-control " onChange={(e)=>{setLicenseState(e.target.value)}}  placeholder="Maryland"/>
   </div>
 
 </div>
 <div class="row newdriver align-items-end">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">License Number:</label>
   <div class="col-sm-8">
-    <input type="email" class="form-control "  placeholder="FRB34JU80005"/>
+    <input type="text" class="form-control " onChange={(e)=>{setLicenseNumber(e.target.value)}}  placeholder="FRB34JU80005"/>
   </div>
 
 </div>

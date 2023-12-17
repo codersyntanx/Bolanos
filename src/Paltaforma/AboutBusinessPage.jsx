@@ -1,10 +1,43 @@
 
+import { useState } from "react";
 import "./business.css"
 function AboutBusinessPage({ changeIcon,handleNavigationClick }){
-  const handleButtonClick =()=>{
-    changeIcon("fa-regular fa-circle-check green-icon")
-    handleNavigationClick("coverages")
-}
+
+  const [customerEmail, setCustomerEmail] = useState('');
+  const [currentlyInsured, setCurrentlyInsured] = useState(null);
+  const [continuousCoverage, setContinuousCoverage] = useState(null);
+  const [bodilyInjuryLimit, setBodilyInjuryLimit] = useState('');
+  const [policyExpirationDate, setPolicyExpirationDate] = useState('');
+  const [hasMCNumber, setHasMCNumber] = useState(null);
+ const handleButtonClick = () => {
+    // Check if all required fields are filled
+    if (
+      customerEmail &&
+      currentlyInsured !== null &&
+      continuousCoverage !== null &&
+      bodilyInjuryLimit &&
+      policyExpirationDate &&
+      hasMCNumber !== null
+    ) {
+      // Save data to local storage
+      const businessData = {
+        customerEmail,
+        currentlyInsured,
+        continuousCoverage,
+        bodilyInjuryLimit,
+        policyExpirationDate,
+        hasMCNumber,
+      };
+      localStorage.setItem('businessData', JSON.stringify(businessData));
+
+      // Change icon and navigate to the next page
+      changeIcon('fa-regular fa-circle-check green-icon');
+      handleNavigationClick('coverages');
+    } else {
+      // Display error alert if fields are not complete
+      alert('Please fill in all required fields.');
+    }
+  };
     return(
         <>
          <div className="small-screen-header">
@@ -26,10 +59,15 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
         <span className="business_heading">About The  Business</span>
         <div className="row align-items-center abt-bsns">
           <div className="col-md-4">
-               Customer Email Address ?<span>(Optional)</span>
+            Customer Email Address ?<span>(Optional)</span>
           </div>
           <div className="col-md-5 formail">
-             <input className="customer_email_input" placeholder="Email Address"/>
+            <input
+              className="customer_email_input"
+              placeholder="Email Address"
+              value={customerEmail}
+              onChange={(e) => setCustomerEmail(e.target.value)}
+            />
           </div>
         </div>
         <div className="business_heading2">
@@ -39,48 +77,69 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
         Is the Customer Currently insured?<br></br>
         <div className="row">
             <div className="col-md-4">
-            (Personal Auto policies also qualify of prior  insurance -except for For-Hire Livery)
-
+              (Personal Auto policies also qualify for prior insurance - except for For-Hire Livery)
             </div>
             <div className="col-md-5 d-flex align-items-center">
-          <div className="radiobutns">
-               <label className="radio-label">
-        <input type="radio" name="option" className="col-md-1 radio-input" value="Yes" />
-        Yes
-      </label>
-      <label className="radio-label mx-4">
-        <input type="radio" name="option" className="col-md-1 radio-input" value="No" />
-        No
-      </label>
+              <div className="radiobutns">
+                <label className="radio-label">
+                  <input
+                    type="radio"
+                    name="currentlyInsured"
+                    className="col-md-1 radio-input"
+                    value="Yes"
+                    onChange={() => setCurrentlyInsured(true)}
+                    checked={currentlyInsured === true}
+                  />
+                  Yes
+                </label>
+                <label className="radio-label mx-4">
+                  <input
+                    type="radio"
+                    name="currentlyInsured"
+                    className="col-md-1 radio-input"
+                    value="No"
+                    onChange={() => setCurrentlyInsured(false)}
+                    checked={currentlyInsured === false}
+                  />
+                  No
+                </label>
+              </div>
+            </div>
           </div>
-   
-             </div>
-           
-        </div>
-        <div className="row mt-5">
+
+          <div className="row mt-5">
             <div className="col-md-4">
-            Has the customer had continous coverage?
-            <span>(At least 1 year)</span>
-
+              Has the customer had continuous coverage? <span>(At least 1 year)</span>
             </div>
             <div className="col-md-5 d-flex align-items-center">
-          <div className="radiobutns">
-               <label className="radio-label">
-        <input type="radio" name="option" className="col-md-1 radio-input" value="Yes" />
-        Yes
-      </label>
-      <label className="radio-label mx-4">
-        <input type="radio" name="option" className="col-md-1 radio-input" value="No" />
-        No
-      </label>
+              <div className="radiobutns">
+                <label className="radio-label">
+                  <input
+                    type="radio"
+                    name="continuousCoverage"
+                    className="col-md-1 radio-input"
+                    value="Yes"
+                    onChange={() => setContinuousCoverage(true)}
+                    checked={continuousCoverage === true}
+                  />
+                  Yes
+                </label>
+                <label className="radio-label mx-4">
+                  <input
+                    type="radio"
+                    name="continuousCoverage"
+                    className="col-md-1 radio-input"
+                    value="No"
+                    onChange={() => setContinuousCoverage(false)}
+                    checked={continuousCoverage === false}
+                  />
+                  No
+                </label>
+              </div>
+            </div>
           </div>
-   
-             </div>
-           
         </div>
-      
 
-        </div>
         <div className="row">
           <div className="col-md-4">
           <div className="customer_email">
@@ -89,7 +148,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
 
         </div></div>
         <div className="col-md-5">
-        <input className="customer_email_input" placeholder="$1,000,000 combined single limit"/>
+        <input className="customer_email_input" onChange={(e)=>{setBodilyInjuryLimit(e.target.value)}} placeholder="$1,000,000 combined single limit"/>
 
         </div>
           
@@ -100,7 +159,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
         Current Policy Expiration Date:
         </div></div>
         <div className="col-md-5">
-                  <input type="date" className="customer_email_input" placeholder="10/31/.2023"/>
+                  <input type="date" className="customer_email_input" onChange={(e)=>{setPolicyExpirationDate(e.target.value)}} placeholder="10/31/.2023"/>
 
         </div>
        </div>
@@ -117,15 +176,29 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
 
             </div>
             <div className="col-md-5 d-flex align-items-center">
-          <div className="radiobutns">
-               <label className="radio-label">
-        <input type="radio" name="option" className="col-md-1 radio-input" value="Yes" />
-        Yes
-      </label>
-      <label className="radio-label mx-4">
-        <input type="radio" name="option" className="col-md-1 radio-input" value="No" />
-        No
-      </label>
+            <div className="radiobutns">
+            <label className="radio-label">
+              <input
+                type="radio"
+                name="option3"
+                className="col-md-1 radio-input"
+                value="Yes"
+                onChange={() => setHasMCNumber(true)}
+                checked={hasMCNumber === true}
+              />
+              Yes
+            </label>
+            <label className="radio-label mx-4">
+              <input
+                type="radio"
+                name="option3"
+                className="col-md-1 radio-input"
+                value="No"
+                onChange={() => setHasMCNumber(false)}
+                checked={hasMCNumber === false}
+              />
+              No
+            </label>
           </div>
    
              </div>

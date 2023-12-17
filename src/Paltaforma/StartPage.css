@@ -94,9 +94,11 @@ letter-spacing: 0.34px;
 text-decoration-line: underline;
 width: fit-content;
 flex-shrink: 0;
+cursor: pointer;
 }
 .busnes-typess{
     color: #2A4764;
+    cursor: pointer;
 font-family: Inter;
 font-size: 17px;
 font-style: normal;
@@ -129,8 +131,9 @@ font-size: 16px;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
-width: 194px;
+/* width: 194px; */
 display: block;
+padding-left: 20px;
 }
 .business-owner-info{
     color: #263238;
