@@ -1,6 +1,9 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./business.css"
+import axios from "axios";
+import {notification } from 'antd';
+
 function AboutBusinessPage({ changeIcon,handleNavigationClick }){
 
   const [customerEmail, setCustomerEmail] = useState('');
@@ -9,18 +12,24 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
   const [bodilyInjuryLimit, setBodilyInjuryLimit] = useState('');
   const [policyExpirationDate, setPolicyExpirationDate] = useState('');
   const [hasMCNumber, setHasMCNumber] = useState(null);
+  const [informId, setInformId] = useState("")
+  useEffect(() => {
+    const informationId = localStorage.getItem("mainid");
+    if (informationId) {
+      setInformId(informationId);
+    }
+  }, []);
  const handleButtonClick = () => {
-    // Check if all required fields are filled
     if (
       customerEmail &&
       currentlyInsured !== null &&
-      continuousCoverage !== null &&
+      continuousCoverage &&
       bodilyInjuryLimit &&
       policyExpirationDate &&
       hasMCNumber !== null
     ) {
-      // Save data to local storage
       const businessData = {
+        informId,
         customerEmail,
         currentlyInsured,
         continuousCoverage,
@@ -28,16 +37,30 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
         policyExpirationDate,
         hasMCNumber,
       };
-      localStorage.setItem('businessData', JSON.stringify(businessData));
+axios.post("http://localhost:3003/postbusiness",businessData)
+.then(res=>{
+  if(res.data.status === true){
+    openNotification('success', 'data addedd successfully');
 
-      // Change icon and navigate to the next page
-      changeIcon('fa-regular fa-circle-check green-icon');
+     changeIcon('fa-regular fa-circle-check green-icon');
       handleNavigationClick('coverages');
+  }
+})
+     
     } else {
       // Display error alert if fields are not complete
-      alert('Please fill in all required fields.');
+      openNotification('error', 'Error Occured');
     }
   };
+
+  const openNotification = (type, message, description = '') => {
+    notification[type]({
+      message,
+      description,
+    });
+  };
+
+
     return(
         <>
          <div className="small-screen-header">
@@ -74,11 +97,10 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
         Insurance History
         </div>
         <div className="customer_email">
-        Is the Customer Currently insured?<br></br>
+        Is the Business Currently insured?<br></br>
         <div className="row">
-            <div className="col-md-4">
-              (Personal Auto policies also qualify for prior insurance - except for For-Hire Livery)
-            </div>
+            <div className="col-md-4 dimtester">
+            (Personal Auto policies in the owner’s name also qualify for prior insurance)            </div>
             <div className="col-md-5 d-flex align-items-center">
               <div className="radiobutns">
                 <label className="radio-label">
@@ -107,12 +129,17 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
             </div>
           </div>
 
+        </div>
+        {currentlyInsured ? (
+        <>
+          {/* Continuous Coverage Section */}
           <div className="row mt-5">
             <div className="col-md-4">
               Has the customer had continuous coverage? <span>(At least 1 year)</span>
             </div>
             <div className="col-md-5 d-flex align-items-center">
               <div className="radiobutns">
+                {/* "Yes" option */}
                 <label className="radio-label">
                   <input
                     type="radio"
@@ -124,6 +151,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
                   />
                   Yes
                 </label>
+                {/* "No" option */}
                 <label className="radio-label mx-4">
                   <input
                     type="radio"
@@ -138,35 +166,39 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="row">
-          <div className="col-md-4">
-          <div className="customer_email">
-        Currently Bodily injury Liability Limit
-      
+          {/* Bodily Injury Liability Limit Section */}
+          <div className="row">
+            <div className="col-md-4">
+              <div className="customer_email">Currently Bodily injury Liability Limit</div>
+            </div>
+            <div className="col-md-5">
+              <input
+                className="customer_email_input"
+                onChange={(e) => setBodilyInjuryLimit(e.target.value)}
+                placeholder="$1,000,000 combined single limit"
+              />
+            </div>
+          </div>
 
-        </div></div>
-        <div className="col-md-5">
-        <input className="customer_email_input" onChange={(e)=>{setBodilyInjuryLimit(e.target.value)}} placeholder="$1,000,000 combined single limit"/>
-
-        </div>
-          
-        </div>
-       <div className="row mt-3">
-<div className="col-md-4">
-<div className="customer_email">
-        Current Policy Expiration Date:
-        </div></div>
-        <div className="col-md-5">
-                  <input type="date" className="customer_email_input" onChange={(e)=>{setPolicyExpirationDate(e.target.value)}} placeholder="10/31/.2023"/>
-
-        </div>
-       </div>
-       
-      
-
-        
+          {/* Current Policy Expiration Date Section */}
+          <div className="row mt-3">
+            <div className="col-md-4">
+              <div className="customer_email">Current Policy Expiration Date:</div>
+            </div>
+            <div className="col-md-5">
+              <input
+                type="date"
+                className="customer_email_input"
+                onChange={(e) => setPolicyExpirationDate(e.target.value)}
+                placeholder="10/31/.2023"
+              />
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}        
         <div className="business_heading2">
         Insurance History
         </div>

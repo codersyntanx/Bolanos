@@ -1,6 +1,7 @@
 import './StartPage.css'
 import "./Start.css"
 import { useState } from 'react';
+import axios from 'axios';
 function StartPage({ changeIcon, handleNavigationClick }) {
     const [selectedOption, setSelectedOption] = useState(null);
     const [bussinesstype, setBussinesstype] = useState(null);
@@ -13,8 +14,23 @@ function StartPage({ changeIcon, handleNavigationClick }) {
     const [city,setCity]= useState("")
     const [dateofBirth,setDateofBirth]= useState("")
     const [phonenumber,setPhonenumber]= useState("")
+    const [areaCode, setAreaCode] = useState('');
+    const [middlePart, setMiddlePart] = useState('');
+    const [lastPart, setLastPart] = useState('');
 
 
+
+    const handleAreaCodeChange = (e) => {
+        setAreaCode(e.target.value);
+      };
+    
+      const handleMiddlePartChange = (e) => {
+        setMiddlePart(e.target.value);
+      };
+    
+      const handleLastPartChange = (e) => {
+        setLastPart(e.target.value);
+      };
     const handleRadioChange = (event) => {
         setSelectedOption(event.target.value);
     };
@@ -25,8 +41,8 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             bussinesstype &&
             fullname &&
             middlename &&
-                lastname &&
-                suffix &&
+            lastname &&
+            suffix &&
             address &&
             zip &&
             city &&
@@ -46,16 +62,28 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                 dateofBirth,
                 phonenumber
             };
-            localStorage.setItem('userData', JSON.stringify(userData));
     
-            // Change icon and navigate to the next page
-            changeIcon("fa-regular fa-circle-check green-icon");
-            handleNavigationClick("vehicles");
+            axios.post("http://localhost:3003/postinformation", userData)
+                .then(res => {
+                    if (res.status === 200 && res.data.status === true) {
+                        localStorage.setItem("mainid", res.data.created._id);
+                        changeIcon("fa-regular fa-circle-check green-icon");
+                        handleNavigationClick("vehicles");
+                    } else {
+                        console.error("Unexpected server response:", res);
+                        alert("Error while processing the request. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error during request:", error);
+                    alert("Error during request. Please try again.");
+                });
         } else {
             // Display error alert if fields are not complete
             alert("Please fill in all required fields.");
         }
     };
+    
     
     const handlebusinessstype = (type) => {
         setBussinesstype(type)
@@ -79,11 +107,11 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                 </div>
             </div>
             <section className='start-hero-section'>
-                <p className="usdotheading">Does the customer have a USDOT Number?</p>
-                <p className="usdotcontent">The number is registered to the customer’s busniess and displayed on the side of the vehicle.Any bussiness type could have a USDOT registration.Need to confirm the customer’s USDOT number? search by busniessname is  <span className='Bolanos'>Bolanos</span></p>
+                <p className="usdotheading">Do you have a USDOT#? </p>
+                <p className="usdotcontent">The number is registered to the your business and displayed on the side of the vehicle. Any business  type could have a USDOT registration.</p>
                 <div className='radiobtn-part'>
                     <form className='radiobtns'>
-                        <div className='radiob'>
+                        <div className='radiob' style={{width:"34%"}}>
                             <input
                                 type="radio"
                                 id="example1"
@@ -93,7 +121,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                                 checked={selectedOption === "Yes"}
                                 onChange={handleRadioChange}
                             />
-                            <label htmlFor="example1" className='radiobtn-label'>Yes - the customer has a USDOT number</label>
+                            <label htmlFor="example1" className='radiobtn-label'>Yes</label>
                         </div>
                         <div className='radiob'>
                             <input
@@ -105,7 +133,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                                 checked={selectedOption === "No"}
                                 onChange={handleRadioChange}
                             />
-                            <label htmlFor="example2" className='radiobtn-label'>No - and the customer will not have a USDOT number</label>
+                            <label htmlFor="example2" className='radiobtn-label'>No</label>
                         </div>
                         <div className='radiob'>
                             <input
@@ -182,12 +210,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                             <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setPhonenumber(e.target.value)}}/>
                         </div>
                     </div>
-                    <div className="disclouser-part">
-                        <p className="disclouser-text">For a phone quote,you must read the disclosure to the customer.if in person,please print and provide to the customer.</p>
-                        <button className="disclouser-btn">Print Disclosure</button>
-                    </div>
-                    <p className="last-para"><strong>Information Disclosure:</strong>Like most insurance companies, Progressive uses information from you and other sources,such as your driving claim and crdit histories,to calculate an accurate price for your insurance.New or updated information may be used to calculate your renewal premium.Its<span className='privacy-policy'> Privacy Policy</span>,explain how progressive discloses and protect information and how you may access and correct it.I can provide a copy at your request,</p>
-
+                    
                 </div>
                 <div className="btns_position">
                     <button className="back_button" onClick={() => handleNavigationClick("vehicles")}>

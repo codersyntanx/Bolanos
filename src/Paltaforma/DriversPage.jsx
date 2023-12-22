@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { notification } from 'antd';
+
 function DriversPage({ changeIcon, handleNavigationClick }) {
   const [isSectionVisible, setIsSectionVisible] = useState(true);
   const [fullName, setFullName] = useState('');
@@ -7,38 +10,115 @@ function DriversPage({ changeIcon, handleNavigationClick }) {
   const [dob, setDob] = useState('');
   const [licenseState, setLicenseState] = useState('');
   const [licenseNumber, setLicenseNumber] = useState('');
+  const [vehicletable, setVehicletable] = useState([])
+  const [selectedValue, setSelectedValue] = useState('');
+  const [expyear, setExpyear]=useState("")
+  const [expmonth, setExpmonth]=useState("")
+  const [informId, setInformId] = useState("")
 
-  const handleButtonClick = () => {
-    if (
-      fullName &&
-      middleInitial &&
-      lastName &&
-      dob &&
-      licenseState &&
-      licenseNumber
-    ) {
-      // Save data to local storage
-      const driverData = {
-        fullName,
-        middleInitial,
-        lastName,
-        dob,
-        licenseState,
-        licenseNumber,
-      };
-      localStorage.setItem('driverData', JSON.stringify(driverData));
-
-      // Change icon and navigate to the next page
-      changeIcon('fa-regular fa-circle-check green-icon');
-      handleNavigationClick('about');
-    } else {
-      // Display error alert if fields are not complete
-      alert('Please fill in all required fields.');
-    }
+  const handleRadioChange = (value) => {
+    setSelectedValue(value);
   };
+
 const adddriver =()=>{
   setIsSectionVisible(!isSectionVisible);
 }
+useEffect(() => {
+  const informationId = localStorage.getItem("mainid");
+  if (informationId) {
+    setInformId(informationId);
+  }
+}, []);
+
+useEffect(() => {
+  fetchdriver()
+}, [informId]);
+const fetchdriver =()=>{
+  if (informId) {
+    axios.get(`http://localhost:3003/getdriverbyinforid/${informId}`)
+      .then(res => {
+        if (res.data.status === true) {
+          setVehicletable(res.data.data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching vehicle data:', error);
+        // Handle the error, e.g., display an error message to the user
+      });
+  }
+}
+const handleButtonClick = () => {
+  if (
+    fullName &&
+    middleInitial &&
+    lastName &&
+    dob &&
+    licenseState &&
+    licenseNumber &&
+    selectedValue
+  ) {
+
+    const newDriverData = {
+      fullName,
+      middleInitial,
+      lastName,
+      dob,
+      licenseState,
+      licenseNumber,
+      selectedValue,
+      expyear,
+      expmonth,
+      informId
+    };
+
+    axios.post("http://localhost:3003/postdriver", newDriverData)
+      .then(res => {
+        if (res.data.status === true) {
+          changeIcon('fa-regular fa-circle-check green-icon');
+          adddriver();
+          fetchdriver()
+          // Display success notification
+          openNotification('success', 'Driver Created Successfully');
+        } else {
+          // Display error notification
+          openNotification('error', 'Error Creating Driver', res.data.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error creating driver:', error);
+
+        // Display error notification
+        openNotification('error', 'Error Creating Driver', 'An unexpected error occurred.');
+      });
+
+  } else {
+    alert('Please fill in all required fields.');
+  }
+};
+const handleDelete = async (id) => {
+  try {
+    const response = await axios.delete(`http://localhost:3003/deletedriverbyid/${id}`);
+
+    if (response.data.status === true) {
+      // Remove the deleted driver from the table
+      setVehicletable((prevTable) => prevTable.filter((row) => row._id !== id));
+      openNotification('success', 'Driver Removed Successfully');
+    } else {
+      console.error('Error deleting driver:', response.data.error);
+      openNotification('success', 'Driver Removed Successfully');
+    }
+  } catch (error) {
+    console.error('Error deleting driver:', error);
+    openNotification('error', 'A unexpected Error Occur');
+  }
+};
+const openNotification = (type, message, description = '') => {
+  notification[type]({
+    message,
+    description,
+  });
+};
+
   return (
     <>
     <div className="small-screen-header">
@@ -67,12 +147,71 @@ const adddriver =()=>{
                 Please select one of these vehicles commonly used in the customer’s business or <br />
                 choose ‘Other/Not Listed for more Options
               </p>
-              <button className="Driver_button justify-content-center" onClick={adddriver}>
+              {vehicletable.length > 0 && (
+        <table className='main_table mt-5 mb-5'>
+          <thead className='table_header'>
+            <tr>
+              <th className='idtr'>Driver Name</th>
+              <th>License Number</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {vehicletable.map((row, index) => (
+              <tr key={index}>
+                <td className="tabltd">{row.fullName}</td>
+                <td>{row.licenseNumber}</td>
+                <td>
+                  <button className='btn' onClick={() => handleDelete(row._id)}><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+              {vehicletable.length > 0 && (
+                <div className="table_small_screen">
+                  {
+                    vehicletable.map((row) => {
+                      return (
+                        <>
+                          <table>
+                            <tr className="border-bottom">
+                              <td className="table_heading_secction">Vehicle</td>
+                              <td className="table_description">{row.year},{row.make},{row.model}</td>
+                            </tr>
+                            <tr >
+                              <td className="table_heading_secction">Comp</td>
+                              <td className="table_description">N/A</td>
+                            </tr>
+                            <tr >
+                              <td className="table_heading_secction">Fire & Thef</td>
+                              <td className="table_description">N/A</td>
+                            </tr>
+                            <tr >
+                              <td className="table_heading_secction">coll</td>
+                              <td className="table_description">N/A</td>
+                            </tr>
+                            <tr >
+                              <td className="table_heading_secction">StatedAmt</td>
+                              <td className="table_description tabltd">
+                                {row.vehicleWorth}</td>
+                            </tr>
+                          </table>
+                        </>
+                      )
+                    })
+                  }
+                </div>
+              )}
+
+              <button className="Driver_button justify-content-center mt-3" onClick={adddriver}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="29px" height="29px" className="plus_svg" viewBox="0 0 24 24">
                   <path d="M11 11V7H13V11H17V13H13V17H11V13H7V11H11ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"></path>
                 </svg>{' '}
-                Add a Driver
+                {vehicletable.length > 0 ? " Add another Driver" : " Add a Driver"}
               </button>
+          
             </>
           )}
         </div>
@@ -93,7 +232,7 @@ const adddriver =()=>{
         )}
         {!isSectionVisible && (
           <div className="after_press">
-            <p className="question">A few more questions about Driver</p>
+            <p className="question">A few  more questions about  Driver #{vehicletable.length + 1}</p>
             <div className="row newdriver align-items-end">
               <label className="col-sm-3 lableforinput" htmlFor="fullName">
                 Name:
@@ -133,13 +272,71 @@ const adddriver =()=>{
   </div>
 
 </div>
+<div className="row mt-3">
+              <div className="col-md-3 lableforinput">
+              CDL:    
+              </div>
+              <div className="col-md-7 vehicle_typeans">
+      {/* "Yes" radio button */}
+      <input
+        className="mx-2 inputfield"
+        type="radio"
+        id="age1"
+        name="age3"
+        value="Yes"
+        checked={selectedValue === 'Yes'}
+        onChange={() => handleRadioChange('Yes')}
+      />
+      <label className="loanlbl" htmlFor="age1">
+        Yes
+      </label>
+
+      {/* "No" radio button */}
+      <input
+        className="mx-2 inputfield"
+        type="radio"
+        id="age2"
+        name="age1"
+        value="No"
+        checked={selectedValue === 'No'}
+        onChange={() => handleRadioChange('No')}
+      />
+      <label className="loanlbl" htmlFor="age2">
+        No
+      </label>
+    </div>
             </div>
-            <button className="Driver_button justify-content-center mt-4" onClick={adddriver}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="29px" height="29px" className="plus_svg" viewBox="0 0 24 24">
-                <path d="M11 11V7H13V11H17V13H13V17H11V13H7V11H11ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"></path>
-              </svg>{' '}
-              Add another Driver
-            </button>
+{
+  selectedValue === "Yes" ?(
+    <> 
+     <div className="row align-items-end">
+      <label htmlFor="colFormLabelLg" className="col-sm-3 lableforinput">CDL Experience:</label>
+      <div className="col-sm-2">
+        <input type="text" className="form-control" onChange={(e) => { setExpyear(e.target.value) }} placeholder="Year" />
+      </div>
+      <div className="col-sm-2">
+        <input type="text" className="form-control"  onChange={(e) => { setExpmonth(e.target.value) }} placeholder="Month" />
+      </div>
+    </div>  
+    </>
+  ):(
+    <>
+    
+    </>
+  )
+}
+ 
+            </div>
+       
+
+
+
+
+
+
+
+
+
             <div className="btn_position">
             <button className="back_button" onClick={() => handleNavigationClick("vehicles")}>
               {' '}
