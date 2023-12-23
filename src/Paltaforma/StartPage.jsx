@@ -1,7 +1,9 @@
 import './StartPage.css'
 import "./Start.css"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Spin } from 'antd';
+
 function StartPage({ changeIcon, handleNavigationClick }) {
     const [selectedOption, setSelectedOption] = useState(null);
     const [bussinesstype, setBussinesstype] = useState(null);
@@ -17,25 +19,20 @@ function StartPage({ changeIcon, handleNavigationClick }) {
     const [areaCode, setAreaCode] = useState('');
     const [middlePart, setMiddlePart] = useState('');
     const [lastPart, setLastPart] = useState('');
+    const [loading, setLoading] = useState(false);
+   
 
-
-
-    const handleAreaCodeChange = (e) => {
-        setAreaCode(e.target.value);
-      };
-    
-      const handleMiddlePartChange = (e) => {
-        setMiddlePart(e.target.value);
-      };
-    
-      const handleLastPartChange = (e) => {
-        setLastPart(e.target.value);
-      };
     const handleRadioChange = (event) => {
         setSelectedOption(event.target.value);
     };
+    useEffect(() => {
+        const formattedPhoneNumber = `${areaCode}-${middlePart}-${lastPart}`;
+        setPhonenumber(formattedPhoneNumber);
+    }, [areaCode, middlePart, lastPart]);
     const handleButtonClick = () => {
         // Check if all required fields are filled
+        setLoading(true);
+    console.log(phonenumber)
         if (
             selectedOption &&
             bussinesstype &&
@@ -63,7 +60,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                 phonenumber
             };
     
-            axios.post("http://localhost:3003/postinformation", userData)
+            axios.post("https://serverforbce.vercel.app/api/postinformation", userData)
                 .then(res => {
                     if (res.status === 200 && res.data.status === true) {
                         localStorage.setItem("mainid", res.data.created._id);
@@ -77,12 +74,17 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                 .catch(error => {
                     console.error("Error during request:", error);
                     alert("Error during request. Please try again.");
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
         } else {
             // Display error alert if fields are not complete
             alert("Please fill in all required fields.");
+            setLoading(false); // Ensure loading is set to false in case of an error
         }
     };
+    
     
     
     const handlebusinessstype = (type) => {
@@ -152,17 +154,18 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             </section>
             <section className='business-type-section'>
                 <p className="business-type-heading">Most Common Business Types:</p>
-                <div className='business-type'>
+                <div className='business-type row'>
+                <input className='col-md-6 business-type-btn busines-type-link' placeholder='Other type of business' value={bussinesstype} onChange={(e) => { handlebusinessstype(e.target.value) }} ></input>
+                    <div className='col-md-6 busnes-types-outer'>
                     <span className='busnes-types' onClick={() => { handlebusinessstype("Contractor") }}>Contractor</span>
                     <span className='busnes-types' onClick={() => { handlebusinessstype("Dirt.Sand and Gravel") }}>Dirt.Sand and Gravel</span>
                     <span className='busnes-types' onClick={() => { handlebusinessstype("Landscaper") }}>Landscaper</span>
                     <span className='busnes-typess' onClick={() => { handlebusinessstype("Towing") }}>Towing</span>
                     <span className='busnes-typess' onClick={() => { handlebusinessstype("Trucker") }}>Trucker</span>
+                    </div>
+                   
                 </div>
-                <div className='business-type'>
-
-                </div>
-                <input className='business-type-btn busines-type-link' placeholder='Other type of business' value={bussinesstype} onChange={(e) => { handlebusinessstype(e.target.value) }} ></input>
+              
                 <p className="business-owner-info">Home address/personal information of the business owner</p>
 
                 <div className='owner-info-form'>
@@ -204,10 +207,20 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                         </div>
                     </div>
                     <div className="name-part">
-                        <p className="name-txt">Phone Number
-                            (Optional)</p>
+                        <p className="name-txt">Phone Number</p>
                         <div className="name-fields">
-                            <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setPhonenumber(e.target.value)}}/>
+                            <div className='row numberrow'>
+                                <div className='col-md-2'>
+                                <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setAreaCode(e.target.value)}}/>
+                                </div> --
+                                <div className='col-md-2'>
+                                <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setMiddlePart(e.target.value)}}/>
+                                </div>--
+                                <div className='col-md-2'>
+                                <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setLastPart(e.target.value)}}/>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     
@@ -222,7 +235,9 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                         <i class="fa-solid fa-angle-left"></i>
                     </button>
                     <button className="continous_button" onClick={handleButtonClick}>
-                        Contious &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
+                    <Spin spinning={loading}> 
+
+                        Contious &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i></Spin>
                     </button>
                 </div>
             </section>

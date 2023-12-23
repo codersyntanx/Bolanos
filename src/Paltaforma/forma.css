@@ -36,15 +36,12 @@ body {
     border-left: 1px solid #263238;
     padding-left: 5px;
 }
-.header_body_section{
-    max-width: 1059px;
-    margin: auto;
- 
-}
+
 .Navbar_section{
-    margin-top: 50px;
     display: flex;
     width: 1059px;
+    margin: auto;
+    margin-top: 50px;
     height: 56px;
     padding: 8px;
     justify-content: center;
@@ -55,8 +52,6 @@ background: #FFF;
 }
 .activateding {
     display: flex;
-width: 174px;
-/* padding: 13px 64px; */
 justify-content: center;
 align-items: center;
 gap: 10px;
@@ -74,9 +69,7 @@ color: white;
 .activateding:hover a{
     color: white;
 }
-  /* .activateding:hover a {
-    color: white;
-  } */
+
 .nav-link{
     color: #30577E;
 font-family: Inter;
@@ -93,6 +86,7 @@ gap: 10px;
 }
 .Driver_container {
     width: 1059px;
+    margin: auto;
     min-height: 712px;
     max-height: auto;
     flex-shrink: 0;
@@ -100,7 +94,7 @@ gap: 10px;
     background: #FFF;
     margin-top: 50px;
     padding: 50px;
-    position: relative; /* Add this line */
+    position: relative;
   }
   
 .Device_information{
@@ -112,7 +106,6 @@ font-weight: 600;
 line-height: normal;
 }
 .comontext{
-    width: 683px;
 height: 94px;
 flex-shrink: 0;
 color: rgba(38, 50, 56, 0.79);
@@ -170,19 +163,22 @@ margin-left: auto;
     font-weight: 500;
     line-height: normal;
 }
-.btn_position{
+.btn_position {
     position: absolute;
-    bottom: 30px;
-    left: 0; 
+    bottom: 0;
+    left: 0;
     display: flex;
     width: 100%;
+    margin-top: 10px;
     padding: 50px;
 }
+
 .continous_button:nth-child(2) {
     margin-left: auto; 
   }
   .newdriver{
     margin-top: 30px;
+    align-items: flex-end;
   }
   .newdriver input:focus{
 box-shadow: none;
@@ -226,7 +222,8 @@ border-radius: 50%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-right: 30px;
+    padding-right: 35px;
+    padding-left: 5px;
 }
 .fnam{
     width: 30%;
@@ -238,8 +235,42 @@ border-radius: 50%;
     width: 30%;
 }
 .nav1{
-    margin-left: -60px;
+    width: 100%;
 }
+.navbarul1{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: auto;
+}
+.done-main{
+margin: auto;
+margin-top: 50px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+  .doneheading{
+    margin-top: 10px;
+    color: #263238;
+font-family: Raleway;
+font-size: 25px;
+font-style: normal;
+font-weight: 800;
+line-height: normal;
+text-align: center;
+  }  
+.donecontent{
+color: rgba(38, 50, 56, 0.79);
+font-family: Poppins;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 0.32px;
+text-align: center;
+  }
 @media (max-width: 1024px) {
 .Navbar_section{
         width: 95%;
@@ -258,7 +289,7 @@ border-radius: 50%;
     width: 100%;
 }
 .nav-link{
-    width: 180px;
+    width: 100%;
 }
   }
 
@@ -273,10 +304,35 @@ border-radius: 50%;
     .Driver_container{
         width: 95%;
     }
-  }
-@media (max-width: 435px){
-    .comontext{
+   
+    .namepart{
+        flex-wrap: wrap;
+        row-gap: 20px;
+    }
+    .nmi{
+        width: 30%;
+    }
+    .fnam{
+        width: 65%;
+    }
+    .lnam{
         width: 100%;
+    }
+    .newdriver{
+        align-items: baseline;
+    }
+  }
+@media (max-width: 573px){
+    .cdlexp{
+        margin-bottom: 30px;
+    }
+}
+@media (max-width: 435px){
+   
+    .lableforinput{
+        margin-bottom: 10px;
+    }
+    .comontext{
         height: 220px;
         text-align: justify;
     }

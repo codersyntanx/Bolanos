@@ -4,7 +4,7 @@ function FormaNav (){
          <div className="Navbar_section">
     <nav class="navbar navbar-expand-lg navbar-expand-sm ">
 
-      <ul class="navbar-nav">
+      <ul class="navbar-nav navbarul1" style={{display:"flex", justifyContent:"space-between", width:"100%"}}>
         <li class="nav-item ">
           <a class="nav-link " href="#">
           <i class="fa-regular fa-circle"></i> &nbsp;  1.Start

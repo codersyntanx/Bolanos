@@ -23,9 +23,9 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
     if (
       customerEmail &&
       currentlyInsured !== null &&
-      continuousCoverage &&
-      bodilyInjuryLimit &&
-      policyExpirationDate &&
+      // continuousCoverage &&
+      // bodilyInjuryLimit &&
+      // policyExpirationDate &&
       hasMCNumber !== null
     ) {
       const businessData = {
@@ -37,7 +37,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
         policyExpirationDate,
         hasMCNumber,
       };
-axios.post("http://localhost:3003/postbusiness",businessData)
+axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
 .then(res=>{
   if(res.data.status === true){
     openNotification('success', 'data addedd successfully');
@@ -81,7 +81,7 @@ axios.post("http://localhost:3003/postbusiness",businessData)
        <div className="businesspage">
         <span className="business_heading">About The  Business</span>
         <div className="row align-items-center abt-bsns">
-          <div className="col-md-4">
+          <div className="col-md-4 forlbl">
             Customer Email Address ?<span>(Optional)</span>
           </div>
           <div className="col-md-5 formail">
@@ -99,7 +99,7 @@ axios.post("http://localhost:3003/postbusiness",businessData)
         <div className="customer_email">
         Is the Business Currently insured?<br></br>
         <div className="row">
-            <div className="col-md-4 dimtester">
+            <div className="col-md-4 dimtester forlbl">
             (Personal Auto policies in the owner’s name also qualify for prior insurance)            </div>
             <div className="col-md-5 d-flex align-items-center">
               <div className="radiobutns">
@@ -133,9 +133,9 @@ axios.post("http://localhost:3003/postbusiness",businessData)
         {currentlyInsured ? (
         <>
           {/* Continuous Coverage Section */}
-          <div className="row mt-5">
-            <div className="col-md-4">
-              Has the customer had continuous coverage? <span>(At least 1 year)</span>
+          <div className="row customercoverage">
+            <div className="col-md-4 forlbl">
+              Has the customer had continuous coverage? <span className="dimtester">(At least 1 year)</span>
             </div>
             <div className="col-md-5 d-flex align-items-center">
               <div className="radiobutns">
@@ -168,8 +168,8 @@ axios.post("http://localhost:3003/postbusiness",businessData)
           </div>
 
           {/* Bodily Injury Liability Limit Section */}
-          <div className="row">
-            <div className="col-md-4">
+          <div className="row cstmremail">
+            <div className="col-md-4 forlbl">
               <div className="customer_email">Currently Bodily injury Liability Limit</div>
             </div>
             <div className="col-md-5">
@@ -184,7 +184,7 @@ axios.post("http://localhost:3003/postbusiness",businessData)
           {/* Current Policy Expiration Date Section */}
           <div className="row mt-3">
             <div className="col-md-4">
-              <div className="customer_email">Current Policy Expiration Date:</div>
+              <div className="customer_email forlbl">Current Policy Expiration Date:</div>
             </div>
             <div className="col-md-5">
               <input
@@ -203,7 +203,7 @@ axios.post("http://localhost:3003/postbusiness",businessData)
         Insurance History
         </div>
         <div className="row mt-2">
-            <div className="col-md-4">
+            <div className="col-md-4 forlbl">
             Do you have an MC# or do you plan cross state lines?
 
             </div>

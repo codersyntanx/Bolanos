@@ -1,9 +1,11 @@
 .businesspage{
 width: 1059px;
-height: 850px;
+height: fit-content;
 border-radius: 17px;
 background-color: white;
+margin: auto;
 margin-top: 40px;
+
 padding: 30px;
 }
 .business_heading{
@@ -49,6 +51,12 @@ letter-spacing: 0.34px;
     border: 1px solid rgba(0, 0, 0, 0.42);
     padding-left: 10px;
 }
+.customercoverage{
+    margin-top: 30px;
+}
+.cstmremail{
+    margin-top: 20px;
+}
 .business_heading2{
     color: #263238;
     font-family: Raleway;
@@ -56,7 +64,8 @@ letter-spacing: 0.34px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-   margin-top: 55px;
+   margin-top: 40px;
+   margin-bottom: 20px;
     }
     .radio-label {
         margin-bottom: 10px;
@@ -73,22 +82,26 @@ letter-spacing: 0.34px;
         width: 20px;
         height: 20px; 
       }
+      .abt-bsns{
+        margin-top: 20px;
+      }
 @media (max-width: 1024px){
     .businesspage{
         width: 95%;
         margin-left: auto;
         margin-right: auto;
     }
+  
 }
 @media (max-width: 768px){
+    .forlbl{
+        margin-bottom: 10px;
+    }
     .formail{
-        width: 65%;
+        width: 100%;
     }
     .customer_email_input{
         width: 100%;
-    }
-    .businesspage{
-        height: 950px;
     }
 }
 @media (max-width: 435px){
@@ -102,8 +115,6 @@ letter-spacing: 0.34px;
     .business_heading2{
         margin-top: 20px;
     }
-    .businesspage{
-        height: 1000px;
-    }
+   
 }
       

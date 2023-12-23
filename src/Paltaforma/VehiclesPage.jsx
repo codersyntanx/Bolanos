@@ -27,6 +27,8 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
   const [model, setModel] = useState("")
   const [vehicletable, setVehicletable] = useState([])
   const [informId, setInformId] = useState("")
+  const[updatevehicle,setUpdatevehicle]=useState(false)
+  const[vehicleid,setVehicleid]=useState("")
   const handleRadio = (event) => {
     setVehicalby(event.target.value);
   };
@@ -45,59 +47,62 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
     setIsModalOpen(false);
   };
 
-  const handleButtonClick = () => {
-    // Check if all fields are filled
-    const requiredFields = ["selectedTruck", "zipCode", "distance", "needCoverage", "vehicleWorth", "vehicalby", "Vin"];
-    const missingFields = [];
+  // const handleButtonClick = () => {
+  //   // Check if all fields are filled
+  //   const requiredFields = ["selectedTruck", "zipCode", "distance", "needCoverage", "vehicleWorth", "vehicalby", "Vin"];
+  //   const missingFields = [];
 
-    // Check if all fields are filled
-    requiredFields.forEach(field => {
-      if (!eval(field)) { // Use eval to dynamically access properties by name
-        missingFields.push(field);
-      }
-    });
+  //   // Check if all fields are filled
+  //   requiredFields.forEach(field => {
+  //     if (!eval(field)) { // Use eval to dynamically access properties by name
+  //       missingFields.push(field);
+  //     }
+  //   });
 
-    if (missingFields.length > 0) {
-      openNotification('error', `Please fill in the following fields before continuing`);
+  //   if (missingFields.length > 0) {
+  //     openNotification('error', `Please fill in the following fields before continuing`);
 
-      return;
-    }
+  //     return;
+  //   }
 
-    const postData = {
-      informId,
-      selectedTruck,
-      zipCode,
-      distance,
-      needCoverage,
-      vehicleWorth,
-      vehicalby,
-      year,
-      make,
-      model,
-      Vin,
-    };
+  //   const postData = {
+  //     informId,
+  //     selectedTruck,
+  //     zipCode,
+  //     distance,
+  //     needCoverage,
+  //     vehicleWorth,
+  //     vehicalby,
+  //     year,
+  //     make,
+  //     model,
+  //     Vin,
+  //   };
 
-    axios.post("http://localhost:3003/postvehicle", postData)
-      .then(res => {
-        if (res.status === 200 && res.data.status === true) {
-          // Navigate to the next page
-          changeIcon('fa-regular fa-circle-check green-icon');
-          openNotification('success', `Vehical Added Successfully`);
+  //   axios.post("https://serverforbce.vercel.app/api/postvehicle", postData)
+  //     .then(res => {
+  //       if (res.status === 200 && res.data.status === true) {
+  //         // Navigate to the next page
+  //         setIsConfirmed(false)
+  //         fetchvehicle()
+  //         openNotification('success', `Vehical Added Successfully`);
+        
 
-          handleNavigationClick('drivers');
+  //       } else {
+  //         console.error("Unexpected server response:", res);
+  //         alert("Error while processing the request. Please try again.");
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error("Error during request:", error);
+  //       alert("Error during request. Please try again.");
+  //     });
+  // };
 
-        } else {
-          console.error("Unexpected server response:", res);
-          alert("Error while processing the request. Please try again.");
-        }
-      })
-      .catch(error => {
-        console.error("Error during request:", error);
-        alert("Error during request. Please try again.");
-      });
-  };
-
-
+const gotonext =()=>{
+  changeIcon('fa-regular fa-circle-check green-icon');
+  handleNavigationClick('drivers');
+}
 
 
   const truckData = [
@@ -126,24 +131,26 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
   }, []);
 
   useEffect(() => {
-    if (informId) {
-      axios.get(`http://localhost:3003/getvehicalbyinforid/${informId}`)
-        .then(res => {
-          if (res.data.status === true) {
-            setVehicletable(res.data.data);
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching vehicle data:', error);
-          // Handle the error, e.g., display an error message to the user
-        });
-    }
+    fetchvehicle()
   }, [informId]);
-
+const fetchvehicle =()=>{
+  if (informId) {
+    axios.get(`https://serverforbce.vercel.app/api/getvehicalbyinforid/${informId}`)
+      .then(res => {
+        if (res.data.status === true) {
+          setVehicletable(res.data.data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching vehicle data:', error);
+        // Handle the error, e.g., display an error message to the user
+      });
+  }
+}
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:3003/deletebyid/${id}`);
+      const response = await axios.delete(`https://serverforbce.vercel.app/api/deletebyid/${id}`);
       
       if (response.data.status === true) {
         // Remove the deleted vehicle from the table
@@ -169,6 +176,91 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
       description,
     });
   };
+  const handleEdit = (vehicle) => {
+    setUpdatevehicle(true)   
+    setIsConfirmed(true);
+    setVehicleid(vehicle._id)
+    setSelectedTruck(vehicle.selectedTruck);
+    setZipCode(vehicle.zipCode);
+    setDistance(vehicle.distance);
+    setNeedCoverage(vehicle.needCoverage);
+    setVehicleWorth(vehicle.vehicleWorth);
+    setVehicalby(vehicle.vehicalby);
+    setVin(vehicle.Vin);
+    setYear(vehicle.year);
+    setMake(vehicle.make);
+    setModel(vehicle.model);
+  
+    // Set any other fields you have in your modal
+    setIsModalOpen(true);
+  };
+  
+  const handleButtonClick = () => {
+    // Check if all fields are filled
+    const requiredFields = ["selectedTruck", "zipCode", "distance", "needCoverage", "vehicleWorth", "vehicalby", "Vin"];
+    const missingFields = [];
+  
+    // Check if all fields are filled
+    requiredFields.forEach(field => {
+      if (!eval(field)) {
+        missingFields.push(field);
+      }
+    });
+  
+    if (missingFields.length > 0) {
+      openNotification('error', `Please fill in the following fields before continuing`);
+      return;
+    }
+  
+    const postData = {
+      informId, // If informId is present, it means you're editing; otherwise, it's a new vehicle
+      selectedTruck,
+      zipCode,
+      distance,
+      needCoverage,
+      vehicleWorth,
+      vehicalby,
+      year,
+      make,
+      model,
+      Vin,
+    };
+  
+    const url = updatevehicle ? `https://serverforbce.vercel.app/api/putvehicle/${vehicleid}` : "https://serverforbce.vercel.app/api/postvehicle";
+
+    const axiosMethod = updatevehicle ? axios.put : axios.post;
+    
+    axiosMethod(url, postData)
+      .then(res => {
+        if (res.status === 200 && res.data.status === true) {
+          // Navigate to the next page if needed
+          setIsConfirmed(false);
+          fetchvehicle();
+          setUpdatevehicle(false)
+          openNotification('success', informId ? `Vehicle Updated Successfully` : `Vehicle Added Successfully`);
+          setVehicleid("")
+    setSelectedTruck("");
+    setZipCode("");
+    setDistance("");
+    setNeedCoverage("");
+    setVehicleWorth("");
+    setVehicalby("");
+    setVin("");
+    setYear("");
+    setMake("");
+    setModel("");
+        } else {
+          console.error("Unexpected server response:", res);
+          alert("Error while processing the request. Please try again.");
+        }
+      })
+      .catch(error => {
+        console.error("Error during request:", error);
+        alert("Error during request. Please try again.");
+      });
+  };
+  
+  
 
   return (
     <>
@@ -222,7 +314,10 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
                   {row.vehicleWorth}
                 </td>
                 <td>
-                  <button className="btn btn-danger" onClick={() => handleDelete(row._id)}><i class="fa-solid fa-trash"></i></button>
+                <button className="btn" onClick={() => handleEdit(row)}>
+  <i className="fa-regular fa-pen-to-square"></i>
+</button>
+                  <button className="btn" onClick={() => handleDelete(row._id)}><i class="fa-solid fa-trash"></i></button>
                 </td>
               </tr>
             ))}
@@ -278,11 +373,11 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
                 {' '}
                 Back &nbsp;&nbsp;
               </button>
-              <button className="small-screen" onClick={() => handleNavigationClick("vehicles")}>
+              <button className="small-screen" onClick={() => handleNavigationClick("start")}>
                 {' '}
                 <i class="fa-solid fa-angle-left"></i>
               </button>
-              <button className="continous_button" onClick={handleButtonClick}>
+              <button className="continous_button" onClick={gotonext}>
                 Contious &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
               </button>
             </div>
@@ -313,9 +408,9 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
             <div className="textcon mt-4">
               Vehicle Identification Number(VIN)
             </div>
-            <div className="row mt-2">
+            <div className="row mt-2 lookupvin">
               <div className="col-md-4">
-                <input className="text_input" onChange={(e) => { setVin(e.target.value) }} type="text" />
+                <input className="text_input" value={Vin} onChange={(e) => { setVin(e.target.value) }} type="text" />
               </div>
               <div className="col-md-3">
                 <button className="btn_vin">
@@ -339,7 +434,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
                 Zip Code where the vehicle is located?
               </div>
               <div className="col-md-4">
-                <input className="text_input px-3" onChange={(e) => { setZipCode(e.target.value) }} placeholder="20744" type="text" />
+                <input className="text_input px-3" value={zipCode} onChange={(e) => { setZipCode(e.target.value) }} placeholder="20744" type="text" />
               </div>
             </div>
             <div className="row mt-4 ">
@@ -347,7 +442,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
                 Farthest one-way distance this vehicle typically travels(90% or more of the <br></br> time)
               </div>
               <div className="col-md-4">
-                <input className="text_input px-3" onChange={(e) => { setDistance(e.target.value) }} type="text" />
+                <input className="text_input px-3" value={distance} onChange={(e) => { setDistance(e.target.value) }} type="text" />
               </div>
             </div>
 
@@ -377,7 +472,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
                 If this vehicle was sold today,how much would it be worth?
               </div>
               <div className="col-md-4">
-                <input className="text_input px-3" placeholder="$45,000" type="text" onChange={(e) => { setVehicleWorth(e.target.value) }} />
+                <input className="text_input px-3" value={vehicleWorth} placeholder="$45,000" type="text" onChange={(e) => { setVehicleWorth(e.target.value) }} />
               </div>
             </div>
 

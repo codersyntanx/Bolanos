@@ -1,4 +1,5 @@
 .coverage_first{
+    margin: auto;
     margin-top: 40px;
     width: 1059px;
     height: 662px;
@@ -7,7 +8,19 @@
     background-color: white;
     padding: 40px;
 }
+.optionval {
+    padding: 50px !important;
+}
+.last_btns{
+    width: 1059px;
+    flex-shrink: 0;
+    border-radius: 0px 17px 17px 0px;
+    background-color: white;
+    padding: 40px; 
+    margin: auto;
+}
 .Insurance_type{
+    margin: auto;
     margin-top: 40px;
     width: 1059px;
     border-radius: 17px;
@@ -55,6 +68,14 @@ height: 98px;
     background: #F0F8FF;
     height: 153px;
 }
+.customer_slect2{
+    width: 100%;
+    height: 51px;
+flex-shrink: 0;
+border-radius: 9px;
+border: 1px solid rgba(0, 0, 0, 0.42);
+background: #FFF;
+}
 .customer_slect{
     width: 329px;
 height: 51px;
@@ -82,10 +103,10 @@ cursor: pointer;
 }
 .vehicle_coverage{
     width: 1059px;
-height: 900px;
 border-radius: 17px;
 background-color: white;
 padding: 40px;
+margin: auto;
 margin-top: 40px;
 }
 .truck_detail{
@@ -127,6 +148,9 @@ border-radius: 50%;
     margin-left: 8px;
     margin-top: 7px
 }
+.jus{
+    justify-content: space-between;
+}
 .circle2{
     width: 30px;
     height: 30px;
@@ -148,6 +172,10 @@ line-height: 26px; /* 173.333% */
 letter-spacing: 0.3px;
     }
 @media (max-width: 1024px){
+    .last_btns{
+        width: 95%;
+        margin: auto;
+    }
     .coverage_first{
         width: 95%;
         margin-left: auto;
@@ -166,12 +194,20 @@ letter-spacing: 0.3px;
         margin-left: auto;
         margin-right: auto;
     }
+    .Insurance_type{
+        width: 95%;
+        margin: auto;
+        margin-top: 40px;
+    }
 }
 @media (max-width: 768px){
     .btn btn-primary{
         margin-left: 20px;
     }  
     .customer_slect{
+        width: 100%;
+    } 
+    .customer_slect2{
         width: 100%;
     } 
     .radio-label{
@@ -183,12 +219,13 @@ letter-spacing: 0.3px;
     .newpage{
         height: 1150px;
     }
-    .vehicle_coverage{
-        height: 800px;
-    }
+   
 }
 @media (max-width: 435px){
     .customer_slect{
+        width: 100%;
+    }
+    .customer_slect2{
         width: 100%;
     }
     .bluediv{
@@ -205,11 +242,9 @@ letter-spacing: 0.3px;
         height: 236px;
         padding: 10px;
     }
-    .vehicle_coverage{
-        height: 1150px;
-    }
+   
     .smalinput{
-        width: 80%;
+        width: 100%;
     }
     .smalltxt{
         width: 20%;
@@ -224,6 +259,7 @@ letter-spacing: 0.3px;
     }
     .minustext{
         width: fit-content;
+        margin-bottom: 20px;
     }
     .truck_border {
         width: 125px;
@@ -248,5 +284,6 @@ letter-spacing: 0.3px;
     }
     .moto-truck-cargo-txt{
         width: fit-content;
+
     }
 }

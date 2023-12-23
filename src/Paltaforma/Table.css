@@ -68,10 +68,11 @@ line-height: normal;
 
 .add_vehicle{
   width: 1059px;
-height: 1320px;
+height: fit-content;
 flex-shrink: 0;
 background-color: white;
 border-radius: 17px;
+margin: auto;
 margin-top: 40px;
 padding: 40px;
 }
@@ -186,9 +187,7 @@ letter-spacing: 0.2px;
     margin: auto;
     margin-top: 40px;
   }
-  .add_vehicle{
-    height: max-content;
-  }
+ 
 }
 @media (max-width: 768px) {
   .main_table{
@@ -238,9 +237,9 @@ margin-left: auto;
     align-items: center;
     justify-content: space-between;
   }
+ 
   .vehicle_type{
     width: fit-content;
-    margin-bottom: 20px;
   }
   .vehicle_typeans{
     width: fit-content;

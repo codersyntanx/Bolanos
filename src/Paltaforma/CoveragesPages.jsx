@@ -7,16 +7,97 @@ import truck3 from "./images/cargo.png"
 import truck4 from "./images/flatebed.png"
 import unknown from "./images/unknown.png"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 function CoveragesPage({ changeIcon,handleNavigationClick }){
     const [bolidly, setBolidly]=useState(true)
     const [uninsured, setUninsured]=useState("")
+    const[bodilyinsurance,setBodilyinsurance]=useState("")
+    const[nontrucking,setNontrucking]=useState("")
+    const[personpro,setPersonpro]=useState("")
+    const[motortruck,setMotortruck]=useState("")
+    const[trailerinter,setTrailerinter]=useState("")
+    const[general,setGeneral]=useState("")
     const[damage,setDamage]=useState("1000")
     const [vehicletable, setVehicletable] = useState([])
     const [informId, setInformId] = useState("")
+const navigate = useNavigate()
+ 
+    const postData = () => {
+      if (!uninsured || !bodilyinsurance || !personpro) {
+        console.error('All fields must be filled');
+        return;
+      }
+          const data = {
+            informId,
+        uninsured,
+        bodilyinsurance,
+        nontrucking,
+        personpro,
+        motortruck,
+        trailerinter,
+        general,
+        damage,
+      };
+    
+      // Make an axios call to post the data
+      axios.post('https://serverforbce.vercel.app/api/postcoverage', data)
+        .then((response) => {
+          console.log('Data posted successfully:', response.data);
+          navigate("/done")
+          localStorage.removeItem("mainid")
+        })
+        .catch((error) => {
+          console.error('Error posting data:', error);
+        });
+    };
+
+    
 const instead =()=>{
   setBolidly(!bolidly)
 }
+
+const handleComprehensiveChange = (vehicleId,e) => {
+  const selectedValue = e.target.value;
+
+  // Make axios call to update the value in the database
+  updatecomprehensive(vehicleId, selectedValue);
+};
+// Function to make axios call and update coverage value in the database
+const updateCoverageValue = (vehicleId, value) => {
+  // Make axios call to update the database
+  axios.put(`https://serverforbce.vercel.app/api/putvehicle/${vehicleId}`, {
+    collision: value,
+  })
+      .then((response) => {
+          console.log("Coverage value updated successfully");
+      })
+      .catch((error) => {
+          console.error('Error updating coverage value:', error);
+      });
+};
+const handleCollisionChange = (vehicleId, e) => {
+  const selectedValue = e.target.value;
+
+  // Make axios call to update the value in the database
+  updateCoverageValue(vehicleId, selectedValue);
+};
+const updatecomprehensive = (vehicleId, value) => {
+  // Make axios call to update the database
+  axios.put(`https://serverforbce.vercel.app/api/putvehicle/${vehicleId}`, {
+    comprehensive: value,
+  })
+      .then((response) => {
+          console.log("comprehensive value updated successfully");
+      })
+      .catch((error) => {
+          console.error('Error updating coverage value:', error);
+      });
+};
+
+
+
+
 const handleinsured = (e) => {
   const selectedValue = e.target.value;
 
@@ -41,7 +122,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (informId) {
-    axios.get(`http://localhost:3003/getvehicalbyinforid/${informId}`)
+    axios.get(`https://serverforbce.vercel.app/api/getvehicalbyinforid/${informId}`)
       .then(res => {
         if (res.data.status === true) {
           setVehicletable(res.data.data);
@@ -85,7 +166,7 @@ console.log(vehicletable)
         Bodily injury and Property Damage Liability
           </div>
           <div className="col-md-5">
-             <select className="customer_slect">
+             <select className="customer_slect" onChange={(e)=>{setBodilyinsurance(e.target.value)}}>
                 <option className="optionval">$300,000 CSL</option>
                 <option className="optionval">$750,000 CSL</option>
                 <option className="optionval">$1,000,000 CSL</option>
@@ -114,7 +195,7 @@ console.log(vehicletable)
         Bodily injury and Property Damage Liability
           </div>
           <div className="col-md-5">
-             <select className="customer_slect">
+             <select className="customer_slect" onChange={(e)=>{setNontrucking(e.target.value)}}>
                 <option className="optionval">$750k CSL</option>
                 <option className="optionval">$700k CSL</option>
                 <option className="optionval">$600k CSL</option>
@@ -159,7 +240,7 @@ console.log(vehicletable)
         Personal injury Protection?
           </div>
           <div className="col-md-5">
-             <select className="customer_slect">
+             <select className="customer_slect" onChange={(e)=>{setPersonpro(e.target.value)}}>
                 <option className="optionval">$ 2,500 Guest PIP</option>
                 <option className="optionval">$700k CSL</option>
                 <option className="optionval">$600k CSL</option>
@@ -178,14 +259,14 @@ console.log(vehicletable)
 
         <div className="row bluediv2 align-items-center">
 <div className="col-md-1"></div>
-        <div className="col-md-3 d-flex moto-truck-cargo-txt">
-        Motor Truck Cargo? 
+        <div className="col-md-3 d-flex jus moto-truck-cargo-txt">
+        Motor Truck Cargo
         <div className="circle2">
             <i class="fa-solid fa-question" style={{color:"white"}}></i>
             </div>
           </div>
           <div className="col-md-5 smalinput">
-             <select className="customer_slect">
+             <select className="customer_slect" onChange={(e)=>{setMotortruck(e.target.value)}}>
                 <option className="optionval">Not Selected</option>
                 <option className="optionval">$700k CSL</option>
                 <option className="optionval">$600k CSL</option>
@@ -202,14 +283,14 @@ console.log(vehicletable)
            
             
          </div>
-         <div className="col-md-3 d-flex minustext">
-            Trailer Interchange ?  <div className="circle2">
+         <div className="col-md-3 jus d-flex minustext">
+            Trailer Interchange   <div className="circle2">
             <i class="fa-solid fa-question" style={{color:"white"}}></i>
             </div>
           </div>
           <div className="col-md-4">
           <div className="col-md-5 smalinput">
-             <select className="customer_slect">
+             <select className="customer_slect" onChange={(e)=>{setTrailerinter(e.target.value)}}>
                 <option className="optionval">Not Selected</option>
                 <option className="optionval">$700k CSL</option>
                 <option className="optionval">$600k CSL</option>
@@ -227,14 +308,14 @@ console.log(vehicletable)
          <div className="col-md-1 circle-outer">
         
          </div>
-        <div className="col-md-3 d-flex gnrlliabtext">
+        <div className="col-md-3 jus d-flex gnrlliabtext">
         General Liabilty &nbsp;&nbsp;&nbsp;
         <div className="circle2">
             <i class="fa-solid fa-question" style={{color:"white"}}></i>
             </div>
           </div>
           <div className="col-md-7">
-             <select className="customer_slect">
+             <select className="customer_slect2" onChange={(e)=>{setGeneral(e.target.value)}}>
                 <option className="optionval">Not Selected</option>
                 <option className="optionval">$700k CSL</option>
                 <option className="optionval">$600k CSL</option>
@@ -247,7 +328,11 @@ console.log(vehicletable)
         
         </div>
      </div>
-     <div className="vehicle_coverage">
+     {
+      vehicletable.map((vehicle)=>{
+        return(
+          <>
+               <div className="vehicle_coverage">
      <div className="coverage_heading">
      Coverages for the vehicles
         </div>
@@ -257,49 +342,55 @@ console.log(vehicletable)
             </div>
             <div className="col-md-5 ">
             <span className="detailing">2021 Freightliner Casca...</span><br></br>
-                <span  className="detail" > 3AKHFHDUDDJJ2660 </span><br></br>
-                <span  className="detailing">$25,114.00</span>
+                <span  className="detail" > {vehicle.Vin} </span><br></br>
             </div>
         </div>
         <div className="row bluediv2 align-items-center">
-        <div className="col-md-4">
-        Comprehensive?
-          </div>
-          <div className="col-md-5">
-             <select className="customer_slect">
-                <option className="optionval">$1,000 Deductible</option>
-                <option className="optionval">$700k CSL</option>
-                <option className="optionval">$600k CSL</option>
-                <option className="optionval">$550k CSL</option>
-
-             </select>
-          
-
-          </div>
-        </div>
-        <div className="row bluediv3 align-items-center">
-        <div className="col-md-4">
-        Collision?
-          </div>
-          <div className="col-md-5">
-          $1,000 Deductible
-          
-
-          </div>
-        </div>
+                <div className="col-md-4">
+                    Comprehensive?
+                </div>
+                <div className="col-md-5">
+                    <select className="customer_slect" onChange={(e) =>handleComprehensiveChange(vehicle._id, e)}>
+                        <option className="optionval">$1,000 Deductible</option>
+                        <option className="optionval">$700k CSL</option>
+                        <option className="optionval">$600k CSL</option>
+                        <option className="optionval">$550k CSL</option>
+                    </select>
+                </div>
+            </div>
+            <div className="row bluediv3 align-items-center">
+                <div className="col-md-4">
+                    Collision?
+                </div>
+                <div className="col-md-5">
+  <select className="customer_slect" onChange={(e) => handleCollisionChange(vehicle._id, e)}>
+    <option className="optionval">$1,000 Deductible</option>
+    <option className="optionval">$700k CSL</option>
+    <option className="optionval">$600k CSL</option>
+    <option className="optionval">$550k CSL</option>
+  </select>
+</div>
+            </div>
         <div className="row bluediv4 align-items-center">
         <div className="col-md-4">
         If this vehicle was sold today,how much would it be worth (excluding any permanent attached equipment)?
           </div>
           <div className="col-md-5">
            
-             <input className="customer_slect" placeholder="$45,000"/>
 
+          <span  className="detail" > {vehicle.vehicleWorth} </span><br></br>
 
           </div>
           
         </div>
-        <div className="btns_position">
+     </div>
+          </>
+        )
+      })
+     }
+
+     <div className="last_btns">
+     <div className="btns_position">
             <button className="back_button" onClick={() => handleNavigationClick("about")}>
               {' '}
               Back &nbsp;&nbsp;
@@ -308,7 +399,7 @@ console.log(vehicletable)
               {' '}
               <i class="fa-solid fa-angle-left"></i>
             </button>
-            <button className="continous_button">
+            <button className="continous_button" onClick={postData}>
               Contious &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
             </button>
           </div>

@@ -35,7 +35,7 @@ useEffect(() => {
 }, [informId]);
 const fetchdriver =()=>{
   if (informId) {
-    axios.get(`http://localhost:3003/getdriverbyinforid/${informId}`)
+    axios.get(`https://serverforbce.vercel.app/api/getdriverbyinforid/${informId}`)
       .then(res => {
         if (res.data.status === true) {
           setVehicletable(res.data.data);
@@ -71,7 +71,7 @@ const handleButtonClick = () => {
       informId
     };
 
-    axios.post("http://localhost:3003/postdriver", newDriverData)
+    axios.post("https://serverforbce.vercel.app/api/postdriver", newDriverData)
       .then(res => {
         if (res.data.status === true) {
           changeIcon('fa-regular fa-circle-check green-icon');
@@ -97,7 +97,7 @@ const handleButtonClick = () => {
 };
 const handleDelete = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:3003/deletedriverbyid/${id}`);
+    const response = await axios.delete(`https://serverforbce.vercel.app/api/deletedriverbyid/${id}`);
 
     if (response.data.status === true) {
       // Remove the deleted driver from the table
@@ -118,7 +118,10 @@ const openNotification = (type, message, description = '') => {
     description,
   });
 };
-
+const gotonext =()=>{
+  changeIcon('fa-regular fa-circle-check green-icon');
+  handleNavigationClick('about');
+}
   return (
     <>
     <div className="small-screen-header">
@@ -142,10 +145,8 @@ const openNotification = (type, message, description = '') => {
             <>
               <p className="Device_information">Drive information</p>
               <p className="comontext">
-                Most common vehicles for the customer’s business.
-                <br />
-                Please select one of these vehicles commonly used in the customer’s business or <br />
-                choose ‘Other/Not Listed for more Options
+                Please add all driver’s who will drive any previously listed vehicles<br />
+(Full Name, Date of Birth, License State, License Number, CDL/Non-CDL)
               </p>
               {vehicletable.length > 0 && (
         <table className='main_table mt-5 mb-5'>
@@ -177,25 +178,13 @@ const openNotification = (type, message, description = '') => {
                         <>
                           <table>
                             <tr className="border-bottom">
-                              <td className="table_heading_secction">Vehicle</td>
-                              <td className="table_description">{row.year},{row.make},{row.model}</td>
+                              <td className="table_heading_secction">Driver Name</td>
+                              <td className="table_description">{row.fullName}</td>
                             </tr>
                             <tr >
-                              <td className="table_heading_secction">Comp</td>
-                              <td className="table_description">N/A</td>
-                            </tr>
-                            <tr >
-                              <td className="table_heading_secction">Fire & Thef</td>
-                              <td className="table_description">N/A</td>
-                            </tr>
-                            <tr >
-                              <td className="table_heading_secction">coll</td>
-                              <td className="table_description">N/A</td>
-                            </tr>
-                            <tr >
-                              <td className="table_heading_secction">StatedAmt</td>
+                              <td className="table_heading_secction">License Number</td>
                               <td className="table_description tabltd">
-                                {row.vehicleWorth}</td>
+                                {row.licenseNumber}</td>
                             </tr>
                           </table>
                         </>
@@ -225,7 +214,7 @@ const openNotification = (type, message, description = '') => {
               {' '}
               <i class="fa-solid fa-angle-left"></i>
             </button>
-            <button className="continous_button" onClick={handleButtonClick}>
+            <button className="continous_button" onClick={gotonext}>
               Contious &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
             </button>
           </div>
@@ -233,7 +222,7 @@ const openNotification = (type, message, description = '') => {
         {!isSectionVisible && (
           <div className="after_press">
             <p className="question">A few  more questions about  Driver #{vehicletable.length + 1}</p>
-            <div className="row newdriver align-items-end">
+            <div className="row newdriver">
               <label className="col-sm-3 lableforinput" htmlFor="fullName">
                 Name:
               </label>
@@ -250,7 +239,7 @@ const openNotification = (type, message, description = '') => {
               </div>
              
             </div>
-            <div className="row newdriver align-items-end">
+            <div className="row align-items-end">
             <div class="row newdriver align-items-end">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">Date of Birth::</label>
   <div class="col-sm-8">
@@ -272,7 +261,7 @@ const openNotification = (type, message, description = '') => {
   </div>
 
 </div>
-<div className="row mt-3">
+<div className="row newdriver">
               <div className="col-md-3 lableforinput">
               CDL:    
               </div>
@@ -309,9 +298,9 @@ const openNotification = (type, message, description = '') => {
 {
   selectedValue === "Yes" ?(
     <> 
-     <div className="row align-items-end">
+     <div className="row align-items-end newdriver">
       <label htmlFor="colFormLabelLg" className="col-sm-3 lableforinput">CDL Experience:</label>
-      <div className="col-sm-2">
+      <div className="col-sm-2 cdlexp">
         <input type="text" className="form-control" onChange={(e) => { setExpyear(e.target.value) }} placeholder="Year" />
       </div>
       <div className="col-sm-2">
@@ -337,7 +326,7 @@ const openNotification = (type, message, description = '') => {
 
 
 
-            <div className="btn_position">
+            <div className="btns_position">
             <button className="back_button" onClick={() => handleNavigationClick("vehicles")}>
               {' '}
               Back &nbsp;&nbsp;

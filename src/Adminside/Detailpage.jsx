@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './detail.css'; // Import a CSS file for styling
+import { Tag } from 'antd';
 
 const DetailPage = () => {
   const { id } = useParams(); // Get the id from the URL parameters
@@ -9,15 +10,24 @@ const DetailPage = () => {
   const [vehicledata, setVehicledata] = useState([]);
   const [driverdata, setDriverdata] = useState([]);
   const [business, setBusiness] = useState([]);
-
-
+  const [loading, setLoading] = useState(true); 
+ const [message, setMessage]=useState([])
+const [coverage,setCoverage]=useState([])
   useEffect(() => {
     fetchData();
     fetchdriver()
+    fetchcoverage()
   }, [id]);
+  const fetchcoverage =()=>{
+    axios.get(`https://serverforbce.vercel.app/api/getcoveragebyid/${id}`)
+    .then(res=>{
+      setCoverage(res.data.data)
+    }
+    )
+  }
   const fetchdriver =()=>{
     if (id) {
-      axios.get(`http://localhost:3003/getdriverbyinforid/${id}`)
+      axios.get(`https://serverforbce.vercel.app/api/getdriverbyinforid/${id}`)
         .then(res => {
           if (res.data.status === true) {
             setDriverdata(res.data.data);
@@ -31,7 +41,7 @@ const DetailPage = () => {
   }
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3003/getinformationbyid/${id}`);
+      const response = await axios.get(`https://serverforbce.vercel.app/api/getinformationbyid/${id}`);
       setDetailData(response.data.data);
     } catch (error) {
       console.error('Error fetching detail data:', error);
@@ -39,7 +49,7 @@ const DetailPage = () => {
   };
   useEffect(() => {
     if (id) {
-      axios.get(`http://localhost:3003/getvehicalbyinforid/${id}`)
+      axios.get(`https://serverforbce.vercel.app/api/getvehicalbyinforid/${id}`)
         .then(res => {
           if (res.data.status === true) {
             setVehicledata(res.data.data);
@@ -52,7 +62,7 @@ const DetailPage = () => {
   }, [id]);
   useEffect(() => {
     if (id) {
-      axios.get(`http://localhost:3003/getbussinessbyinfo/${id}`)
+      axios.get(`https://serverforbce.vercel.app/api/getbussinessbyinfo/${id}`)
         .then(res => {
           if (res.data.status === true) {
             setBusiness(res.data.data);
@@ -63,11 +73,48 @@ const DetailPage = () => {
         });
     }
   }, [id]);
-  console.log(business)
+  useEffect(() => {
+    if (id) {
+      axios.get(`https://serverforbce.vercel.app/api/getmeesagebyinformid/${id}`)
+        .then(res => {
+          if (res.data.status === true) {
+            setMessage(res.data.data);
+            console.log(message)
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching vehicle data:', error);
+        });
+    }
+  }, [id]);
   return (
     <>
+   <div className='container'>
+  <h1> <Tag color="red">1</Tag>Contact Status</h1>
+  <div className='row' style={{ backgroundColor: 'white', borderRadius: '20px', padding: '20px' }}>
+    {
+      message.length === 0 ? (
+        <div className='col-md-12 mt-3'>
+          <Tag color="red">Not contacted yet</Tag>
+        </div>
+      ) : (
+        message.map((msg, index) => (
+          <React.Fragment key={index}>
+            <div className='col-md-1 mt-3'>
+              <Tag color="green">{index + 1}</Tag>
+            </div>
+            <div className='col-md-5 mt-3'>
+              {msg.Message}
+            </div>
+          </React.Fragment>
+        ))
+      )
+    }
+  </div>
+</div>
+
     <div className='container'>
-      <h1>Start</h1>
+      <h1><Tag color="red">2</Tag>Start</h1>
       <div className='container' style={{backgroundColor:"white",borderRadius:"20px"}}>
 
          <div className='row' >
@@ -175,7 +222,7 @@ const DetailPage = () => {
 
     </div>
     <div className='container ' style={{borderRadius:"10px"}}>
-    <h1>Vehicle</h1>
+    <h1><Tag color="red">3</Tag>Vehicle</h1>
 
         {
             vehicledata.map((vehicle)=>{
@@ -244,7 +291,25 @@ const DetailPage = () => {
                 <div>{vehicle.Vin}</div>
               </div>
                 </div>
-
+                <div className='col-md-6'>
+                     <div className='detail-item'>
+                <div>
+                  <strong>Comprehensive :</strong>
+                </div>
+                <div>{vehicle.comprehensive}</div>
+              </div>
+                </div>
+              </div> 
+              <div className='row'>
+               
+                <div className='col-md-6'>
+                     <div className='detail-item'>
+                <div>
+                  <strong>Collision :</strong>
+                </div>
+                <div>{vehicle.collision}</div>
+              </div>
+                </div>
               </div> 
                 </div>
                
@@ -257,7 +322,7 @@ const DetailPage = () => {
 
 
     <div className='container ' style={{borderRadius:"10px"}}>
-    <h1>Driver</h1>
+    <h1><Tag color="red">4</Tag>Driver</h1>
 
         {
             driverdata.map((vehicle)=>{
@@ -362,7 +427,7 @@ const DetailPage = () => {
     </div>
 
     <div className='container'>
-      <h1>About Bussiness</h1>
+      <h1><Tag color="red">5</Tag>About Bussiness</h1>
       <div className='container' style={{backgroundColor:"white",borderRadius:"20px"}}>
 
          <div className='row' >
@@ -427,6 +492,101 @@ const DetailPage = () => {
    
       </div>
      
+
+    </div>
+    <div className='container ' style={{borderRadius:"10px"}}>
+    <h1><Tag color="red">6</Tag>Covrage</h1>
+
+        {
+            coverage.map((vehicle)=>{
+                return(
+                     < div className='container mt-3' style={{backgroundColor:"white",borderRadius:"10px"}}>
+                 <div className='row'>
+                <div className='col-md-6'>
+                     <div className='detail-item'>
+                <div>
+                  <strong>First Name :</strong>
+                </div>
+                <div>{vehicle.uninsured}</div>
+              </div>
+                </div>
+                <div className='col-md-6'>
+                      <div className='detail-item'>
+                <div>
+                  <strong>Uninsured/underinsured Motorist Bodily injury*:</strong>
+                </div>
+                <div>{vehicle.bodilyinsurance}</div>
+              </div>
+                </div>
+              </div> 
+              <div className='row'>
+                <div className='col-md-6'>
+                     <div className='detail-item'>
+                <div>
+                  <strong> Non-Trucking Liability:</strong>
+                </div>
+                <div>{vehicle.nontrucking}</div>
+              </div>
+                </div>
+                <div className='col-md-6'>
+                      <div className='detail-item'>
+                <div>
+                  <strong>Personal injury Protection:</strong>
+                </div>
+                <div>{vehicle.personpro}</div>
+              </div>
+                </div>
+              </div> 
+              <div className='row'>
+                <div className='col-md-6'>
+                     <div className='detail-item'>
+                <div>
+                  <strong>Motor Truck Cargo:</strong>
+                </div>
+                <div>{vehicle.motortruck}</div>
+              </div>
+                </div>
+                <div className='col-md-6'>
+                      <div className='detail-item'>
+                <div>
+                  <strong>Trailer Interchange:</strong>
+                </div>
+                <div>{vehicle.trailerinter}</div>
+              </div>
+                </div>
+              </div> 
+              <div className='row'>
+                <div className='col-md-6'>
+                     <div className='detail-item'>
+                <div>
+                  <strong>General Liability:</strong>
+                </div>
+                <div>{vehicle.general}</div>
+              </div>
+                </div>
+
+              </div> 
+              <div className='row'>
+                <div className='col-md-6'>
+                     <div className='detail-item'>
+                <div>
+                  <strong> UM/UIM BI CSL w/Deductible :</strong>
+                </div>
+                <div>{vehicle.damage}</div>
+              </div>
+                </div>
+              </div>
+                </div>
+               
+                )
+               
+              
+            })
+        }
+
+
+
+
 
     </div>
     </>

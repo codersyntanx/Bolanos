@@ -78,6 +78,17 @@ margin-left: 20px;
   .btn-postion{
     margin-left: auto;
     }
+@media (max-width: 768px){
+  .modal-content{
+    height: auto;
+  }
+  .truck_wrap{
+    justify-content: center;
+  }
+  .lookupvin{
+    row-gap: 20px;
+  }
+}
 @media (max-width: 435px){
   .close-btn{
     margin-top: -10px;
@@ -87,5 +98,12 @@ margin-left: 20px;
   }
   .modal-content{
     height: fit-content;
+    width: 100%;
+    padding: 10px;
+    margin: auto;
+  }
+  .modal-overlay{
+    width: 100%;
+    margin: auto;
   }
 }
