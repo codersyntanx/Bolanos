@@ -400,7 +400,7 @@ console.log(vehicletable)
               <i class="fa-solid fa-angle-left"></i>
             </button>
             <button className="continous_button" onClick={postData}>
-              Contious &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
+            Continue &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
             </button>
           </div>
      </div>

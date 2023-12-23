@@ -378,7 +378,7 @@ const fetchvehicle =()=>{
                 <i class="fa-solid fa-angle-left"></i>
               </button>
               <button className="continous_button" onClick={gotonext}>
-                Contious &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
+              Continue &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
               </button>
             </div>
           </div>
@@ -486,7 +486,7 @@ const fetchvehicle =()=>{
                 <i class="fa-solid fa-angle-left"></i>
               </button>
               <button className="continous_button" onClick={handleButtonClick}>
-                Contious &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
+              Continue &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
               </button>
             </div>
           </div>

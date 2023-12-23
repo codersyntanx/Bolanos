@@ -237,7 +237,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                     <button className="continous_button" onClick={handleButtonClick}>
                     <Spin spinning={loading}> 
 
-                        Contious &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i></Spin>
+                    Continue &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i></Spin>
                     </button>
                 </div>
             </section>
