@@ -212,10 +212,10 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                             <div className='row numberrow'>
                                 <div className='col-md-2'>
                                 <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setAreaCode(e.target.value)}}/>
-                                </div> --
+                                </div> ─
                                 <div className='col-md-2'>
                                 <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setMiddlePart(e.target.value)}}/>
-                                </div>--
+                                </div>─
                                 <div className='col-md-2'>
                                 <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setLastPart(e.target.value)}}/>
                                 </div>
