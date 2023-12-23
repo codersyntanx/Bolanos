@@ -163,7 +163,7 @@ const gotonext =()=>{
                 <td className="tabltd">{row.fullName}</td>
                 <td>{row.licenseNumber}</td>
                 <td>
-                  <button className='btn' onClick={() => handleDelete(row._id)}><i class="fa-solid fa-trash"></i></button>
+                  <button className='btn' onClick={() => handleDelete(row._id)}><i class="fa-solid fa-user-xmark"></i></button>
                 </td>
               </tr>
             ))}
