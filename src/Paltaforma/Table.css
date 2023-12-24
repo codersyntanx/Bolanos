@@ -20,7 +20,7 @@
 .table_header th {
   padding: 10px; 
   color: #FFF;
-font-family: Inter;
+/* font-family: Inter; */
 font-size: 16px;
 font-style: normal;
 font-weight: 500;
@@ -59,7 +59,7 @@ height: 50px;
 border-radius: 6px;
 background: #2A4764;
 color: #FFF;
-font-family: Inter;
+/* font-family: Inter; */
 font-size: 15px;
 font-style: normal;
 font-weight: 500;
@@ -78,7 +78,7 @@ padding: 40px;
 }
 .vehicle_type{
   color: rgba(38, 50, 56, 0.79);
-font-family: Inter;
+/* font-family: Inter; */
 font-size: 17px;
 font-style: normal;
 font-weight: 700;
@@ -87,7 +87,7 @@ letter-spacing: 0.34px;
 }
 .vehicle_typeans{
   color: rgba(38, 50, 56, 0.79);
-font-family: Inter;
+/* font-family: Inter; */
 font-size: 17px;
 font-style: normal;
 font-weight: 400;
@@ -107,7 +107,7 @@ column-gap: 10px;
 }
 .textcon{
   color: #000;
-  font-family: Inter;
+  /* font-family: Inter; */
   font-size: 17px;
   font-style: normal;
   font-weight: 400;
@@ -126,7 +126,7 @@ height: 51px;
 border-radius: 6px;
 background: #2A4764;
 color: #FFF;
-font-family: Inter;
+/* font-family: Inter; */
 font-size: 12px;
 font-style: normal;
 font-weight: 500;
@@ -134,7 +134,7 @@ line-height: normal;
 }
 .tips{
   color: rgba(38, 50, 56, 0.79);
-font-family: Inter;
+/* font-family: Inter; */
 font-size: 17px;
 font-style: normal;
 font-weight: 400;
@@ -143,7 +143,7 @@ letter-spacing: 0.34px;
 }
 .all_tip{
   color: rgba(38, 50, 56, 0.79);
-font-family: Inter;
+/* font-family: Inter; */
 font-size: 14px;
 font-style: normal;
 font-weight: 400;
@@ -152,7 +152,7 @@ letter-spacing: 0.42px;
 }
 .inputfieldrow{
   color: #000;
-font-family: Inter;
+/* font-family: Inter; */
 font-size: 17px;
 font-style: normal;
 font-weight: 400;
@@ -161,7 +161,7 @@ letter-spacing: 0.34px;
 }
 .vehicle_money{
   color: #263238;
-font-family: Inter;
+/* font-family: Inter; */
 font-size: 20px;
 font-style: normal;
 font-weight: 400;
@@ -170,7 +170,7 @@ letter-spacing: 0.4px;
 }
 .heading_vehicle_add{
   color: #263238;
-font-family: Inter;
+/* font-family: Inter; */
 font-size: 20px;
 font-style: normal;
 font-weight: 700;

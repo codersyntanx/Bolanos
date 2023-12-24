@@ -10,7 +10,7 @@ padding: 30px;
 }
 .business_heading{
 color: #263238;
-font-family: Raleway;
+/* font-family: Raleway; */
 font-size: 25px;
 font-style: normal;
 font-weight: 600;
@@ -18,7 +18,7 @@ line-height: normal;
 }
 .dimtester{
     color: rgba(0, 0, 0, 0.44);
-font-family: Poppins;
+/* font-family: Poppins; */
 font-size: 16px;
 font-style: normal;
 font-weight: 400;
