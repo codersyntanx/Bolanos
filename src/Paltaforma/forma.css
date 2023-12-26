@@ -2,6 +2,9 @@
 body {
     background: #F0F8FF;
 }
+.before_press{
+    margin-bottom: 100px;
+  }
 .Header_text{
     display: flex;
     justify-content: center;
