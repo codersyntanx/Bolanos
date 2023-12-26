@@ -200,7 +200,7 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
         <></>
       )}        
         <div className="business_heading2">
-        Insurance History
+        Filing Proof of insurances
         </div>
         <div className="row mt-2">
             <div className="col-md-4 forlbl">
