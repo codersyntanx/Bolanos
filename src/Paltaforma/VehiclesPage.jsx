@@ -354,12 +354,12 @@ const handleModalOk = async () => {
                               <td className="table_description">N/A</td>
                             </tr>
                             <tr >
-                              <td className="table_heading_secction">Fire & Thef</td>
-                              <td className="table_description">N/A</td>
+                              <td className="table_heading_secction">Coll</td>
+                              <td className="table_description">{row.needCoverage}</td>
                             </tr>
                             <tr >
-                              <td className="table_heading_secction">coll</td>
-                              <td className="table_description">N/A</td>
+                              <td className="table_heading_secction">Vin</td>
+                              <td className="table_description">{row.Vin}</td>
                             </tr>
                             <tr >
                               <td className="table_heading_secction">StatedAmt</td>
