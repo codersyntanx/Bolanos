@@ -204,7 +204,10 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
         </div>
         <div className="row mt-2">
             <div className="col-md-4 forlbl">
-            Do you have an MC# or do you plan cross state lines?
+              <span className="interfont">
+ Do you have an MC# or do you plan cross state lines?
+              </span>
+           
 
             </div>
             <div className="col-md-5 d-flex align-items-center">
