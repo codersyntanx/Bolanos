@@ -202,8 +202,8 @@ const gotonext =()=>{
                             
                             </tr> 
                             <tr>
-                            <td className="table_heading_secction">Action</td>
-                               <td>
+                            <td className="table_heading_secction ">Action</td>
+                               <td className='deletebtn'>
                   <button className='btn tabltd' onClick={() => handleDelete(row._id)}><i class="fa-solid fa-user-xmark"></i></button>
                 </td>
                               </tr>  

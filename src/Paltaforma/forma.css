@@ -2,6 +2,10 @@
 body {
     background: #F0F8FF;
 }
+.deletebtn{
+    display: flex;
+    justify-content: end;
+}
 .before_press{
     margin-bottom: 100px;
   }
