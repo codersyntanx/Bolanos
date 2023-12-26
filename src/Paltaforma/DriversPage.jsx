@@ -54,54 +54,54 @@ const handleDelete = async (id) => {
   setDeleteId(id);
   setModalVisible(true);
 };
-const handleButtonClick = () => {
-  if (
-    fullName &&
-    middleInitial &&
-    lastName &&
-    dob &&
-    licenseState &&
-    licenseNumber &&
-    selectedValue
-  ) {
+// const handleButtonClick = () => {
+//   if (
+//     fullName &&
+//     middleInitial &&
+//     lastName &&
+//     dob &&
+//     licenseState &&
+//     licenseNumber &&
+//     selectedValue
+//   ) {
 
-    const newDriverData = {
-      fullName,
-      middleInitial,
-      lastName,
-      dob,
-      licenseState,
-      licenseNumber,
-      selectedValue,
-      expyear,
-      expmonth,
-      informId
-    };
+//     const newDriverData = {
+//       fullName,
+//       middleInitial,
+//       lastName,
+//       dob,
+//       licenseState,
+//       licenseNumber,
+//       selectedValue,
+//       expyear,
+//       expmonth,
+//       informId
+//     };
 
-    axios.post("https://serverforbce.vercel.app/api/postdriver", newDriverData)
-      .then(res => {
-        if (res.data.status === true) {
-          changeIcon('fa-regular fa-circle-check green-icon');
-          adddriver();
-          fetchdriver()
-          // Display success notification
-          openNotification('success', 'Driver Created Successfully');
-        } else {
-          // Display error notification
-          openNotification('error', 'Error Creating Driver', res.data.error);
-        }
-      })
-      .catch(error => {
-        console.error('Error creating driver:', error);
+//     axios.post("https://serverforbce.vercel.app/api/postdriver", newDriverData)
+//       .then(res => {
+//         if (res.data.status === true) {
+//           changeIcon('fa-regular fa-circle-check green-icon');
+//           adddriver();
+//           fetchdriver()
+//           // Display success notification
+//           openNotification('success', 'Driver Created Successfully');
+//         } else {
+//           // Display error notification
+//           openNotification('error', 'Error Creating Driver', res.data.error);
+//         }
+//       })
+//       .catch(error => {
+//         console.error('Error creating driver:', error);
 
-        // Display error notification
-        openNotification('error', 'Error Creating Driver', 'An unexpected error occurred.');
-      });
+//         // Display error notification
+//         openNotification('error', 'Error Creating Driver', 'An unexpected error occurred.');
+//       });
 
-  } else {
-    alert('Please fill in all required fields.');
-  }
-};
+//   } else {
+//     alert('Please fill in all required fields.');
+//   }
+// };
 const handleModalOk = async () => {
   try {
     const response = await axios.delete(`https://serverforbce.vercel.app/api/deletedriverbyid/${deleteId}`);
@@ -135,6 +135,104 @@ const gotonext =()=>{
   changeIcon('fa-regular fa-circle-check green-icon');
   handleNavigationClick('about');
 }
+
+  // Update Driver
+  const handleUpdate = (driverId) => {
+    const driverToUpdate = vehicletable.find((driver) => driver._id === driverId);
+
+    if (driverToUpdate) {
+      // Set state with the values of the driver to update
+      setFullName(driverToUpdate.fullName);
+      setMiddleInitial(driverToUpdate.middleInitial);
+      setLastName(driverToUpdate.lastName);
+      setDob(driverToUpdate.dob);
+      setLicenseState(driverToUpdate.licenseState);
+      setLicenseNumber(driverToUpdate.licenseNumber);
+      setSelectedValue(driverToUpdate.selectedValue);
+      setExpyear(driverToUpdate.expyear);
+      setExpmonth(driverToUpdate.expmonth);
+      setInformId(driverToUpdate.informId);
+    // Show the form section
+    setIsSectionVisible(false);
+      // Set the driver ID to be updated
+      setDeleteId(driverId);
+
+  
+    }
+  };
+
+  // ... (previous useEffect and functions)
+
+  const handleButtonClick = () => {
+    if (
+      fullName &&
+      middleInitial &&
+      lastName &&
+      dob &&
+      licenseState &&
+      licenseNumber &&
+      selectedValue
+    ) {
+      const newDriverData = {
+        fullName,
+        middleInitial,
+        lastName,
+        dob,
+        licenseState,
+        licenseNumber,
+        selectedValue,
+        expyear,
+        expmonth,
+        informId,
+      };
+
+      // Check if it's an update or a new post
+      const url = deleteId
+        ? `http://localhost:3003/api/putdriver/${deleteId}`
+        : "https://serverforbce.vercel.app/api/postdriver";
+
+      const axiosMethod = deleteId ? axios.put : axios.post;
+
+      axiosMethod(url, newDriverData)
+        .then((res) => {
+          if (res.data.status === true) {
+            // If it's an update, reset the state and deleteId
+            if (deleteId) {
+              setDeleteId(null);
+            }
+
+            // Reset form and fetch updated driver data
+            setFullName("");
+            setMiddleInitial("");
+            setLastName("");
+            setDob("");
+            setLicenseState("");
+            setLicenseNumber("");
+            setSelectedValue("");
+            setExpyear("");
+            setExpmonth("");
+            setInformId("");
+
+            fetchdriver();
+            setIsSectionVisible(true);
+
+            // Display success notification
+            openNotification("success", deleteId ? "Driver Updated Successfully" : "Driver Created Successfully");
+          } else {
+            // Display error notification
+            openNotification("error", deleteId ? "Error Updating Driver" : "Error Creating Driver", res.data.error);
+          }
+        })
+        .catch((error) => {
+          console.error(deleteId ? "Error updating driver:" : "Error creating driver:", error);
+
+          // Display error notification
+          openNotification("error", deleteId ? "Error Updating Driver" : "Error Creating Driver", "An unexpected error occurred.");
+        });
+    } else {
+      openNotification("error","  Please Fill all the blanks" );
+    }
+  };
   return (
     <>
     <div className="small-screen-header">
@@ -176,7 +274,12 @@ const gotonext =()=>{
                 <td className="tabltd">{row.fullName}</td>
                 <td>{row.licenseNumber}</td>
                 <td>
-                  <button className='btn' onClick={() => handleDelete(row._id)}><i class="fa-solid fa-user-xmark"></i></button>
+                  <button className='btn' onClick={() => handleUpdate(row._id)}>
+                    <i className="fa-solid fa-pencil"></i>
+                  </button>
+                  <button className='btn' onClick={() => handleDelete(row._id)}>
+                    <i className="fa-solid fa-user-xmark"></i>
+                  </button>
                 </td>
               </tr>
             ))}
@@ -248,13 +351,13 @@ const gotonext =()=>{
               </label>
               <div className='namepart col-sm-8'>
               <div className="fnam">
-                <input type="text" className="form-control" id="fullName" placeholder="Full Name" onChange={(e)=>{setFullName(e.target.value)}} />
+                <input type="text" className="form-control" id="fullName" placeholder="Full Name" value={fullName} onChange={(e)=>{setFullName(e.target.value)}} />
               </div>
               <div className="nmi">
-                <input type="text" className="form-control" id="middleInitial" placeholder="MI" onChange={(e)=>{setMiddleInitial(e.target.value)}}/>
+                <input type="text" className="form-control" id="middleInitial" placeholder="MI" value={middleInitial} onChange={(e)=>{setMiddleInitial(e.target.value)}}/>
               </div>
               <div className="lnam">
-                <input type="text" className="form-control" id="lastName" placeholder="Last Name" onChange={(e)=>{setLastName(e.target.value)}} />
+                <input type="text" className="form-control" id="lastName" placeholder="Last Name" value={lastName} onChange={(e)=>{setLastName(e.target.value)}} />
               </div>
               </div>
              
@@ -263,21 +366,21 @@ const gotonext =()=>{
             <div class="row newdriver align-items-end">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">Date of Birth::</label>
   <div class="col-sm-8">
-    <input type="date" class="form-control " onChange={(e)=>{setDob(e.target.value)}}   placeholder="04/28/1995"/>
+    <input type="date" class="form-control " value={dob} onChange={(e)=>{setDob(e.target.value)}}   placeholder="04/28/1995"/>
   </div>
 
 </div>
 <div class="row newdriver align-items-end">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">Driver’s License State:</label>
   <div class="col-sm-8">
-    <input type="text" class="form-control " onChange={(e)=>{setLicenseState(e.target.value)}}  placeholder="Maryland"/>
+    <input type="text" class="form-control " value={licenseState} onChange={(e)=>{setLicenseState(e.target.value)}}  placeholder="Maryland"/>
   </div>
 
 </div>
 <div class="row newdriver align-items-end">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">License Number:</label>
   <div class="col-sm-8">
-    <input type="text" class="form-control " onChange={(e)=>{setLicenseNumber(e.target.value)}}  placeholder="FRB34JU80005"/>
+    <input type="text" class="form-control " value={licenseNumber} onChange={(e)=>{setLicenseNumber(e.target.value)}}  placeholder="FRB34JU80005"/>
   </div>
 
 </div>
@@ -320,10 +423,10 @@ const gotonext =()=>{
      <div className="row align-items-end newdriver">
       <label htmlFor="colFormLabelLg" className="col-sm-3 lableforinput">CDL Experience:</label>
       <div className="col-sm-2 cdlexp">
-        <input type="text" className="form-control" onChange={(e) => { setExpyear(e.target.value) }} placeholder="Year" />
+        <input type="text" className="form-control" value={expyear} onChange={(e) => { setExpyear(e.target.value) }} placeholder="Year" />
       </div>
       <div className="col-sm-2">
-        <input type="text" className="form-control"  onChange={(e) => { setExpmonth(e.target.value) }} placeholder="Month" />
+        <input type="text" className="form-control" value={expmonth} onChange={(e) => { setExpmonth(e.target.value) }} placeholder="Month" />
       </div>
     </div>  
     </>
