@@ -16,7 +16,7 @@ import LoginPage from './Adminside/Login';
 import DashboardPage from './Adminside/DashboardPage';
 import { useState } from 'react';
 import DetailPage from './Adminside/Detailpage';
-
+import Lastpage from './Paltaforma/Lastpage';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -33,7 +33,7 @@ function App() {
         <Route path='/' element={<Tester />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-
+        <Route path='/done' element={<Lastpage/>}/>
         <Route
           path="/dashboard"
           element={

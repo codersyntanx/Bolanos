@@ -5,8 +5,9 @@ import truck3 from "./images/Rectangle 34627021.png"
 import truck4 from "./images/Rectangle 34627022.png"
 import truck5 from "./images/Rectangle 34627023.png"
 import unknown from "./images/unknown.png"
-import Modal from "./Modal"
+import Modals from "./Modal"
 import "./Table.css"
+import { Modal } from 'antd';
 import { stepperClasses } from "@mui/material";
 import {notification } from 'antd';
 
@@ -148,28 +149,39 @@ const fetchvehicle =()=>{
   }
 }
 
-  const handleDelete = async (id) => {
-    try {
-      const response = await axios.delete(`https://serverforbce.vercel.app/api/deletebyid/${id}`);
-      
-      if (response.data.status === true) {
-        // Remove the deleted vehicle from the table
-        setVehicletable(prevTable => prevTable.filter(row => row._id !== id));
-        openNotification('success', 'Vehicle Deleted Successfully');
+const [modalVisible, setModalVisible] = useState(false);
+const [deleteId, setDeleteId] = useState(null);
 
-      } else {
-        console.error('Error deleting vehicle:', response.data.error);
-        // Handle the error, e.g., display an error message to the user
-        openNotification('error', 'Error Deleting Vehicle', response.data.error);
+const handleDelete = async (id) => {
+  setDeleteId(id);
+  setModalVisible(true);
+};
+const handleModalCancel = () => {
+  setModalVisible(false);
+  setDeleteId(null);
+};
+const handleModalOk = async () => {
+  try {
+    const response = await axios.delete(`https://serverforbce.vercel.app/api/deletebyid/${deleteId}`);
+    
+    if (response.data.status === true) {
+      // Remove the deleted vehicle from the table
+      setVehicletable(prevTable => prevTable.filter(row => row._id !== deleteId));
+      openNotification('success', 'Vehicle Deleted Successfully');
 
-      }
-    } catch (error) {
-      console.error('Error deleting vehicle:', error);
+    } else {
+      console.error('Error deleting vehicle:', response.data.error);
       // Handle the error, e.g., display an error message to the user
-      openNotification('error', 'Error Deleting Vehicle',"Any unexpected Error Occur");
-
+      openNotification('error', 'Error Deleting Vehicle', response.data.error);
     }
-  };
+  } catch (error) {
+    console.error('Error deleting vehicle:', error);
+    // Handle the error, e.g., display an error message to the user
+    openNotification('error', 'Error Deleting Vehicle',"Any unexpected Error Occur");
+  } finally {
+    setModalVisible(false);
+  }
+};
   const openNotification = (type, message, description = '') => {
     notification[type]({
       message,
@@ -317,7 +329,9 @@ const fetchvehicle =()=>{
                 <button className="btn" onClick={() => handleEdit(row)}>
   <i className="fa-regular fa-pen-to-square"></i>
 </button>
-                  <button className="btn" onClick={() => handleDelete(row._id)}><i class="fa-solid fa-trash"></i></button>
+<button className="btn" onClick={() => handleDelete(row._id)}>
+<i class="fa-solid fa-trash-can"></i>
+</button>
                 </td>
               </tr>
             ))}
@@ -493,7 +507,7 @@ const fetchvehicle =()=>{
         )
       }
 
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
+      <Modals isOpen={isModalOpen} onClose={closeModal}>
         <div className="truck_wrap gap-4">
           {truckData.map((truck, index) => (
             <div key={index} className={`truck_border ${isTruckSelected(truck.title) ? 'selected' : ''}`} onClick={() => handleTruckClick(truck.title)}>
@@ -513,8 +527,15 @@ const fetchvehicle =()=>{
         </div>
 
 
+      </Modals>
+      <Modal
+        title="Confirm Deletion"
+        visible={modalVisible}
+        onOk={handleModalOk}
+        onCancel={handleModalCancel}
+      >
+        <p>Are you sure you want to delete this vehicle?</p>
       </Modal>
-
     </>
   );
 }

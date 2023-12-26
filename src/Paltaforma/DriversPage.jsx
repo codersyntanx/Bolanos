@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { notification } from 'antd';
+import { notification,Modal } from 'antd';
 
 function DriversPage({ changeIcon, handleNavigationClick }) {
   const [isSectionVisible, setIsSectionVisible] = useState(true);
@@ -15,6 +15,9 @@ function DriversPage({ changeIcon, handleNavigationClick }) {
   const [expyear, setExpyear]=useState("")
   const [expmonth, setExpmonth]=useState("")
   const [informId, setInformId] = useState("")
+  const [modalVisible, setModalVisible] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+
 
   const handleRadioChange = (value) => {
     setSelectedValue(value);
@@ -47,6 +50,10 @@ const fetchdriver =()=>{
       });
   }
 }
+const handleDelete = async (id) => {
+  setDeleteId(id);
+  setModalVisible(true);
+};
 const handleButtonClick = () => {
   if (
     fullName &&
@@ -95,13 +102,13 @@ const handleButtonClick = () => {
     alert('Please fill in all required fields.');
   }
 };
-const handleDelete = async (id) => {
+const handleModalOk = async () => {
   try {
-    const response = await axios.delete(`https://serverforbce.vercel.app/api/deletedriverbyid/${id}`);
+    const response = await axios.delete(`https://serverforbce.vercel.app/api/deletedriverbyid/${deleteId}`);
 
     if (response.data.status === true) {
       // Remove the deleted driver from the table
-      setVehicletable((prevTable) => prevTable.filter((row) => row._id !== id));
+      setVehicletable((prevTable) => prevTable.filter((row) => row._id !== deleteId));
       openNotification('success', 'Driver Removed Successfully');
     } else {
       console.error('Error deleting driver:', response.data.error);
@@ -110,6 +117,8 @@ const handleDelete = async (id) => {
   } catch (error) {
     console.error('Error deleting driver:', error);
     openNotification('error', 'A unexpected Error Occur');
+  } finally {
+    setModalVisible(false);
   }
 };
 const openNotification = (type, message, description = '') => {
@@ -117,6 +126,10 @@ const openNotification = (type, message, description = '') => {
     message,
     description,
   });
+};
+const handleModalCancel = () => {
+  setModalVisible(false);
+  setDeleteId(null);
 };
 const gotonext =()=>{
   changeIcon('fa-regular fa-circle-check green-icon');
@@ -180,12 +193,20 @@ const gotonext =()=>{
                             <tr className="border-bottom">
                               <td className="table_heading_secction">Driver Name</td>
                               <td className="table_description">{row.fullName}</td>
+
                             </tr>
                             <tr >
                               <td className="table_heading_secction">License Number</td>
                               <td className="table_description tabltd">
                                 {row.licenseNumber}</td>
-                            </tr>
+                            
+                            </tr> 
+                            <tr>
+                            <td className="table_heading_secction">Action</td>
+                               <td>
+                  <button className='btn tabltd' onClick={() => handleDelete(row._id)}><i class="fa-solid fa-user-xmark"></i></button>
+                </td>
+                              </tr>  
                           </table>
                         </>
                       )
@@ -280,7 +301,6 @@ const gotonext =()=>{
         Yes
       </label>
 
-      {/* "No" radio button */}
       <input
         className="mx-2 inputfield"
         type="radio"
@@ -343,6 +363,14 @@ const gotonext =()=>{
           
         )}
       </div>
+      <Modal
+        title="Confirm Deletion"
+        visible={modalVisible}
+        onOk={handleModalOk}
+        onCancel={handleModalCancel}
+      >
+        <p>Are you sure you want to remove this driver?</p>
+      </Modal>
     </>
   );
 }

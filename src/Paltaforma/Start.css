@@ -19,7 +19,7 @@ justify-content: center;
 }
 .Page_Name{
     color: #30577E;
-/* font-family: Inter; */
+font-family: Inter;
 font-size: 24px;
 font-style: normal;
 font-weight: 700;
@@ -29,7 +29,7 @@ letter-spacing: -0.24px;
 }
 .first_name{
     color: #FFF;
-/* font-family: Inter; */
+font-family: Inter;
 font-size: 24px;
 font-style: normal;
 font-weight: 600;
@@ -37,7 +37,7 @@ line-height: 100%; /* 24px */
 }
 .outof{
     color: #FFF;
-/* font-family: Inter; */
+font-family: Inter;
 font-size: 18px;
 font-style: normal;
 font-weight: 600;
@@ -46,14 +46,14 @@ margin-top: 8px;
 }
 .next-step{
     color: #2A4764;
-/* font-family: Inter; */
+font-family: Inter;
 font-size: 14px;
 font-style: normal;
 font-weight: 300;
 }
 .vehicles{
     color: #30577E;
-/* font-family: Inter; */
+font-family: Inter;
 font-size: 18px;
 font-style: normal;
 font-weight: 800;
