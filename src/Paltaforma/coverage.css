@@ -255,6 +255,9 @@ letter-spacing: 0.3px;
    
 }
 @media (max-width: 435px){
+    ..coverage_first{
+        padding: 20px;
+    }
     .customer_slect{
         width: 100%;
     }
