@@ -199,7 +199,6 @@ const gotonext =()=>{
                               <td className="table_heading_secction">License Number</td>
                               <td className="table_description tabltd">
                                 {row.licenseNumber}</td>
-                            
                             </tr> 
                             <tr>
                             <td className="table_heading_secction ">Action</td>

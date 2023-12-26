@@ -8,7 +8,7 @@ import truck4 from "./images/flatebed.png"
 import unknown from "./images/unknown.png"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
-
+import Select from 'react-select';
 function CoveragesPage({ changeIcon,handleNavigationClick }){
     const [bolidly, setBolidly]=useState(true)
     const [uninsured, setUninsured]=useState("")
@@ -98,19 +98,7 @@ const updatecomprehensive = (vehicleId, value) => {
 
 
 
-const handleinsured = (e) => {
-  const selectedValue = e.target.value;
 
-  setUninsured(selectedValue);
-
-  if (selectedValue === "$100k") {
-    setDamage("1000");
-  } else if (selectedValue === "$85k") {
-    setDamage("500");
-  } else if (selectedValue === "$60k") {
-    setDamage("250");
-  }
-};
 
 
 useEffect(() => {
@@ -134,8 +122,55 @@ useEffect(() => {
       });
   }
 }, [informId]);
-console.log(vehicletable)
-    return(
+const options = [
+  { value: '$300,000 CSL', label: '$300,000 CSL' },
+  { value: '$750,000 CSL', label: '$750,000 CSL' },
+  { value: '$1,000,000 CSL', label: '$1,000,000 CSL' },
+  { value: '$2,000,000 CSL', label: '$2,000,000 CSL' },
+];
+const nontruck = [
+  { value: '$300,000 CSL', label: '$300,000 CSL' },
+  { value: '$750,000 CSL', label: '$750,000 CSL' },
+  { value: '$1,000,000 CSL', label: '$1,000,000 CSL' },
+  { value: '$2,000,000 CSL', label: '$2,000,000 CSL' },
+];
+const handletrucking= (selectedOption) => {
+  setBodilyinsurance(selectedOption.value);
+
+};
+const handleChange = (selectedOption) => {
+  setNontrucking(selectedOption.value);
+
+};
+
+const insured = [
+  { value: '$100k', label: '$100k' },
+  { value: '$85k', label: '$85k' },
+  { value: '$60k', label: '$60k' },
+
+];
+
+const handleinsured = (selectedOption) => {
+  setBodilyinsurance(selectedOption.value);
+
+  // Use selectedOption instead of selectedValue
+  if (selectedOption.value === "$100k") {
+    setDamage("1000");
+  } else if (selectedOption.value === "$85k") {
+    setDamage("500");
+  } else if (selectedOption.value === "$60k") {
+    setDamage("250");
+  }
+};
+const protect = [
+  { value: '2500', label: '2500' },
+  { value: '2500 guest pip', label: '2500 guest pip' },
+];
+const handleprotect= (selectedOption) => {
+  setPersonpro(selectedOption.value);
+
+};
+return(
         <>
          <div className="small-screen-header">
            <div className="Start_Nav d-flex">
@@ -165,14 +200,12 @@ console.log(vehicletable)
         <div className="col-md-4">
         Bodily injury and Property Damage Liability
           </div>
-          <div className="col-md-5">
-             <select className="customer_slect" onChange={(e)=>{setBodilyinsurance(e.target.value)}}>
-                <option className="optionval">$300,000 CSL</option>
-                <option className="optionval">$750,000 CSL</option>
-                <option className="optionval">$1,000,000 CSL</option>
-                <option className="optionval">$2,000,000 CSL</option>
-
-             </select>
+          <div className="col-md-5 ">
+          <Select
+        // className="customer_slect"
+        options={options}
+        onChange={handleChange}
+      />
 
 
           </div>
@@ -195,13 +228,11 @@ console.log(vehicletable)
         Bodily injury and Property Damage Liability
           </div>
           <div className="col-md-5">
-             <select className="customer_slect" onChange={(e)=>{setNontrucking(e.target.value)}}>
-                <option className="optionval">$750k CSL</option>
-                <option className="optionval">$700k CSL</option>
-                <option className="optionval">$600k CSL</option>
-                <option className="optionval">$550k CSL</option>
-
-             </select>
+          <Select
+        // className="customer_slect"
+        options={nontruck}
+        onChange={handletrucking}
+      />
           
 
           </div>
@@ -216,14 +247,14 @@ console.log(vehicletable)
       
       <div className="row bluediv2 align-items-center">
   <div className="col-md-4">
-    Uninsured/underinsured Motorist Bodily injury* {uninsured}
+    Uninsured/underinsured Motorist Bodily injury*
   </div>
   <div className="col-md-5">
-    <select className="customer_slect" onChange={handleinsured}>
-      <option className="optionval">$100k</option>
-      <option className="optionval">$85k</option>
-      <option className="optionval">$60k</option>
-    </select>
+  <Select
+        // className="customer_slect"
+        options={insured}
+        onChange={handleinsured}
+      />
   </div>
 </div>
 
@@ -240,13 +271,11 @@ console.log(vehicletable)
         Personal injury Protection?
           </div>
           <div className="col-md-5">
-             <select className="customer_slect" onChange={(e)=>{setPersonpro(e.target.value)}}>
-                <option className="optionval">$ 2,500 Guest PIP</option>
-                <option className="optionval">$700k CSL</option>
-                <option className="optionval">$600k CSL</option>
-                <option className="optionval">$550k CSL</option>
-
-             </select>
+          <Select
+        // className="customer_slect"
+        options={protect}
+        onChange={handleprotect}
+      />
           
 
           </div>
