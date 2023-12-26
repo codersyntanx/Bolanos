@@ -505,7 +505,7 @@ const [coverage,setCoverage]=useState([])
                 <div className='col-md-6'>
                      <div className='detail-item'>
                 <div>
-                  <strong>First Name :</strong>
+                  <strong> Bodily injury and Property Damage Liability :</strong>
                 </div>
                 <div>{vehicle.uninsured}</div>
               </div>

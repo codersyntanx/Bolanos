@@ -22,9 +22,9 @@ function CoveragesPage({ changeIcon,handleNavigationClick }){
     const [vehicletable, setVehicletable] = useState([])
     const [informId, setInformId] = useState("")
 const navigate = useNavigate()
- 
+
     const postData = () => {
-      if (!uninsured || !bodilyinsurance || !personpro) {
+      if ( !bodilyinsurance || !personpro) {
         console.error('All fields must be filled');
         return;
       }

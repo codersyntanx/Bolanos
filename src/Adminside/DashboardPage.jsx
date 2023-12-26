@@ -40,7 +40,7 @@ const DashboardPage = () => {
           const messageInfo = await fetchMessage(item._id);
           return {
             ...item,
-            messageLength: messageInfo.length,
+            messageLength: messageInfo.length + " " + "times",
             lastMessagePreview: messageInfo.lastMessage
               ? `${messageInfo.lastMessage.slice(0, 20)}...`
               : 'Not connected yet',
@@ -117,10 +117,10 @@ const DashboardPage = () => {
       key: 'address',
     },
     {
-      title: 'Message Length',
+      title: 'Interaction Duration',
       dataIndex: 'messageLength',
       key: 'messageLength',
-    },
+    },    
     {
       title: 'Last Message Preview',
       dataIndex: 'lastMessagePreview',
@@ -129,7 +129,6 @@ const DashboardPage = () => {
         <Tag color="magenta">{record.lastMessagePreview}</Tag>
       ),
     },
-    
     {
       title: 'Action',
       key: 'action',
