@@ -3,7 +3,10 @@ import "./Start.css"
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Spin } from 'antd';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
+const apiKey = 'AIzaSyCiHcISCPplB5kl6lAG4zzkRg6uTHvMc8A';
 function StartPage({ changeIcon, handleNavigationClick }) {
     const [selectedOption, setSelectedOption] = useState(null);
     const [bussinesstype, setBussinesstype] = useState(null);
@@ -21,7 +24,20 @@ function StartPage({ changeIcon, handleNavigationClick }) {
     const [lastPart, setLastPart] = useState('');
     const [loading, setLoading] = useState(false);
    
-
+    const onSelect = async (value) => {
+        const results = await geocodeByAddress(value);
+        const latLng = await getLatLng(results[0]);
+        // Assuming onSelect is a function to handle the selected location
+        handleSelect({ address: value, latLng });
+        setAddress(value);
+      };
+      const handleSelect = async (value) => {
+        const results = await geocodeByAddress(value);
+        const latLng = await getLatLng(results[0]);
+        onSelect({ address: value, latLng });
+        setAddress(value);
+      };
+    
     const handleRadioChange = (event) => {
         setSelectedOption(event.target.value);
     };
@@ -183,11 +199,35 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                         </div>
                     </div>
                     <div className="name-part">
-                        <p className="name-txt">Street Address</p>
-                        <div className="name-fields">
-                            <input class="form-control form-control-lg full-field" type="text" placeholder="Home address" aria-label=".form-control-lg example" onChange={(e)=>{setAddress(e.target.value)}} />
-                        </div>
+        <p className="name-txt">Street Address</p>
+        <div className="name-fields">
+          <PlacesAutocomplete
+            value={address}
+            onChange={(value) => setAddress(value)}
+            onSelect={onSelect} 
+          >
+            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+              <div>
+                <input
+                  {...getInputProps({
+                    placeholder: 'Home address',
+                    className: 'form-control form-control-lg full-field',
+                  })}
+                />
+                <div>
+                  {loading && <div>Loading...</div>}
+                  {suggestions.map((suggestion) => (
+                    <div key={suggestion.placeId} {...getSuggestionItemProps(suggestion)}>
+                      {suggestion.description}
                     </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </PlacesAutocomplete>
+        </div>
+      </div>
+
                     <div className="name-part">
                         <p className="name-txt">Zip Code:</p>
                         <div className="name-fields">
