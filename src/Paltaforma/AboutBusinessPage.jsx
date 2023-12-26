@@ -82,7 +82,7 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
         <span className="business_heading">About The  Business</span>
         <div className="row align-items-center abt-bsns">
           <div className="col-md-4 forlbl">
-            Customer Email Address ?<span>(Optional)</span>
+          Business Email Address
           </div>
           <div className="col-md-5 formail">
             <input
