@@ -94,7 +94,7 @@ justify-content: center;
     margin-top: -10px;
   }
   .btn-postion{
-    margin-left: 0px;
+    margin-left: auto;
   }
   .modal-content{
     max-height: 100vh; /* Adjust as needed */
