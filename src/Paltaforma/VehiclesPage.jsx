@@ -7,8 +7,10 @@ import truck5 from "./images/Rectangle 34627023.png"
 import unknown from "./images/unknown.png"
 import Modals from "./Modal"
 import "./Table.css"
-import { Modal } from 'antd';
+import { Modal,Skeleton } from 'antd';
 import {notification } from 'antd';
+import { Modal as AntModal } from 'antd';
+
 
 import axios from "axios";
 function VehiclesPage({ changeIcon, handleNavigationClick }) {
@@ -28,18 +30,42 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
   const [informId, setInformId] = useState("")
   const[updatevehicle,setUpdatevehicle]=useState(false)
   const[vehicleid,setVehicleid]=useState("")
+  const [isNewModalVisible, setNewModalVisible] = useState(false);
+  const [loading,setLoading]=useState(false)
+  const openNewModal = () => {
+    setNewModalVisible(true);
+  };
+  
+  const closeNewModal = () => {
+    setNewModalVisible(false);
+  };
+  
   const handleRadio = (event) => {
     setVehicalby(event.target.value);
   };
 
-const lookupvinnumber =()=>{
-  axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinExtended/${Vin}?format=json`)
-  .then(res=>{
-    setMake(res.data.Results[7].Value)
-    setYear(res.data.Results[9].Value)
-  setModel(res.data.Results[10].Value)
-  })
-}
+  const lookupvinnumber = () => {
+    // Set loading to true when the function starts
+    setLoading(true);
+    openNewModal()
+    // Perform the API request
+    axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinExtended/${Vin}?format=json`)
+      .then(res => {
+        // Handle the response data
+        setMake(res.data.Results[7].Value);
+        setYear(res.data.Results[9].Value);
+        setModel(res.data.Results[10].Value);
+      })
+      .catch(error => {
+        // Handle errors if needed
+        console.error('Error fetching VIN information:', error);
+      })
+      .finally(() => {
+        // Set loading to false when the request completes (either success or failure)
+        setLoading(false);
+      });
+  };
+  
 
   const handleCoverage = (event) => {
     setNeedCoverage(event.target.value);
@@ -496,6 +522,27 @@ const handleModalOk = async () => {
       >
         <p>Are you sure you want to delete this vehicle?</p>
       </Modal>
+      <AntModal
+  title=" Vin "
+  open={isNewModalVisible}
+  // onOk={/* Handle OK action */}
+  onCancel={closeNewModal}
+>
+ {
+  loading ? (<>
+  <Skeleton active />
+  </>):(
+    <div className="row">
+  <div className="col-md-6">
+    <strong>Year: </strong>{year} <br></br>
+    <strong>make:</strong> {make}<br></br>
+    <strong>model:</strong>  {model}
+  </div>
+</div>
+  )
+ }
+
+</AntModal>
     </>
   );
 }
