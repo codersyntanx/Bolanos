@@ -76,7 +76,10 @@ color: white;
 .activateding:hover a{
     color: white;
 }
-
+.start-hero-section input:focus{
+    box-shadow: none;
+    border: none;
+}
 .nav-link{
     color: #30577E;
 font-family: Inter;

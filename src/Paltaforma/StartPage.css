@@ -14,7 +14,6 @@
 .numberrow{
     align-items: baseline;
 }
-/* Add these styles to your CSS file */
 
 .address-autocomplete {
     position: relative;
@@ -38,6 +37,23 @@
     max-height: 200px;
     overflow-y: auto;
   }
+  
+  .suggestions-container::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  .suggestions-container::-webkit-scrollbar-track {
+    background: white;
+  }
+  
+  .suggestions-container::-webkit-scrollbar-thumb {
+    background: #30577E;
+  }
+  
+  .suggestions-container::-webkit-scrollbar-thumb:hover {
+    background: #30577E;
+  }
+  
   
   .suggestion {
     padding: 10px;

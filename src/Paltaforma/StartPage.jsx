@@ -2,7 +2,7 @@ import './StartPage.css'
 import "./Start.css"
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Spin } from 'antd';
+import { Spin,Skeleton  } from 'antd';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 function StartPage({ changeIcon, handleNavigationClick }) {
@@ -21,7 +21,8 @@ function StartPage({ changeIcon, handleNavigationClick }) {
     const [middlePart, setMiddlePart] = useState('');
     const [lastPart, setLastPart] = useState('');
     const [loading, setLoading] = useState(false);
-   
+    const [appartment, setAppartment] = useState('');
+
     const searchOptions = {
         componentRestrictions: { country: 'us' }, // Restrict suggestions to the United States
       };
@@ -53,7 +54,6 @@ function StartPage({ changeIcon, handleNavigationClick }) {
     const handleButtonClick = () => {
         // Check if all required fields are filled
         setLoading(true);
-    console.log(phonenumber)
         if (
             selectedOption &&
             bussinesstype &&
@@ -64,7 +64,8 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             address &&
             zip &&
             city &&
-            dateofBirth
+            dateofBirth,
+            appartment
         ) {
             // Save data to local storage
             const userData = {
@@ -252,7 +253,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
               })}
             />
             <div className="suggestions-container">
-              {loading && <div>Loading...</div>}
+              {loading && <div> <Skeleton active /></div>}
               {suggestions.map((suggestion) => (
                 <div className='suggestion' key={suggestion.placeId} {...getSuggestionItemProps(suggestion)}>
                   {suggestion.description}
@@ -266,7 +267,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
         </div>
         <div className='col-md-6'>
             <label>Apt/Suite/Other</label>
-            <input className="full-field"/>
+            <input onChange={(e)=>{setAppartment(e.target.value)}} className="full-field"/>
         </div>
       </div>
      
