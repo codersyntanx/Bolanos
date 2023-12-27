@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Spin } from 'antd';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
-const apiKey = 'AIzaSyCiHcISCPplB5kl6lAG4zzkRg6uTHvMc8A';
 function StartPage({ changeIcon, handleNavigationClick }) {
     const [selectedOption, setSelectedOption] = useState(null);
     const [bussinesstype, setBussinesstype] = useState(null);
@@ -24,19 +22,26 @@ function StartPage({ changeIcon, handleNavigationClick }) {
     const [lastPart, setLastPart] = useState('');
     const [loading, setLoading] = useState(false);
    
-    const onSelect = async (value) => {
-        const results = await geocodeByAddress(value);
-        const latLng = await getLatLng(results[0]);
-        // Assuming onSelect is a function to handle the selected location
-        handleSelect({ address: value, latLng });
-        setAddress(value);
+    const searchOptions = {
+        componentRestrictions: { country: 'us' }, // Restrict suggestions to the United States
       };
-      const handleSelect = async (value) => {
-        const results = await geocodeByAddress(value);
-        const latLng = await getLatLng(results[0]);
-        onSelect({ address: value, latLng });
-        setAddress(value);
+      const onSelect = ({ address, latLng }) => {
+        // Handle the selected address and latitude/longitude
+        console.log('Selected address:', address);
+        console.log('Selected coordinates:', latLng);
       };
+     
+  const handleSelect = async (value) => {
+    try {
+      const results = await geocodeByAddress(value, searchOptions);
+      const latLng = await getLatLng(results[0]);
+      onSelect({ address: value, latLng });
+      setAddress(value);
+    } catch (error) {
+      console.error('Error selecting address:', error);
+      // Handle the error (e.g., show a user-friendly message)
+    }
+  };
     
     const handleRadioChange = (event) => {
         setSelectedOption(event.target.value);
@@ -201,11 +206,12 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                     <div className="name-part">
         <p className="name-txt">Street Address</p>
         <div className="address-autocomplete">
-      <PlacesAutocomplete
-        value={address}
-        onChange={(value) => setAddress(value)}
-        onSelect={onSelect}
-      >
+        <PlacesAutocomplete
+          value={address}
+          onChange={(value) => setAddress(value)}
+          onSelect={handleSelect}
+          searchOptions={searchOptions}
+        >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
             <input

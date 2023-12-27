@@ -44,6 +44,9 @@ const navigate = useNavigate()
       axios.post('https://serverforbce.vercel.app/api/postcoverage', data)
         .then((response) => {
           console.log('Data posted successfully:', response.data);
+          axios.post("https://serverforbce.vercel.app/api/notify-quote",{
+            informId
+          })
           navigate("/done")
           localStorage.removeItem("mainid")
         })
