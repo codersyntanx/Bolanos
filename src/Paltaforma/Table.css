@@ -35,7 +35,7 @@ letter-spacing: 0.32px;
 
 .main_table td,
 .main_table th {
-  padding: 10px; 
+  padding-top: 10px; 
 }
 .table_small_screen{
   display: none;

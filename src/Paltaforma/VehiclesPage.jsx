@@ -34,6 +34,15 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
     setVehicalby(event.target.value);
   };
 
+const lookupvinnumber =()=>{
+  axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinExtended/${Vin}?format=json`)
+  .then(res=>{
+    setMake(res.data.Results[7].Value)
+    setYear(res.data.Results[9].Value)
+  setModel(res.data.Results[10].Value)
+  })
+}
+
   const handleCoverage = (event) => {
     setNeedCoverage(event.target.value);
   };
@@ -47,65 +56,10 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
-  // const handleButtonClick = () => {
-  //   // Check if all fields are filled
-  //   const requiredFields = ["selectedTruck", "zipCode", "distance", "needCoverage", "vehicleWorth", "vehicalby", "Vin"];
-  //   const missingFields = [];
-
-  //   // Check if all fields are filled
-  //   requiredFields.forEach(field => {
-  //     if (!eval(field)) { // Use eval to dynamically access properties by name
-  //       missingFields.push(field);
-  //     }
-  //   });
-
-  //   if (missingFields.length > 0) {
-  //     openNotification('error', `Please fill in the following fields before continuing`);
-
-  //     return;
-  //   }
-
-  //   const postData = {
-  //     informId,
-  //     selectedTruck,
-  //     zipCode,
-  //     distance,
-  //     needCoverage,
-  //     vehicleWorth,
-  //     vehicalby,
-  //     year,
-  //     make,
-  //     model,
-  //     Vin,
-  //   };
-
-  //   axios.post("https://serverforbce.vercel.app/api/postvehicle", postData)
-  //     .then(res => {
-  //       if (res.status === 200 && res.data.status === true) {
-  //         // Navigate to the next page
-  //         setIsConfirmed(false)
-  //         fetchvehicle()
-  //         openNotification('success', `Vehical Added Successfully`);
-        
-
-  //       } else {
-  //         console.error("Unexpected server response:", res);
-  //         alert("Error while processing the request. Please try again.");
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.error("Error during request:", error);
-  //       alert("Error during request. Please try again.");
-  //     });
-  // };
-
 const gotonext =()=>{
   changeIcon('fa-regular fa-circle-check green-icon');
   handleNavigationClick('drivers');
 }
-
-
   const truckData = [
     { title: 'Truck Tractor ', image: truck },
     { title: 'Box Truck', image: truck2 },
@@ -115,12 +69,9 @@ const gotonext =()=>{
     { title: 'Trailer', image: unknown },
     { title: 'Other/ Not listed', image: unknown },
   ];
-
-
   const handleTruckClick = (title) => {
     setSelectedTruck(title);
   };
-
   const isTruckSelected = (title) => {
     return selectedTruck === title;
   };
@@ -438,7 +389,7 @@ const handleModalOk = async () => {
                 <input className="text_input" value={Vin} onChange={(e) => { setVin(e.target.value) }} type="text" />
               </div>
               <div className="col-md-3">
-                <button className="btn_vin">
+                <button className="btn_vin" onClick={lookupvinnumber}>
                   Lookup VIN
                 </button>
               </div>
@@ -541,7 +492,7 @@ const handleModalOk = async () => {
       </Modals>
       <Modal
         title="Confirm Deletion"
-        visible={modalVisible}
+        open={modalVisible}
         onOk={handleModalOk}
         onCancel={handleModalCancel}
       >

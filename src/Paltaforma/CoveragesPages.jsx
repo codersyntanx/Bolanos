@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import "./coverage.css"
-import truckdetail from "./images/insurance-truck.png"
 import truck from "./images/Rectangle 34627019.png"
-import truck2 from "./images/box truck.png"
-import truck3 from "./images/cargo.png"
-import truck4 from "./images/flatebed.png"
+import truck2 from "./images/Rectangle 34627020.png"
+import truck3 from "./images/Rectangle 34627021.png"
+import truck4 from "./images/Rectangle 34627022.png"
+import truck5 from "./images/Rectangle 34627023.png"
 import unknown from "./images/unknown.png"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
@@ -124,7 +124,10 @@ useEffect(() => {
         // Handle the error, e.g., display an error message to the user
       });
   }
+  
 }, [informId]);
+
+
 const options = [
   { value: '$300,000 CSL', label: '$300,000 CSL' },
   { value: '$750,000 CSL', label: '$750,000 CSL' },
@@ -361,7 +364,23 @@ return(
         </div>
      </div>
      {
-      vehicletable.map((vehicle)=>{
+  vehicletable.map((vehicle) => {
+    // Assuming there is a selectedTruck property in the vehicle object
+    const selectedTruck = vehicle.selectedTruck;
+
+    // Create an object to map selectedTruck values to corresponding images
+    const truckImages = {
+      'Truck Tractor': truck,
+      'Box Truck': truck2,
+      'Pickup Truck': truck3,
+      'Flatbed Truck': truck4,
+      'Cargo Van': truck5,
+      'Trailer': unknown,
+      'Other/Not listed': unknown,
+    };
+
+    // Get the image source based on the selectedTruck value
+    const truckImageSrc = truckImages[selectedTruck];
         return(
           <>
                <div className="vehicle_coverage">
@@ -370,7 +389,7 @@ return(
         </div>
         <div className="row truck_detail">
             <div className="col-md-4">
-                <img src={truckdetail} alt="your truck" width="100%"/>
+                <img src={truckImageSrc} alt="your truck" width="100%"/>
             </div>
             <div className="col-md-5 ">
             <span className="detailing">2021 Freightliner Casca...</span><br></br>

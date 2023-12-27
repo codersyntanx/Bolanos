@@ -106,13 +106,9 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             setLoading(false); // Ensure loading is set to false in case of an error
         }
     };
-    
-    
-    
     const handlebusinessstype = (type) => {
         setBussinesstype(type)
     }
-
     return (
         <>
             <div className="small-screen-header">
@@ -204,7 +200,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="name-part">
+                    <div className="name-part">
         <p className="name-txt">Street Address</p>
         <div className="address-autocomplete">
         <PlacesAutocomplete
@@ -222,7 +218,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
               })}
             />
             <div className="suggestions-container">
-              {loading && <div>Loading...</div>}
+              {loading && <div> <Skeleton active /></div>}
               {suggestions.map((suggestion) => (
                 <div className='suggestion' key={suggestion.placeId} {...getSuggestionItemProps(suggestion)}>
                   {suggestion.description}
@@ -233,7 +229,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
         )}
       </PlacesAutocomplete>
     </div>
-      </div> */}
+      </div> 
           <div className='row'>
         <div className='col-md-6'>
             <label >Street Address</label>
@@ -296,10 +292,10 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                             <div className='row numberrow'>
                                 <div className='col-md-2'>
                                 <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setAreaCode(e.target.value)}}/>
-                                </div> ─
+                                </div> —
                                 <div className='col-md-2'>
                                 <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setMiddlePart(e.target.value)}}/>
-                                </div>─
+                                </div> —
                                 <div className='col-md-2'>
                                 <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setLastPart(e.target.value)}}/>
                                 </div>
