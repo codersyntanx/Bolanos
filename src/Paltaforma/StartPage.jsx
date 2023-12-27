@@ -203,7 +203,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                             </div>
                         </div>
                     </div>
-                    <div className="name-part">
+                    {/* <div className="name-part">
         <p className="name-txt">Street Address</p>
         <div className="address-autocomplete">
         <PlacesAutocomplete
@@ -232,7 +232,44 @@ function StartPage({ changeIcon, handleNavigationClick }) {
         )}
       </PlacesAutocomplete>
     </div>
+      </div> */}
+          <div className='row'>
+        <div className='col-md-6'>
+            <label >Street Address</label>
+            <div className="address-autocomplete">
+        <PlacesAutocomplete
+          value={address}
+          onChange={(value) => setAddress(value)}
+          onSelect={handleSelect}
+          searchOptions={searchOptions}
+        >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <div>
+            <input
+              {...getInputProps({
+                placeholder: 'Home address',
+                className: 'form-control form-control-lg full-field',
+              })}
+            />
+            <div className="suggestions-container">
+              {loading && <div>Loading...</div>}
+              {suggestions.map((suggestion) => (
+                <div className='suggestion' key={suggestion.placeId} {...getSuggestionItemProps(suggestion)}>
+                  {suggestion.description}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </PlacesAutocomplete>
+    </div>
+        </div>
+        <div className='col-md-6'>
+            <label>Apt/Suite/Other</label>
+            <input className="full-field"/>
+        </div>
       </div>
+     
 
                     <div className="name-part">
                         <p className="name-txt">Zip Code:</p>
@@ -269,7 +306,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
 
                         </div>
                     </div>
-                    
+                
                 </div>
                 <div className="btns_position">
                     <button className="back_button" onClick={() => handleNavigationClick("vehicles")}>
