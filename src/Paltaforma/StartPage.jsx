@@ -200,32 +200,32 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                     </div>
                     <div className="name-part">
         <p className="name-txt">Street Address</p>
-        <div className="name-fields">
-          <PlacesAutocomplete
-            value={address}
-            onChange={(value) => setAddress(value)}
-            onSelect={onSelect} 
-          >
-            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-              <div>
-                <input
-                  {...getInputProps({
-                    placeholder: 'Home address',
-                    className: 'form-control form-control-lg full-field',
-                  })}
-                />
-                <div>
-                  {loading && <div>Loading...</div>}
-                  {suggestions.map((suggestion) => (
-                    <div key={suggestion.placeId} {...getSuggestionItemProps(suggestion)}>
-                      {suggestion.description}
-                    </div>
-                  ))}
+        <div className="address-autocomplete">
+      <PlacesAutocomplete
+        value={address}
+        onChange={(value) => setAddress(value)}
+        onSelect={onSelect}
+      >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <div>
+            <input
+              {...getInputProps({
+                placeholder: 'Home address',
+                className: 'form-control form-control-lg full-field',
+              })}
+            />
+            <div className="suggestions-container">
+              {loading && <div>Loading...</div>}
+              {suggestions.map((suggestion) => (
+                <div className='suggestion' key={suggestion.placeId} {...getSuggestionItemProps(suggestion)}>
+                  {suggestion.description}
                 </div>
-              </div>
-            )}
-          </PlacesAutocomplete>
-        </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </PlacesAutocomplete>
+    </div>
       </div>
 
                     <div className="name-part">
