@@ -2,50 +2,83 @@ import './StartPage.css'
 import "./Start.css"
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Spin,Skeleton  } from 'antd';
+import { Spin, Skeleton } from 'antd';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-
+import Select from 'react-select';
+import { Modal,Input,notification } from 'antd';
 function StartPage({ changeIcon, handleNavigationClick }) {
     const [selectedOption, setSelectedOption] = useState(null);
     const [bussinesstype, setBussinesstype] = useState(null);
     const [fullname, setFullname] = useState("")
-    const [middlename,setMiddlename]= useState("")
-    const [lastname,setLastname]= useState("")
-    const [suffix,setSuffix]= useState("")
-    const [address,setAddress]= useState("")
-    const [zip,setZip]= useState("")
-    const [city,setCity]= useState("")
-    const [dateofBirth,setDateofBirth]= useState("")
-    const [phonenumber,setPhonenumber]= useState("")
+    const [middlename, setMiddlename] = useState("")
+    const [lastname, setLastname] = useState("")
+    const [suffix, setSuffix] = useState("")
+    const [address, setAddress] = useState("")
+    const [zip, setZip] = useState("")
+    const [city, setCity] = useState("")
+    const [dateofBirth, setDateofBirth] = useState("")
+    const [phonenumber, setPhonenumber] = useState("")
     const [areaCode, setAreaCode] = useState('');
     const [middlePart, setMiddlePart] = useState('');
     const [lastPart, setLastPart] = useState('');
     const [loading, setLoading] = useState(false);
     const [appartment, setAppartment] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const[usdotnum,setUsdotnum]=useState("")
+    const handleModalCancel = () => {
+        if(usdotnum != ""){
+             setModalVisible(false);
+        }else{
+            openNotification('error', 'USDOT Input must be Filled');
 
+        }
+       
+      };
+      const handleModalOk = async (e) => {
+        if(usdotnum != ""){
+            setModalVisible(false);
+            openNotification('success', 'USDOT is added Successfully');
+       }else{
+           openNotification('error', 'USDOT Input must be Filled');
+
+       }
+      };
+
+
+      const openNotification = (type, message, description = '') => {
+        notification[type]({
+          message,
+          description,
+        });
+      };
     const searchOptions = {
         componentRestrictions: { country: 'us' }, // Restrict suggestions to the United States
-      };
-      const onSelect = ({ address, latLng }) => {
+    };
+    const onSelect = ({ address, latLng }) => {
         // Handle the selected address and latitude/longitude
         console.log('Selected address:', address);
         console.log('Selected coordinates:', latLng);
-      };
-     
-  const handleSelect = async (value) => {
-    try {
-      const results = await geocodeByAddress(value, searchOptions);
-      const latLng = await getLatLng(results[0]);
-      onSelect({ address: value, latLng });
-      setAddress(value);
-    } catch (error) {
-      console.error('Error selecting address:', error);
-      // Handle the error (e.g., show a user-friendly message)
-    }
-  };
-    
+    };
+
+    const handleSelect = async (value) => {
+        try {
+            const results = await geocodeByAddress(value, searchOptions);
+            const latLng = await getLatLng(results[0]);
+            onSelect({ address: value, latLng });
+            setAddress(value);
+        } catch (error) {
+            console.error('Error selecting address:', error);
+            // Handle the error (e.g., show a user-friendly message)
+        }
+    };
+
     const handleRadioChange = (event) => {
         setSelectedOption(event.target.value);
+        if (event.target.value === 'Yes') {
+            setModalVisible(true);
+          } else {
+            setModalVisible(false);
+          }
     };
     useEffect(() => {
         const formattedPhoneNumber = `${areaCode}-${middlePart}-${lastPart}`;
@@ -64,8 +97,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             address &&
             zip &&
             city &&
-            dateofBirth,
-            appartment
+            dateofBirth
         ) {
             // Save data to local storage
             const userData = {
@@ -79,9 +111,11 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                 zip,
                 city,
                 dateofBirth,
-                phonenumber
+                phonenumber,
+                appartment,
+                usdotnum
             };
-    
+
             axios.post("https://serverforbce.vercel.app/api/postinformation", userData)
                 .then(res => {
                     if (res.status === 200 && res.data.status === true) {
@@ -106,9 +140,22 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             setLoading(false); // Ensure loading is set to false in case of an error
         }
     };
-    const handlebusinessstype = (type) => {
-        setBussinesstype(type)
-    }
+
+
+    const options = [
+        { value: 'Contractor', label: 'Contractor' },
+        { value: 'Dirt.Sand and Gravel', label: 'Dirt.Sand and Gravel' },
+        { value: 'Landscaper', label: 'Landscaper' },
+        { value: 'Towing', label: 'Towing' },
+        { value: 'Trucker', label: 'Trucker' },
+
+    ];
+    const handleChange = (selectedOption) => {
+        setBussinesstype(selectedOption.value);
+
+    };
+
+
     return (
         <>
             <div className="small-screen-header">
@@ -131,7 +178,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                 <p className="usdotcontent">The number is registered to the your business and displayed on the side of the vehicle. Any business  type could have a USDOT registration.</p>
                 <div className='radiobtn-part'>
                     <form className='radiobtns'>
-                        <div className='radiob' style={{width:"34%"}}>
+                        <div className='radiob' style={{ width: "34%" }}>
                             <input
                                 type="radio"
                                 id="example1"
@@ -172,18 +219,15 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             </section>
             <section className='business-type-section'>
                 <p className="business-type-heading">Most Common Business Types:</p>
-                <div className='business-type row'>
-                <input className='col-md-6 business-type-btn busines-type-link' placeholder='Other type of business' value={bussinesstype} onChange={(e) => { handlebusinessstype(e.target.value) }} ></input>
-                    <div className='col-md-6 busnes-types-outer'>
-                    <span className='busnes-types' onClick={() => { handlebusinessstype("Contractor") }}>Contractor</span>
-                    <span className='busnes-types' onClick={() => { handlebusinessstype("Dirt.Sand and Gravel") }}>Dirt.Sand and Gravel</span>
-                    <span className='busnes-types' onClick={() => { handlebusinessstype("Landscaper") }}>Landscaper</span>
-                    <span className='busnes-typess' onClick={() => { handlebusinessstype("Towing") }}>Towing</span>
-                    <span className='busnes-typess' onClick={() => { handlebusinessstype("Trucker") }}>Trucker</span>
-                    </div>
-                   
+                <div className='business-type '>
+                    <Select
+                        styles={{ borderRadius: "20px" }}
+                        options={options}
+                        onChange={handleChange}
+                    />
+
                 </div>
-              
+
                 <p className="business-owner-info">Home address/personal information of the business owner</p>
 
                 <div className='owner-info-form'>
@@ -191,99 +235,72 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                         <p className="name-txt">Business owner name</p>
                         <div className="name-fields">
                             <div className="inner-part">
-                                <input class="form-control form-control-lg full-name" type="text" placeholder="Full Name" aria-label=".form-control-lg example" onChange={(e)=>{setFullname(e.target.value)}}/>
-                                <input class="form-control form-control-lg mi" type="text" placeholder="MI" aria-label=".form-control-lg example"  onChange={(e)=>{setMiddlename(e.target.value)}} />
+                                <input class="form-control form-control-lg full-name" type="text" placeholder="Full Name" aria-label=".form-control-lg example" onChange={(e) => { setFullname(e.target.value) }} />
+                                <input class="form-control form-control-lg mi" type="text" placeholder="MI" aria-label=".form-control-lg example" onChange={(e) => { setMiddlename(e.target.value) }} />
                             </div>
                             <div className="inner-part">
-                                <input class="form-control form-control-lg last-name" type="text" placeholder="Last Name" aria-label=".form-control-lg example"  onChange={(e)=>{setLastname(e.target.value)}}/>
-                                <input class="form-control form-control-lg sufix" type="text" placeholder="Suffix" aria-label=".form-control-lg example"  onChange={(e)=>{setSuffix(e.target.value)}}/>
+                                <input class="form-control form-control-lg last-name" type="text" placeholder="Last Name" aria-label=".form-control-lg example" onChange={(e) => { setLastname(e.target.value) }} />
+                                <input class="form-control form-control-lg sufix" type="text" placeholder="Suffix" aria-label=".form-control-lg example" onChange={(e) => { setSuffix(e.target.value) }} />
                             </div>
                         </div>
                     </div>
                     <div className="name-part">
-        <p className="name-txt">Street Address</p>
-        <div className="address-autocomplete">
-        <PlacesAutocomplete
-          value={address}
-          onChange={(value) => setAddress(value)}
-          onSelect={handleSelect}
-          searchOptions={searchOptions}
-        >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            <input
-              {...getInputProps({
-                placeholder: 'Home address',
-                className: 'form-control form-control-lg full-field',
-              })}
-            />
-            <div className="suggestions-container">
-              {loading && <div> <Skeleton active /></div>}
-              {suggestions.map((suggestion) => (
-                <div className='suggestion' key={suggestion.placeId} {...getSuggestionItemProps(suggestion)}>
-                  {suggestion.description}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </PlacesAutocomplete>
-    </div>
-      </div> 
-          <div className='row'>
-        <div className='col-md-6'>
-            <label >Street Address</label>
-            <div className="address-autocomplete">
-        <PlacesAutocomplete
-          value={address}
-          onChange={(value) => setAddress(value)}
-          onSelect={handleSelect}
-          searchOptions={searchOptions}
-        >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            <input
-              {...getInputProps({
-                placeholder: 'Home address',
-                className: 'form-control form-control-lg full-field',
-              })}
-            />
-            <div className="suggestions-container">
-              {loading && <div> <Skeleton active /></div>}
-              {suggestions.map((suggestion) => (
-                <div className='suggestion' key={suggestion.placeId} {...getSuggestionItemProps(suggestion)}>
-                  {suggestion.description}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </PlacesAutocomplete>
-    </div>
-        </div>
-        <div className='col-md-6'>
-            <label>Apt/Suite/Other</label>
-            <input onChange={(e)=>{setAppartment(e.target.value)}} className="full-field"/>
-        </div>
-      </div>
-     
+                        <p className="name-txt">Street Address</p>
+                        <div className="address-autocomplete">
+                            <PlacesAutocomplete
+                                value={address}
+                                onChange={(value) => setAddress(value)}
+                                onSelect={handleSelect}
+                                searchOptions={searchOptions}
+                            >
+                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                    <div>
+                                        <input
+                                            {...getInputProps({
+                                                placeholder: 'Home address',
+                                                className: 'form-control form-control-lg full-field',
+                                            })}
+                                        />
+                                        <div className="suggestions-container">
+                                            {loading && <div> <Skeleton active /></div>}
+                                            {suggestions.map((suggestion) => (
+                                                <div className='suggestion' key={suggestion.placeId} {...getSuggestionItemProps(suggestion)}>
+                                                    {suggestion.description}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </PlacesAutocomplete>
+                        </div>
+                    </div>
+
+
+                    <div className='name-part'>
+                        <p className="name-txt">Apt/Suite/Other:(Optional)</p>
+                        <div className="name-fields">
+                            <input onChange={(e) => { setAppartment(e.target.value) }} class="form-control form-control-lg full-field" />
+                        </div>
+                    </div>
+
+
 
                     <div className="name-part">
                         <p className="name-txt">Zip Code:</p>
                         <div className="name-fields">
-                            <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example"  onChange={(e)=>{setZip(e.target.value)}} />
+                            <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e) => { setZip(e.target.value) }} />
                         </div>
                     </div>
                     <div className="name-part">
                         <p className="name-txt">City:</p>
                         <div className="name-fields">
-                            <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example"  onChange={(e)=>{setCity(e.target.value)}} />
+                            <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e) => { setCity(e.target.value) }} />
                         </div>
                     </div>
                     <div className="name-part">
                         <p className="name-txt">Date of Birth:</p>
                         <div className="name-fields">
-                            <input class="form-control form-control-lg full-field" type="date" aria-label=".form-control-lg example" onChange={(e)=>{setDateofBirth(e.target.value)}} />
+                            <input class="form-control form-control-lg full-field" type="date" aria-label=".form-control-lg example" onChange={(e) => { setDateofBirth(e.target.value) }} />
                         </div>
                     </div>
                     <div className="name-part">
@@ -291,19 +308,19 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                         <div className="name-fields">
                             <div className='row numberrow'>
                                 <div className='col-md-2'>
-                                <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setAreaCode(e.target.value)}}/>
+                                    <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e) => { setAreaCode(e.target.value) }} />
                                 </div> —
                                 <div className='col-md-2'>
-                                <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setMiddlePart(e.target.value)}}/>
+                                    <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e) => { setMiddlePart(e.target.value) }} />
                                 </div> —
                                 <div className='col-md-2'>
-                                <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e)=>{setLastPart(e.target.value)}}/>
+                                    <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e) => { setLastPart(e.target.value) }} />
                                 </div>
                             </div>
 
                         </div>
                     </div>
-                
+
                 </div>
                 <div className="btns_position">
                     <button className="back_button" onClick={() => handleNavigationClick("vehicles")}>
@@ -315,13 +332,26 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                         <i class="fa-solid fa-angle-left"></i>
                     </button>
                     <button className="continous_button" onClick={handleButtonClick}>
-                    <Spin spinning={loading}> 
+                        <Spin spinning={loading}>
 
-                    Continue &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i></Spin>
+                            Continue &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i></Spin>
                     </button>
                 </div>
             </section>
-
+            <Modal
+        title="USDOT number"
+        open={modalVisible}
+        onOk={handleModalOk}
+        onCancel={handleModalCancel}
+      >
+          
+        {/* Ant Design Input for USDOT number */}
+        <Input
+          value={usdotnum}
+          onChange={(e) => setUsdotnum(e.target.value)}
+          placeholder="Enter USDOT number"
+        />
+      </Modal>
         </>
     )
 }

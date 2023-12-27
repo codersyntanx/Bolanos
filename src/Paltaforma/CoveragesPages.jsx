@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import "./coverage.css"
-import truck from "./images/Rectangle 34627019.png"
-import truck2 from "./images/Rectangle 34627020.png"
-import truck3 from "./images/Rectangle 34627021.png"
-import truck4 from "./images/Rectangle 34627022.png"
-import truck5 from "./images/Rectangle 34627023.png"
+import truck from "./images/Rectangle 346270192.png"
+import truck2 from "./images/Rectangle 346270202.png"
+import truck3 from "./images/Rectangle 346270212.png"
+import truck4 from "./images/Rectangle 346270222.png"
+import truck5 from "./images/Rectangle 346270232.png"
 import unknown from "./images/unknown.png"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
@@ -389,10 +389,10 @@ return(
         </div>
         <div className="row truck_detail">
             <div className="col-md-4">
-                <img src={truckImageSrc} alt="your truck" width="100%"/>
+                <img src={truckImageSrc} alt="your truck" style={{borderRadius:"20px"}} width="100%"/>
             </div>
             <div className="col-md-5 ">
-            <span className="detailing">2021 Freightliner Casca...</span><br></br>
+            <span className="detailing">{vehicle.make},{vehicle.year},{vehicle.model}</span><br></br>
                 <span  className="detail" > {vehicle.Vin} </span><br></br>
             </div>
         </div>

@@ -8,14 +8,12 @@ import unknown from "./images/unknown.png"
 import Modals from "./Modal"
 import "./Table.css"
 import { Modal } from 'antd';
-import { stepperClasses } from "@mui/material";
 import {notification } from 'antd';
 
 import axios from "axios";
 function VehiclesPage({ changeIcon, handleNavigationClick }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTruck, setSelectedTruck] = useState(null);
-  const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [zipCode, setZipCode] = useState('');
   const [distance, setDistance] = useState('');
