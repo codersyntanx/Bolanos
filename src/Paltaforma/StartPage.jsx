@@ -92,8 +92,33 @@ function StartPage({ changeIcon, handleNavigationClick }) {
       
       
       
-      
-  
+      let middlePartInput, lastPartInput;
+
+      const handleInputChange = (e, nextInputRef) => {
+        const inputValue = e.target.value;
+        const maxLength = parseInt(e.target.maxLength, 10);
+    
+        if (inputValue.length <= maxLength) {
+          if (nextInputRef && inputValue.length === maxLength) {
+            nextInputRef.focus();
+          }
+    
+          switch (e.target.name) {
+            case 'areaCode':
+              setAreaCode(inputValue);
+              break;
+            case 'middlePart':
+              setMiddlePart(inputValue);
+              break;
+            case 'lastPart':
+              setLastPart(inputValue);
+              break;
+            default:
+              break;
+          }
+        }
+      };
+ 
     const handleRadioChange = (event) => {
         setSelectedOption(event.target.value);
         if (event.target.value === 'Yes') {
@@ -102,13 +127,15 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             setModalVisible(false);
           }
     };
-    useEffect(() => {
-        const formattedPhoneNumber = `${areaCode}-${middlePart}-${lastPart}`;
-        setPhonenumber(formattedPhoneNumber);
-    }, [areaCode, middlePart, lastPart]);
+ 
     const handleButtonClick = () => {
-        // Check if all required fields are filled
+        if (areaCode.length !== 3 || middlePart.length !== 3 || lastPart.length !== 4) {
+            openNotification("error", "Incorrect Phone number");
+            return; // Stop further execution if the phone number is incorrect
+        }
+    
         setLoading(true);
+    
         if (
             selectedOption &&
             bussinesstype &&
@@ -130,11 +157,11 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                 zip,
                 city,
                 dateofBirth,
-                phonenumber,
+                phonenumber: `${areaCode}-${middlePart}-${lastPart}`, // Set the formatted phone number here
                 appartment,
                 usdotnum
             };
-
+    
             axios.post("https://serverforbce.vercel.app/api/postinformation", userData)
                 .then(res => {
                     if (res.status === 200 && res.data.status === true) {
@@ -159,6 +186,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             setLoading(false); // Ensure loading is set to false in case of an error
         }
     };
+    
 
     const options = [
         'Contractor',
@@ -347,22 +375,49 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                         </div>
                     </div>
                     <div className="name-part">
-                        <p className="name-txt">Phone Number</p>
-                        <div className="name-fields">
-                            <div className='row numberrow'>
-                                <div className='col-md-2'>
-                                    <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e) => { setAreaCode(e.target.value) }} />
-                                </div> —
-                                <div className='col-md-2'>
-                                    <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e) => { setMiddlePart(e.target.value) }} />
-                                </div> —
-                                <div className='col-md-2'>
-                                    <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e) => { setLastPart(e.target.value) }} />
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+      <p className="name-txt">Phone Number</p>
+      <div className="name-fields">
+        <div className="row numberrow">
+          <div className="col-md-2">
+            <input
+              className="form-control form-control-lg full-field"
+              type="text"
+              maxLength="3"
+              onChange={(e) => handleInputChange(e, middlePartInput)}
+              value={areaCode}
+              name="areaCode"
+            />
+          </div>
+          <div className="col-md-2">
+            <input
+              className="form-control form-control-lg full-field"
+              type="text"
+              maxLength="3"
+              onChange={(e) => handleInputChange(e, lastPartInput)}
+              value={middlePart}
+              name="middlePart"
+              ref={(input) => {
+                middlePartInput = input;
+              }}
+            />
+          </div>
+          <div className="col-md-2">
+            <input
+              className="form-control form-control-lg full-field"
+              type="text"
+              maxLength="4"
+              onChange={(e) => handleInputChange(e)}
+              value={lastPart}
+              name="lastPart"
+              ref={(input) => {
+                lastPartInput = input;
+              }}
+            />
+          </div>
+        </div>
+      </div>
+   
+    </div>
 
                 </div>
                 <div className="btns_position">
