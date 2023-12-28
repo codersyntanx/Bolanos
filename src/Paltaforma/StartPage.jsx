@@ -60,16 +60,18 @@ function StartPage({ changeIcon, handleNavigationClick }) {
       
           // Access city and zip code from the first result
           const addressComponents = results[0].address_components;
-          console.log(addressComponents)
+          console.log('Address Components:', addressComponents);
+      
+          // Try finding city and zip code with alternative types
           const cityComponent = addressComponents.find(
             (component) => component.types.includes('locality')
           );
       
-          // Try finding postal code with alternative types
           const zipCodeComponent = addressComponents.find(
             (component) =>
-              component.types.includes('postal_code') 
-             
+              component.types.includes('postal_code') ||
+              component.types.includes('postal_code_suffix') ||
+              component.types.includes('postal_code_prefix')
           );
       
           const city = cityComponent ? cityComponent.long_name : '';
@@ -78,6 +80,9 @@ function StartPage({ changeIcon, handleNavigationClick }) {
           setAddress(value);
           setCity(city); // Assuming you have a state variable for city
           setZip(zipCode); // Assuming you have a state variable for zipCode
+      
+          console.log('City:', city);
+          console.log('Zip Code:', zipCode);
         } catch (error) {
           console.error('Error selecting address:', error);
           // Handle the error (e.g., show a user-friendly message)
@@ -86,8 +91,8 @@ function StartPage({ changeIcon, handleNavigationClick }) {
       
       
       
-console.log(zip)
-console.log(city)      
+      
+  
     const handleRadioChange = (event) => {
         setSelectedOption(event.target.value);
         if (event.target.value === 'Yes') {
