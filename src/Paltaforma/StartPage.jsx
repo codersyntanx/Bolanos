@@ -58,23 +58,20 @@ function StartPage({ changeIcon, handleNavigationClick }) {
           const results = await geocodeByAddress(value);
           const latLng = await getLatLng(results[0]);
       
-          // Access all address components for debugging
-          const addressComponents = results[0].address_components;
-          console.log('Address Components:', addressComponents);
-      
-          // Iterating over address components for debugging
-          addressComponents.forEach((component, index) => {
-            console.log(`Component ${index}:`, component);
-          });
-      
           // Access city and zip code from the first result
+          const addressComponents = results[0].address_components;
+          console.log(addressComponents)
           const cityComponent = addressComponents.find(
             (component) => component.types.includes('locality')
           );
+      
+          // Try finding postal code with alternative types
           const zipCodeComponent = addressComponents.find(
-            (component) => component.types.includes('postal_code')
+            (component) =>
+              component.types.includes('postal_code') 
+             
           );
-      console.log(zipCodeComponent)
+      
           const city = cityComponent ? cityComponent.long_name : '';
           const zipCode = zipCodeComponent ? zipCodeComponent.long_name : '';
       
@@ -86,6 +83,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
           // Handle the error (e.g., show a user-friendly message)
         }
       };
+      
       
       
 console.log(zip)
