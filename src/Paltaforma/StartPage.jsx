@@ -96,7 +96,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
 
       const handleInputChange = (e, nextInputRef) => {
         const inputValue = e.target.value;
-        const maxLength = parseInt(e.target.maxLength, 10);
+        const maxLength = parseInt(e.target.maxLength, 11);
     
         if (inputValue.length <= maxLength) {
           if (nextInputRef && inputValue.length === maxLength) {
@@ -157,7 +157,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                 zip,
                 city,
                 dateofBirth,
-                phonenumber: `${areaCode}-${middlePart}-${lastPart}`, // Set the formatted phone number here
+                phonenumber: `${areaCode}-${middlePart}-${lastPart}`, 
                 appartment,
                 usdotnum
             };
@@ -306,7 +306,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                         <p className="name-txt">Business owner name</p>
                         <div className="name-fields">
                             <div className="inner-part">
-                                <input class="form-control form-control-lg full-name" type="text" placeholder="Full Name" aria-label=".form-control-lg example" onChange={(e) => { setFullname(e.target.value) }} />
+                                <input class="form-control form-control-lg full-name" type="text" placeholder="First Name" aria-label=".form-control-lg example" onChange={(e) => { setFullname(e.target.value) }} />
                                 <input class="form-control form-control-lg mi" type="text" placeholder="MI" aria-label=".form-control-lg example" onChange={(e) => { setMiddlename(e.target.value) }} />
                             </div>
                             <div className="inner-part">

@@ -302,9 +302,11 @@ return(
           <div className="col-md-5 smalinput">
              <select className="customer_slect" onChange={(e)=>{setMotortruck(e.target.value)}}>
                 <option className="optionval">Not Selected</option>
-                <option className="optionval">$700k CSL</option>
-                <option className="optionval">$600k CSL</option>
-                <option className="optionval">$550k CSL</option>
+                <option className="optionval">$ 50,000</option>
+                <option className="optionval">$ 100,000</option>
+                <option className="optionval">$ 150000</option>
+                <option className="optionval">$ 200000</option>
+                <option className="optionval">$ 300000</option>
 
              </select>
           
@@ -326,9 +328,12 @@ return(
           <div className="col-md-5 smalinput">
              <select className="customer_slect" onChange={(e)=>{setTrailerinter(e.target.value)}}>
                 <option className="optionval">Not Selected</option>
-                <option className="optionval">$700k CSL</option>
-                <option className="optionval">$600k CSL</option>
-                <option className="optionval">$550k CSL</option>
+                <option className="optionval">$ 20k</option>
+                <option className="optionval">$ 30k</option>
+                <option className="optionval">$ 40k</option>
+                <option className="optionval">$ 50k</option>
+                <option className="optionval">$ 60k</option>
+                <option className="optionval">$ 70k</option>
 
              </select>
           
@@ -351,9 +356,8 @@ return(
           <div className="col-md-7">
              <select className="customer_slect2" onChange={(e)=>{setGeneral(e.target.value)}}>
                 <option className="optionval">Not Selected</option>
-                <option className="optionval">$700k CSL</option>
-                <option className="optionval">$600k CSL</option>
-                <option className="optionval">$550k CSL</option>
+                <option className="optionval">$ 1,000,000/1,000,000</option>
+                <option className="optionval">$ 1,000,000/2,000,000</option>
 
              </select>
           
@@ -391,7 +395,7 @@ return(
                 <img src={truckImageSrc} alt="your truck" style={{borderRadius:"20px"}} width="100%"/>
             </div>
             <div className="col-md-5 ">
-            <span className="detailing">{vehicle.make},{vehicle.year},{vehicle.model}</span><br></br>
+            <span className="detailing">{vehicle.year},{vehicle.make},{vehicle.model}</span><br></br>
                 <span  className="detail" > {vehicle.Vin} </span><br></br>
             </div>
         </div>
@@ -401,10 +405,9 @@ return(
                 </div>
                 <div className="col-md-5">
                     <select className="customer_slect" onChange={(e) =>handleComprehensiveChange(vehicle._id, e)}>
-                        <option className="optionval">$1,000 Deductible</option>
-                        <option className="optionval">$700k CSL</option>
-                        <option className="optionval">$600k CSL</option>
-                        <option className="optionval">$550k CSL</option>
+                        <option className="optionval">$ 1,000 Deductible</option>
+                        <option className="optionval">$ 2,500 Deductible</option>
+                        <option className="optionval">$ 5,000 Deductible</option>
                     </select>
                 </div>
             </div>
@@ -414,10 +417,9 @@ return(
                 </div>
                 <div className="col-md-5">
   <select className="customer_slect" onChange={(e) => handleCollisionChange(vehicle._id, e)}>
-    <option className="optionval">$1,000 Deductible</option>
-    <option className="optionval">$700k CSL</option>
-    <option className="optionval">$600k CSL</option>
-    <option className="optionval">$550k CSL</option>
+  <option className="optionval">$ 1,000 Deductible</option>
+                        <option className="optionval">$ 2,500 Deductible</option>
+                        <option className="optionval">$ 5,000 Deductible</option>
   </select>
 </div>
             </div>

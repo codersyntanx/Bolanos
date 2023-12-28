@@ -166,7 +166,6 @@ const gotonext =()=>{
   const handleButtonClick = () => {
     if (
       fullName &&
-      middleInitial &&
       lastName &&
       dob &&
       licenseState &&
@@ -188,7 +187,7 @@ const gotonext =()=>{
 
       // Check if it's an update or a new post
       const url = deleteId
-        ? `http://localhost:3003/api/putdriver/${deleteId}`
+        ? `https://serverforbce.vercel.app/api/putdriver/${deleteId}`
         : "https://serverforbce.vercel.app/api/postdriver";
 
       const axiosMethod = deleteId ? axios.put : axios.post;
@@ -351,7 +350,7 @@ const gotonext =()=>{
               </label>
               <div className='namepart col-sm-8'>
               <div className="fnam">
-                <input type="text" className="form-control" id="fullName" placeholder="Full Name" value={fullName} onChange={(e)=>{setFullName(e.target.value)}} />
+                <input type="text" className="form-control" id="fullName" placeholder="First Name" value={fullName} onChange={(e)=>{setFullName(e.target.value)}} />
               </div>
               <div className="nmi">
                 <input type="text" className="form-control" id="middleInitial" placeholder="MI" value={middleInitial} onChange={(e)=>{setMiddleInitial(e.target.value)}}/>
