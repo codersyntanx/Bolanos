@@ -57,19 +57,27 @@ function StartPage({ changeIcon, handleNavigationClick }) {
         try {
           const results = await geocodeByAddress(value);
           const latLng = await getLatLng(results[0]);
-        
-          // Access city and zip code from the first result
+      
+          // Access all address components for debugging
           const addressComponents = results[0].address_components;
+          console.log('Address Components:', addressComponents);
+      
+          // Iterating over address components for debugging
+          addressComponents.forEach((component, index) => {
+            console.log(`Component ${index}:`, component);
+          });
+      
+          // Access city and zip code from the first result
           const cityComponent = addressComponents.find(
             (component) => component.types.includes('locality')
           );
           const zipCodeComponent = addressComponents.find(
             (component) => component.types.includes('postal_code')
           );
-        
+      console.log(zipCodeComponent)
           const city = cityComponent ? cityComponent.long_name : '';
           const zipCode = zipCodeComponent ? zipCodeComponent.long_name : '';
-        
+      
           setAddress(value);
           setCity(city); // Assuming you have a state variable for city
           setZip(zipCode); // Assuming you have a state variable for zipCode
@@ -79,7 +87,9 @@ function StartPage({ changeIcon, handleNavigationClick }) {
         }
       };
       
-      console.log(city)
+      
+console.log(zip)
+console.log(city)      
     const handleRadioChange = (event) => {
         setSelectedOption(event.target.value);
         if (event.target.value === 'Yes') {
