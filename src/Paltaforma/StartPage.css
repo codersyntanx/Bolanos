@@ -376,7 +376,11 @@ text-decoration-line: underline;
 }
 
 @media screen and (max-width:768px) {
-
+    .css-b62m3t-container {
+        position: relative;
+        box-sizing: border-box;
+        width: 100%;
+    }
 .name-part {
     display: flex;
     justify-content: space-between;
