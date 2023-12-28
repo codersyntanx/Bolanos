@@ -145,7 +145,7 @@ const handletrucking= (selectedOption) => {
 
 };
 const handleChange = (selectedOption) => {
-  setNontrucking(selectedOption.value);
+  setUninsured(selectedOption.value);
 
 };
 
