@@ -78,8 +78,8 @@ function StartPage({ changeIcon, handleNavigationClick }) {
           const zipCode = zipCodeComponent ? zipCodeComponent.long_name : '';
       
           setAddress(value);
-          setCity(city); // Assuming you have a state variable for city
-          setZip(zipCode); // Assuming you have a state variable for zipCode
+          setCity(city);
+          setZip(zipCode); 
       
           console.log('City:', city);
           console.log('Zip Code:', zipCode);
@@ -88,6 +88,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
           // Handle the error (e.g., show a user-friendly message)
         }
       };
+      
       
       
       
@@ -112,9 +113,6 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             selectedOption &&
             bussinesstype &&
             fullname &&
-            middlename &&
-            lastname &&
-            suffix &&
             address &&
             zip &&
             city &&
@@ -252,10 +250,12 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             </section>
             <section className='business-type-section'>
                 <p className="business-type-heading">Most Common Business Types:</p>
-                <div className='business-type '>
-                <input
+                <div className='business-type row'>
+                    <div className='col-md-2'></div>
+                    <div className='col-md-10'>
+                            <input
         type="text"
-        className='full-field'
+        className='full-field px-2'
         value={bussinesstype}
         onChange={handleChange}
         placeholder="Type to search..."
@@ -267,6 +267,8 @@ function StartPage({ changeIcon, handleNavigationClick }) {
           </li>
         ))}
       </ul>
+                    </div>
+            
                 </div>
 
                 <p className="business-owner-info">Home address/personal information of the business owner</p>

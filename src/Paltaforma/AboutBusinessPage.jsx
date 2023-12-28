@@ -180,7 +180,7 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
                 onChange={(e) =>{
                   const inputValue = e.target.value;
                   if (!inputValue.startsWith('$')) {
-                    setBodilyInjuryLimit("$" + inputValue)
+                    setBodilyInjuryLimit("$" +" " + inputValue)
                   }else{
                     setBodilyInjuryLimit(inputValue)
                   }

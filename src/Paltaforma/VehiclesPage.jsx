@@ -496,7 +496,7 @@ const handleModalOk = async () => {
     onChange={(e) => {
       const inputValue = e.target.value;
       if (!inputValue.startsWith('$')) {
-        setVehicleWorth('$' + inputValue);
+        setVehicleWorth('$'+" " + inputValue);
       } else {
         setVehicleWorth(inputValue);
       }
