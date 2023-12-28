@@ -80,6 +80,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             setModalVisible(false);
           }
     };
+    console.log(usdotnum)
     useEffect(() => {
         const formattedPhoneNumber = `${areaCode}-${middlePart}-${lastPart}`;
         setPhonenumber(formattedPhoneNumber);

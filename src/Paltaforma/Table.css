@@ -6,6 +6,31 @@
   align-items: center !important;
   column-gap: 10px !important;
 }
+.mainheading{
+  width: auto;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.15;
+    color: #000;
+}
+.infoblock{
+  display: inline-block;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: #F2F2F7;
+}
+.infoblock .title {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.infoblock .value {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
 .idtr{
   display: flex;
   align-items: center;

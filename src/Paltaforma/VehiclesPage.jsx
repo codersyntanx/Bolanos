@@ -21,7 +21,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
   const [distance, setDistance] = useState('');
   const [needCoverage, setNeedCoverage] = useState('');
   const [vehicleWorth, setVehicleWorth] = useState('');
-  const [vehicalby, setVehicalby] = useState("")
+  const [vehicalby, setVehicalby] = useState("Vin")
   const [Vin, setVin] = useState("")
   const [year, setYear] = useState("")
   const [make, setMake] = useState("")
@@ -32,12 +32,19 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
   const[vehicleid,setVehicleid]=useState("")
   const [isNewModalVisible, setNewModalVisible] = useState(false);
   const [loading,setLoading]=useState(false)
+  const [vinresponse,setVinresponse]=useState("")
   const openNewModal = () => {
     setNewModalVisible(true);
   };
   
   const closeNewModal = () => {
+    setVin("")
     setNewModalVisible(false);
+  };
+  const doneNewModal = () => {
+    setNewModalVisible(false);
+    openNotification('success', 'Vin Added Successfully');
+
   };
   
   const handleRadio = (event) => {
@@ -53,8 +60,9 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
       .then(res => {
         // Handle the response data
         setMake(res.data.Results[7].Value);
-        setYear(res.data.Results[9].Value);
-        setModel(res.data.Results[10].Value);
+        setYear(res.data.Results[10].Value);
+        setModel(res.data.Results[9].Value);
+        setVinresponse(res.data.Results)
       })
       .catch(error => {
         // Handle errors if needed
@@ -398,8 +406,16 @@ const handleModalOk = async () => {
               </div>
               <div className="col-md-7 vehicle_typeans">
 
-                <input className="mx-2 inputfield" type="radio" id="age2" name="age1"
-                  onChange={handleRadio} defaultValue={"VIN"} />
+              <input
+  className="mx-2 inputfield"
+  type="radio"
+  id="age2"
+  name="age1"
+  onChange={handleRadio}
+  defaultValue={"VIN"}
+  defaultChecked  // Add this attribute
+/>
+
                 <label className="loanlbl" htmlFor="age2">VIN</label>
 
               </div>
@@ -410,7 +426,7 @@ const handleModalOk = async () => {
             </div>
             <div className="row mt-2 lookupvin">
               <div className="col-md-4">
-                <input className="text_input" value={Vin} onChange={(e) => { setVin(e.target.value) }} type="text" />
+                <input className="text_input px-2" value={Vin} onChange={(e) => { setVin(e.target.value) }} type="text" />
               </div>
               <div className="col-md-3">
                 <button className="btn_vin" onClick={lookupvinnumber}>
@@ -523,21 +539,73 @@ const handleModalOk = async () => {
         <p>Are you sure you want to delete this vehicle?</p>
       </Modal>
       <AntModal
-  title=" Vin "
+  title="Vin"
   open={isNewModalVisible}
-  // onOk={/* Handle OK action */}
+  onOk={doneNewModal}
   onCancel={closeNewModal}
+  width={650}
+  okText="Done"
+  okButtonProps={{ style: { background: '#2a4764', color: 'white' } }}
 >
+
  {
   loading ? (<>
   <Skeleton active />
   </>):(
-    <div className="row">
-  <div className="col-md-6">
-    <strong>Year: </strong>{year} <br></br>
-    <strong>make:</strong> {make}<br></br>
-    <strong>model:</strong>  {model}
-  </div>
+    <div className="modal-contents">
+      <div className="mainheading">
+        {vinresponse[10]?.Value}-{vinresponse[9]?.Value}-{vinresponse[7]?.Value}
+      </div>
+      <div className="cont mt-4 "style={{ display: 'flex', gap: '10px',flexWrap:"wrap" }} >
+           <div className="infoblock">
+        <div className="title">
+          Vin
+        </div>
+        <div className="value">
+          {Vin}
+        </div>
+      </div>
+       
+           <div className="infoblock">
+        <div className="title">
+          Make
+        </div>
+        <div className="value">
+          {vinresponse[7]?.Value}
+        </div>
+      </div>
+           <div className="infoblock">
+        <div className="title">
+          Model
+        </div>
+        <div className="value">
+        {vinresponse[9]?.Value}
+        </div>
+      </div>
+      <div className="infoblock">
+        <div className="title">
+          Year
+        </div>
+        <div className="value">
+        {vinresponse[10]?.Value}
+        </div>
+      </div><div className="infoblock">
+        <div className="title">
+          Driver Type
+        </div>
+        <div className="value">
+        {vinresponse[51]?.Value}
+        </div>
+      </div><div className="infoblock">
+        <div className="title">
+        Manufactured in        </div>
+        <div className="value">
+        {vinresponse[8]?.Value}
+        </div>
+      </div>
+      </div>
+     
+
 </div>
   )
  }
