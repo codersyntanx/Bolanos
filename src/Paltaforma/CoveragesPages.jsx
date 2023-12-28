@@ -208,7 +208,6 @@ return(
           </div>
           <div className="col-md-5 ">
           <Select
-        // className="customer_slect"
         options={options}
         onChange={handleChange}
       />

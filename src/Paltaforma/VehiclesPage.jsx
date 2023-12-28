@@ -488,8 +488,20 @@ const handleModalOk = async () => {
                 If this vehicle was sold today,how much would it be worth?
               </div>
               <div className="col-md-4">
-                <input className="text_input px-3" value={vehicleWorth} placeholder="$45,000" type="text" onChange={(e) => { setVehicleWorth(e.target.value) }} />
-              </div>
+              <input
+    className="text_input px-3"
+    value={vehicleWorth}
+    placeholder="$45,000"
+    type="text"
+    onChange={(e) => {
+      const inputValue = e.target.value;
+      if (!inputValue.startsWith('$')) {
+        setVehicleWorth('$' + inputValue);
+      } else {
+        setVehicleWorth(inputValue);
+      }
+    }}
+  />              </div>
             </div>
 
             <div className="btns_position">

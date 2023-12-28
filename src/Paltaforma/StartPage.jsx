@@ -26,13 +26,9 @@ function StartPage({ changeIcon, handleNavigationClick }) {
     const [modalVisible, setModalVisible] = useState(false);
     const[usdotnum,setUsdotnum]=useState("")
     const handleModalCancel = () => {
-        if(usdotnum != ""){
              setModalVisible(false);
-        }else{
-            openNotification('error', 'USDOT Input must be Filled');
-
-        }
-       
+             setSelectedOption("")
+             setUsdotnum("")
       };
       const handleModalOk = async (e) => {
         if(usdotnum != ""){
@@ -54,24 +50,36 @@ function StartPage({ changeIcon, handleNavigationClick }) {
     const searchOptions = {
         componentRestrictions: { country: 'us' }, // Restrict suggestions to the United States
     };
-    const onSelect = ({ address, latLng }) => {
-        // Handle the selected address and latitude/longitude
-        console.log('Selected address:', address);
-        console.log('Selected coordinates:', latLng);
-    };
+
+
 
     const handleSelect = async (value) => {
         try {
-            const results = await geocodeByAddress(value, searchOptions);
-            const latLng = await getLatLng(results[0]);
-            onSelect({ address: value, latLng });
-            setAddress(value);
+          const results = await geocodeByAddress(value);
+          const latLng = await getLatLng(results[0]);
+        
+          // Access city and zip code from the first result
+          const addressComponents = results[0].address_components;
+          const cityComponent = addressComponents.find(
+            (component) => component.types.includes('locality')
+          );
+          const zipCodeComponent = addressComponents.find(
+            (component) => component.types.includes('postal_code')
+          );
+        
+          const city = cityComponent ? cityComponent.long_name : '';
+          const zipCode = zipCodeComponent ? zipCodeComponent.long_name : '';
+        
+          setAddress(value);
+          setCity(city); // Assuming you have a state variable for city
+          setZip(zipCode); // Assuming you have a state variable for zipCode
         } catch (error) {
-            console.error('Error selecting address:', error);
-            // Handle the error (e.g., show a user-friendly message)
+          console.error('Error selecting address:', error);
+          // Handle the error (e.g., show a user-friendly message)
         }
-    };
-
+      };
+      
+      console.log(city)
     const handleRadioChange = (event) => {
         setSelectedOption(event.target.value);
         if (event.target.value === 'Yes') {
@@ -80,7 +88,6 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             setModalVisible(false);
           }
     };
-    console.log(usdotnum)
     useEffect(() => {
         const formattedPhoneNumber = `${areaCode}-${middlePart}-${lastPart}`;
         setPhonenumber(formattedPhoneNumber);
@@ -142,20 +149,32 @@ function StartPage({ changeIcon, handleNavigationClick }) {
         }
     };
 
-
     const options = [
-        { value: 'Contractor', label: 'Contractor' },
-        { value: 'Dirt.Sand and Gravel', label: 'Dirt.Sand and Gravel' },
-        { value: 'Landscaper', label: 'Landscaper' },
-        { value: 'Towing', label: 'Towing' },
-        { value: 'Trucker', label: 'Trucker' },
-
-    ];
-    const handleChange = (selectedOption) => {
-        setBussinesstype(selectedOption.value);
-
-    };
-
+        'Contractor',
+        'Dirt.Sand and Gravel',
+        'Landscaper',
+        'Towing',
+        'Trucker',
+      ];
+    
+      const [suggestions, setSuggestions] = useState([]);
+    
+      const handleChange = (e) => {
+        const value = e.target.value;
+        setBussinesstype(value);
+    
+        // Filter options based on the input value
+        const filteredSuggestions = options.filter((option) =>
+          option.toLowerCase().includes(value.toLowerCase())
+        );
+        setSuggestions(filteredSuggestions);
+      };
+    
+      const handleSelected = (selectedOption) => {
+        setBussinesstype(selectedOption);
+        setSuggestions([]);
+      };
+    
 
     return (
         <>
@@ -221,12 +240,20 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             <section className='business-type-section'>
                 <p className="business-type-heading">Most Common Business Types:</p>
                 <div className='business-type '>
-                    <Select
-                        styles={{ borderRadius: "20px" }}
-                        options={options}
-                        onChange={handleChange}
-                    />
-
+                <input
+        type="text"
+        className='full-field'
+        value={bussinesstype}
+        onChange={handleChange}
+        placeholder="Type to search..."
+      />
+      <ul className='mainlicom'>
+        {suggestions.map((option, index) => (
+          <li key={index} onClick={() => handleSelected(option)}>
+            {option}
+          </li>
+        ))}
+      </ul>
                 </div>
 
                 <p className="business-owner-info">Home address/personal information of the business owner</p>
@@ -289,13 +316,13 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                     <div className="name-part">
                         <p className="name-txt">Zip Code:</p>
                         <div className="name-fields">
-                            <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e) => { setZip(e.target.value) }} />
+                            <input class="form-control form-control-lg full-field" type="text" value={zip} aria-label=".form-control-lg example" readOnly />
                         </div>
                     </div>
                     <div className="name-part">
                         <p className="name-txt">City:</p>
                         <div className="name-fields">
-                            <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" onChange={(e) => { setCity(e.target.value) }} />
+                            <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" value={city} readOnly/>
                         </div>
                     </div>
                     <div className="name-part">

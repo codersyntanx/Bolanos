@@ -174,10 +174,20 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
             </div>
             <div className="col-md-5">
               <input
+                  value={bodilyInjuryLimit}
+
                 className="customer_email_input"
-                onChange={(e) => setBodilyInjuryLimit(e.target.value)}
+                onChange={(e) =>{
+                  const inputValue = e.target.value;
+                  if (!inputValue.startsWith('$')) {
+                    setBodilyInjuryLimit("$" + inputValue)
+                  }else{
+                    setBodilyInjuryLimit(inputValue)
+                  }
+                }}
                 placeholder="$1,000,000 combined single limit"
               />
+                 
             </div>
           </div>
 
@@ -205,7 +215,7 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
         <div className="row mt-2">
             <div className="col-md-4 forlbl">
               <span className="interfont">
- Do you have an MC# or do you plan cross state lines?
+               Do you have an MC# or do you plan cross state lines?
               </span>
            
 

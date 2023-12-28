@@ -13,6 +13,13 @@ display: flex;
 align-items: center;
 justify-content: center;
 }
+
+.mainlicom li{
+padding: 10px;
+}
+.mainlicom li:hover{
+background-color: aliceblue;
+}
 .Page_Position{
     width: 90%;
     margin: auto;

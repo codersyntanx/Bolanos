@@ -310,7 +310,34 @@ const [coverage,setCoverage]=useState([])
                 <div>{vehicle.collision}</div>
               </div>
                 </div>
+                <div className='col-md-6'>
+                     <div className='detail-item'>
+                <div>
+                  <strong>Year :</strong>
+                </div>
+                <div>{vehicle.Year}</div>
+              </div>
+                </div>
               </div> 
+              <div className='row'>
+               
+               <div className='col-md-6'>
+                    <div className='detail-item'>
+               <div>
+                 <strong>Make :</strong>
+               </div>
+               <div>{vehicle.make}</div>
+             </div>
+               </div>
+               <div className='col-md-6'>
+                    <div className='detail-item'>
+               <div>
+                 <strong>Model :</strong>
+               </div>
+               <div>{vehicle.model}</div>
+             </div>
+               </div>
+             </div> 
                 </div>
                
                 )
