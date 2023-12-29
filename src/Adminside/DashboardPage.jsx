@@ -207,7 +207,12 @@ const DashboardPage = () => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (text, record) => (
-        <span>{moment(record.createdAt).format('MM-DD-YYYY')}</span>
+        <>
+         <span>{moment(record.createdAt).format('MM-DD-YYYY')}</span>
+        <Tag className='mx-2' color="green"> <span>{moment(record.createdAt).format('HH:mm')}</span>
+        </Tag>
+        </>
+       
       ),
     },
 
