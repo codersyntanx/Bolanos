@@ -61,6 +61,9 @@ const DashboardPage = () => {
 
   const searchresult = async(e) => {
     e.preventDefault()
+    if(searchfield === ""){
+      return;
+    }
     // Make a request to get information for a single item by ID
     await axios.get(`https://serverforbce.vercel.app/api/getinformationbyid/${searchfield}`)
       .then((res) => {
