@@ -59,49 +59,58 @@ const DashboardPage = () => {
     }
   };
 
-  const searchresult = async(e) => {
-    e.preventDefault()
-    if(searchfield === ""){
+  const searchresult = async (e) => {
+    e.preventDefault();
+  
+    if (searchfield === "") {
       return;
     }
-    // Make a request to get information for a single item by ID
-    await axios.get(`https://serverforbce.vercel.app/api/getinformationbyid/${searchfield}`)
-      .then((res) => {
-        const itemData = res.data.data;
   
-        // Set the data state with the information for the single item
-        setData([itemData]);
+    try {
+      const res = await axios.get(`https://serverforbce.vercel.app/api/getinformationbyid/${searchfield}`);
+      
+      if (res.data.status === false) {
+        throw new Error("Invalid Id");
+      }
   
-        // Fetch messages for the single item
-        fetchMessage(itemData._id)
-          .then((messageInfo) => {
-            // Update the message count and last message preview in the state
-            setData((prevData) => {
-              const updatedData = prevData.map((item) => {
-                if (item._id === itemData._id) {
-                  return {
-                    ...item,
-                    messageLength: messageInfo.length + " " + "times",
-                    lastMessagePreview: messageInfo.lastMessage
-                      ? `${messageInfo.lastMessage.slice(0, 20)}...`
-                      : 'Not connected yet',
-                  };
-                }
-                return item;
-              });
-              return updatedData;
+      const itemData = res.data.data;
+  
+      // Set the data state with the information for the single item
+      setData([itemData]);
+  
+      // Fetch messages for the single item
+      fetchMessage(itemData._id)
+        .then((messageInfo) => {
+          // Update the message count and last message preview in the state
+          setData((prevData) => {
+            const updatedData = prevData.map((item) => {
+              if (item._id === itemData._id) {
+                return {
+                  ...item,
+                  messageLength: messageInfo.length + " times",
+                  lastMessagePreview: messageInfo.lastMessage
+                    ? `${messageInfo.lastMessage.slice(0, 20)}...`
+                    : 'Not connected yet',
+                };
+              }
+              return item;
             });
-          })
-          .catch((error) => {
-            console.error('Error fetching messages:', error);
-            // Handle the error if needed
+            return updatedData;
           });
-      })
-      .catch((error) => {
-        console.error('Error fetching information by ID:', error);
-        // Handle the error if needed
-      });
+        })
+        .catch((error) => {
+          console.error('Error fetching messages:', error);
+          // Handle the error if needed
+        });
+    } catch (error) {
+      console.error('Error fetching information by ID:', error.message);
+      notification.error({
+        message: 'Error',
+        description: "Invalid Id",
+      });      // Handle the error if needed
+    }
   };
+  
   
 
 
