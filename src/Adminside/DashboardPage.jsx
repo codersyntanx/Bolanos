@@ -165,10 +165,17 @@ const DashboardPage = () => {
       key: 'address',
       width: 200,
     },
-    {
+     {
       title: 'Interaction Count',
       dataIndex: 'messageLength',
       key: 'messageLength',
+      render: (text, record) => (
+        record.messageLength === "0 times" ? (
+          <Tag color="green">{record.messageLength} </Tag>
+        ) : (
+          <span>{record.messageLength} </span>
+        )
+      ),
     },
     {
       title: 'Last Message Preview',
