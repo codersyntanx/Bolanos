@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Table, Button, Space, Modal, Input, Tag, Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
-
+import moment from 'moment';
+import { notification } from 'antd';
+import "./dash.css"
 const DashboardPage = () => {
   const [data, setData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [message, setMessage] = useState('');
   const [informId, setInformId] = useState(null);
-  const [loading, setLoading] = useState(true); // Added loading state
-
+  const [loading, setLoading] = useState(true); 
+ const [searchfield,setSearchfield]=useState("")
   const navigate = useNavigate();
 
   const fetchMessage = async (id) => {
@@ -30,6 +32,7 @@ const DashboardPage = () => {
   };
 
   const fetchData = async () => {
+    setSearchfield("")
     try {
       setLoading(true);
       const response = await axios.get('https://serverforbce.vercel.app/api/getinformation');
@@ -55,6 +58,50 @@ const DashboardPage = () => {
       setLoading(false); 
     }
   };
+
+  const searchresult = async(e) => {
+    e.preventDefault()
+    // Make a request to get information for a single item by ID
+    await axios.get(`https://serverforbce.vercel.app/api/getinformationbyid/${searchfield}`)
+      .then((res) => {
+        const itemData = res.data.data;
+  
+        // Set the data state with the information for the single item
+        setData([itemData]);
+  
+        // Fetch messages for the single item
+        fetchMessage(itemData._id)
+          .then((messageInfo) => {
+            // Update the message count and last message preview in the state
+            setData((prevData) => {
+              const updatedData = prevData.map((item) => {
+                if (item._id === itemData._id) {
+                  return {
+                    ...item,
+                    messageLength: messageInfo.length + " " + "times",
+                    lastMessagePreview: messageInfo.lastMessage
+                      ? `${messageInfo.lastMessage.slice(0, 20)}...`
+                      : 'Not connected yet',
+                  };
+                }
+                return item;
+              });
+              return updatedData;
+            });
+          })
+          .catch((error) => {
+            console.error('Error fetching messages:', error);
+            // Handle the error if needed
+          });
+      })
+      .catch((error) => {
+        console.error('Error fetching information by ID:', error);
+        // Handle the error if needed
+      });
+  };
+  
+
+
 
   const showDetail = (record) => {
     console.log('Show details for:', record);
@@ -105,6 +152,7 @@ const DashboardPage = () => {
       title: 'Business Type',
       dataIndex: 'bussinesstype',
       key: 'bussinesstype',
+      width: 200,
     },
     {
       title: 'Full Name',
@@ -115,12 +163,13 @@ const DashboardPage = () => {
       title: 'Address',
       dataIndex: 'address',
       key: 'address',
+      width: 200,
     },
     {
-      title: 'Interaction Duration',
+      title: 'Interaction Count',
       dataIndex: 'messageLength',
       key: 'messageLength',
-    },    
+    },
     {
       title: 'Last Message Preview',
       dataIndex: 'lastMessagePreview',
@@ -143,11 +192,32 @@ const DashboardPage = () => {
         </Space>
       ),
     },
+    {
+      title: 'Timestamps',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      render: (text, record) => (
+        <span>{moment(record.createdAt).format('MM-DD-YYYY')}</span>
+      ),
+    },
+
+    
   ];
+  
 
   return (
     <div style={{ padding: '20px' }}>
-    <h1>Dashboard</h1>
+    <h1>Dashboard</h1><button className='btn btn-primary' onClick={fetchData}><i class="fa-solid fa-arrow-rotate-right"></i></button>
+
+  
+    <form action="" class="search-bar">
+	<input value={searchfield}  onChange={(e)=>{setSearchfield(e.target.value)}} autoComplete='off' name="search" pattern=".*\S.*" required/>
+	<button onClick={searchresult} class="search-btn" type="submit">
+		<span>Search</span>
+	</button>
+  
+</form>
+
     <Spin spinning={loading}> 
       <Table columns={columns} dataSource={data} />
     </Spin>

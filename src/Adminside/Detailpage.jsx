@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './detail.css'; // Import a CSS file for styling
-import { Tag } from 'antd';
+import { Tag ,Button} from 'antd';
 
+
+const backButtonStyle = {
+  marginRight: '8px', // Adjust margin as needed
+  background: '#1890ff', // Primary color
+  color: 'white', // Text color
+  border: '1px solid #1890ff', // Border color
+  borderRadius: '4px', // Border radius
+  fontWeight: 'bold', // Font weight
+  marginRight:"20px"
+};
 const DetailPage = () => {
   const { id } = useParams(); // Get the id from the URL parameters
   const [detailData, setDetailData] = useState({});
@@ -87,9 +97,15 @@ const [coverage,setCoverage]=useState([])
         });
     }
   }, [id]);
+  const navigate =useNavigate()
+  const dashboardpage =()=>{
+    navigate("/dashboard")
+  }
   return (
     <>
-   <div className='container'>
+ <Button className='mx-3 mt-3' type="default" style={backButtonStyle} onClick={dashboardpage}>
+ <i class="fa-solid fa-arrow-left"></i>
+    </Button>   <div className='container'>
   <h1> <Tag color="red">1</Tag>Contact Status</h1>
   <div className='row' style={{ backgroundColor: 'white', borderRadius: '20px', padding: '20px' }}>
     {
@@ -315,7 +331,7 @@ const [coverage,setCoverage]=useState([])
                 <div>
                   <strong>Year :</strong>
                 </div>
-                <div>{vehicle.Year}</div>
+                <div>{vehicle.year}</div>
               </div>
                 </div>
               </div> 
@@ -616,6 +632,9 @@ const [coverage,setCoverage]=useState([])
 
 
     </div>
+    <Button className='mx-3 mb-3 float-end' type="default" style={backButtonStyle} onClick={dashboardpage}>
+ <i class="fa-solid fa-arrow-left"></i>
+    </Button>  
     </>
     
   );
