@@ -111,16 +111,8 @@ body, button, input {
 	border-radius: 0 0.375em 0.375em 0;
 	transform: scale(1);
 }
-.search-bar input:focus + .search-btn:before, 
-.search-bar input:focus + .search-btn:after,
-.search-bar input:valid + .search-btn:before, 
-.search-bar input:valid + .search-btn:after {
-	opacity: 1;
-}
-.search-bar input:focus + .search-btn:hover,
-.search-bar input:valid + .search-btn:hover,
-.search-bar input:valid:not(:focus) + .search-btn:focus {
-}
+
+
 .search-bar input:focus + .search-btn:active,
 .search-bar input:valid + .search-btn:active {
 	transform: translateY(1px);
