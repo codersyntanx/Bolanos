@@ -66,7 +66,6 @@ body, button, input {
 	transform: scale(1);
 }
 .search-btn {
-	background: #171717;
 	border-radius: 0 0.75em 0.75em 0 / 0 1.5em 1.5em 0;
 	padding: 0.75em;
 	position: relative;
@@ -109,7 +108,6 @@ body, button, input {
 /* Active state */
 .search-bar input:focus + .search-btn,
 .search-bar input:valid + .search-btn {
-	background: #2762f3;
 	border-radius: 0 0.375em 0.375em 0;
 	transform: scale(1);
 }
@@ -122,7 +120,6 @@ body, button, input {
 .search-bar input:focus + .search-btn:hover,
 .search-bar input:valid + .search-btn:hover,
 .search-bar input:valid:not(:focus) + .search-btn:focus {
-	background: #0c48db;
 }
 .search-bar input:focus + .search-btn:active,
 .search-bar input:valid + .search-btn:active {
@@ -133,17 +130,11 @@ body, button, input {
 	body, input {
 		color: #f1f1f1;
 	}
-	body {
-		background: #171717;
-	}
+
 	.search-bar input {
 		box-shadow: 0 0 0 0.4em #f1f1f1 inset;
 	}
-	.search-bar input:focus,
-	.search-bar input:valid {
-		background: #3d3d3d;
-		box-shadow: 0 0 0 0.1em #3d3d3d inset;
-	}
+
 	.search-btn {
 		background: #f1f1f1;
 	}
