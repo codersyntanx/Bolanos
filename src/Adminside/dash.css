@@ -1,8 +1,6 @@
 *
-:root {
-	font-size: calc(16px + (24 - 16)*(100vw - 320px)/(1920 - 320));
-}
-body, button, input {
+
+ button, input {
 	font: 1em Hind, sans-serif;
 	line-height: 1.5em;
 }
@@ -82,14 +80,12 @@ body, button, input {
 }
 .search-btn:before {
 	border-radius: 50%;
-	box-shadow: 0 0 0 0.2em #f1f1f1 inset;
 	top: 0.75em;
 	left: 0.75em;
 	width: 1.2em;
 	height: 1.2em;
 }
 .search-btn:after {
-	background: #f1f1f1;
 	border-radius: 0 0.25em 0.25em 0;
 	top: 51%;
 	left: 51%;
@@ -118,16 +114,3 @@ body, button, input {
 	transform: translateY(1px);
 }
 
-@media screen and (prefers-color-scheme: dark) {
-	body, input {
-		color: #f1f1f1;
-	}
-
-	.search-bar input {
-		box-shadow: 0 0 0 0.4em #f1f1f1 inset;
-	}
-
-	.search-btn {
-		background: #f1f1f1;
-	}
-}
