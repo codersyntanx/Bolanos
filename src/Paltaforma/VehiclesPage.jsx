@@ -358,7 +358,7 @@ const handleModalOk = async () => {
             {vehicletable.map((row) => (
               <tr key={row._id}>
                 <td >
-                  {row.year} {row.model} {row.make}
+                {row.year} {row.make} {row.model} 
                 </td>
                 <td>{row.needCoverage}</td>
                 <td>{row.needCoverage}</td>
@@ -388,7 +388,7 @@ const handleModalOk = async () => {
                           <table>
                             <tr style={{borderBottom:"1px solid black"}}>
                               <td className="table_heading_secction">Vehicle</td>
-                              <td className="table_description">{row.year},{row.make},{row.model}</td>
+                              <td className="table_description">{row.year} {row.make} {row.model} </td>
                             </tr>
                             <tr >
                               <td className="table_heading_secction">Comp</td>
