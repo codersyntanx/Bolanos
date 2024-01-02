@@ -389,7 +389,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             <section className='business-type-section'>
                 <p className="business-type-heading">Most Common Business Types:</p>
                 <div className='business-type row'>
-                    <div className='col-md-4'>
+                    <div className='col-md-5'>
                     <Select
       options={options}
       onChange={handleSelected}
