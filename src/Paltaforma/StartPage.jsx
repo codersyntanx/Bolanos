@@ -6,6 +6,20 @@ import { Spin, Skeleton, DatePicker } from 'antd';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import Select from 'react-select';
 import { Modal,Input,notification } from 'antd';
+import Radio from '@mui/material/Radio';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { styled } from '@mui/system';
+
+const StyledRadio = styled(Radio)({
+  color: '#30577E',
+  width: '30px',
+  height: '30px',
+  '&.Mui-checked': {
+    color: '#30577E',
+    width: '30px',
+    height: '30px',
+  },
+});
 const customStyles = {
   control: (provided, state) => ({
     ...provided,
@@ -347,45 +361,44 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                 <p className="usdotheading">Do you have a USDOT#? </p>
                 <p className="usdotcontent">The number is registered to the your business and displayed on the side of the vehicle. Any business  type could have a USDOT registration.</p>
                 <div className='radiobtn-part'>
-                    <form className='radiobtns'>
-                        <div className='radiob' style={{ width: "34%" }}>
-                            <input
-                                type="radio"
-                                id="example1"
-                                name="radiobtn"
-                                className='custom-radio-btn'
-                                value="Yes"
-                                checked={selectedOption === "Yes"}
-                                onChange={handleRadioChange}
-                            />
-                            <label htmlFor="example1" className='radiobtn-label'>Yes</label>
-                        </div>
-                        <div className='radiob'>
-                            <input
-                                type="radio"
-                                id="example2"
-                                name="radiobtn"
-                                className='custom-radio-btn'
-                                value="No"
-                                checked={selectedOption === "No"}
-                                onChange={handleRadioChange}
-                            />
-                            <label htmlFor="example2" className='radiobtn-label'>No</label>
-                        </div>
-                        <div className='radiob'>
-                            <input
-                                type="radio"
-                                id="example3"
-                                name="radiobtn"
-                                className='custom-radio-btn'
-                                value="Not Yet"
-                                checked={selectedOption === "Not Yet"}
-                                onChange={handleRadioChange}
-                            />
-                            <label htmlFor="example3" className='radiobtn-label'>Not Yet - but the customer has applied/will apply for a USDOT number within 60 days.</label>
-                        </div>
-                    </form>
-                </div>
+      <form className='radiobtns'>
+        <div className='radiob' style={{ width: '34%' }}>
+          <StyledRadio
+            name='radiobtn'
+            value='Yes'
+            checked={selectedOption === 'Yes'}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor='example1' className='radiobtn-label mx-2'>
+            Yes
+          </label>
+        </div>
+        <div className='radiob'>
+          <StyledRadio
+            name='radiobtn'
+            value='No'
+            checked={selectedOption === 'No'}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor='example2' className='radiobtn-label mx-2'>
+            No
+          </label>
+        </div>
+        <div className='radiob'>
+          <StyledRadio
+            name='radiobtn'
+            value='Not Yet'
+            checked={selectedOption === 'Not Yet'}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor='example3' className='radiobtn-label mx-2'>
+            Not Yet - but the customer has applied/will apply for a USDOT number within 60 days.
+          </label>
+        </div>
+      </form>
+    </div>
+
+                
             </section>
             <section className='business-type-section'>
                 <p className="business-type-heading">Most Common Business Types:</p>
@@ -477,9 +490,10 @@ function StartPage({ changeIcon, handleNavigationClick }) {
   type="date"
   aria-label=".form-control-lg example"
   value={dateofBirth}
-  onChange={(e) => { setDateofBirth(e.target.value) }}
-  style={{ color: 'black' }}
+  onChange={(value) => { setDateofBirth(value) }}
+  style={{ color: 'black', fontWeight: '500' }}
 />
+
 
                         </div>
                     </div>

@@ -10,9 +10,19 @@ import "./Table.css"
 import { Modal,Skeleton } from 'antd';
 import {notification } from 'antd';
 import { Modal as AntModal } from 'antd';
-
-
+import Select from 'react-select';
 import axios from "axios";
+
+const customStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    borderRadius: '9px',
+    height: '51px',
+    border: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : '1px solid rgba(0, 0, 0, 0.42)',
+    boxShadow: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : 'none',
+  }),
+};
+
 function VehiclesPage({ changeIcon, handleNavigationClick }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTruck, setSelectedTruck] = useState(null);
@@ -272,7 +282,13 @@ const handleModalOk = async () => {
     // Update the state with the formatted value
     setVehicleWorth(formatNumberWithCommas(inputValue));
   };
-
+  const motortruckOptions = [
+    { value: 'Not Selected', label: 'Not Selected' },
+    { value: '100 Miles', label: '100 Miles' },
+    { value: '300 Miles', label: '300 Miles' },
+    { value: '500 Miles', label: '500 Miles' },
+    { value: 'Unlimited', label: 'Unlimited' },
+  ];
   return (
     <>
       <div className="small-screen-header">
@@ -474,7 +490,12 @@ const handleModalOk = async () => {
                 Farthest one-way distance this vehicle typically travels(90% or more of the <br></br> time)
               </div>
               <div className="col-md-4">
-                <input className="text_input px-3 inputflds" value={distance} onChange={(e) => { setDistance(e.target.value) }} type="text" />
+                <Select
+            value={distance}
+            onChange={(selectedOption) => setDistance(selectedOption)}
+            options={motortruckOptions}
+            styles={customStyles}
+          />
               </div>
             </div>
 
