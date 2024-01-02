@@ -255,7 +255,23 @@ const handleModalOk = async () => {
       });
   };
   
-  
+  const formatNumberWithCommas = (value) => {
+    // Remove existing commas and dollar sign
+    const cleanedValue = value.replace(/[$,]/g, '');
+
+    // Format the number with commas
+    const formattedValue = Number(cleanedValue).toLocaleString();
+
+    // Add dollar sign and return the result
+    return `$ ${formattedValue}`;
+  };
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+
+    // Update the state with the formatted value
+    setVehicleWorth(formatNumberWithCommas(inputValue));
+  };
 
   return (
     <>
@@ -285,7 +301,7 @@ const handleModalOk = async () => {
                 <span className="dimtext">(Choose Other/Not Listed for more Options)</span>
               </p>
               {vehicletable.length > 0 && (
-        <table className='main_table mt-5 mb-5'>
+        <table className='main_table mt-1 mb-5'>
           <thead className='table_header'>
             <tr>
               <th className='idtr'>Vehicle</th>
@@ -299,13 +315,13 @@ const handleModalOk = async () => {
           <tbody>
             {vehicletable.map((row) => (
               <tr key={row._id}>
-                <td className="tabltd">
+                <td >
                   {row.year} {row.model} {row.make}
                 </td>
                 <td>{row.needCoverage}</td>
                 <td>{row.needCoverage}</td>
                 <td>{row.Vin}</td>
-                <td className="tabltd">
+                <td >
                   {row.vehicleWorth}
                 </td>
                 <td>
@@ -328,7 +344,7 @@ const handleModalOk = async () => {
                       return (
                         <>
                           <table>
-                            <tr className="border-bottom">
+                            <tr style={{borderBottom:"1px solid black"}}>
                               <td className="table_heading_secction">Vehicle</td>
                               <td className="table_description">{row.year},{row.make},{row.model}</td>
                             </tr>
@@ -421,7 +437,7 @@ const handleModalOk = async () => {
               </div>
             </div>
 
-            <div className="textcon mt-4">
+            <div className="textcon mt-5">
               Vehicle Identification Number(VIN)
             </div>
             <div className="row mt-2 lookupvin">
@@ -429,7 +445,7 @@ const handleModalOk = async () => {
                 <input className="text_input px-2" value={Vin} onChange={(e) => { setVin(e.target.value) }} type="text" />
               </div>
               <div className="col-md-3">
-                <button className="btn_vin" onClick={lookupvinnumber}>
+                <button className="btn_vin" style={{border:"none"}} onClick={lookupvinnumber}>
                   Lookup VIN
                 </button>
               </div>
@@ -446,7 +462,7 @@ const handleModalOk = async () => {
               </span>
             </div>
             <div className="row mt-5 align-items-center">
-              <div className="col-md-4 inputfieldrow">
+              <div className="col-md-5 inputfieldrow">
                 Zip Code where the vehicle is located?
               </div>
               <div className="col-md-4">
@@ -455,7 +471,7 @@ const handleModalOk = async () => {
             </div>
             <div className="row mt-4 ">
               <div className="col-md-4 inputfieldrow">
-                Farthest one-way distance this vehicle typically travels(90% or more of the <br></br> time)
+                Farthest one-way distance this vehicle typically travels(90% or more of the time)
               </div>
               <div className="col-md-4">
                 <input className="text_input px-3" value={distance} onChange={(e) => { setDistance(e.target.value) }} type="text" />
@@ -489,19 +505,12 @@ const handleModalOk = async () => {
               </div>
               <div className="col-md-4">
               <input
-    className="text_input px-3"
-    value={vehicleWorth}
-    placeholder="$45,000"
-    type="text"
-    onChange={(e) => {
-      const inputValue = e.target.value;
-      if (!inputValue.startsWith('$')) {
-        setVehicleWorth('$'+" " + inputValue);
-      } else {
-        setVehicleWorth(inputValue);
-      }
-    }}
-  />              </div>
+      className="text_input px-3"
+      value={vehicleWorth}
+      placeholder="$45,000"
+      type="text"
+      onChange={handleInputChange}
+    />             </div>
             </div>
 
             <div className="btns_position">
@@ -566,7 +575,7 @@ const handleModalOk = async () => {
   </>):(
     <div className="modal-contents">
       <div className="mainheading">
-        {vinresponse[10]?.Value}-{vinresponse[9]?.Value}-{vinresponse[7]?.Value}
+        {vinresponse[10]?.Value} {vinresponse[9]?.Value} {vinresponse[7]?.Value}
       </div>
       <div className="cont mt-4 "style={{ display: 'flex', gap: '10px',flexWrap:"wrap" }} >
            <div className="infoblock">

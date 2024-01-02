@@ -1,10 +1,9 @@
-*
 
  button, input {
 	font: 1em Hind, sans-serif;
 	line-height: 1.5em;
 }
- input {
+.search-bar input {
 	color: #171717;
 }
 .search-bar {

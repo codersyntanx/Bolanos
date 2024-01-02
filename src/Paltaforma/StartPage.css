@@ -104,7 +104,6 @@ font-style: normal;
 font-weight: 400;
 line-height: 33px; /* 206.25% */
 letter-spacing: 0.32px;
-margin-left: 12px;
 }
 .radiobtns{
     display: flex;
@@ -113,6 +112,39 @@ margin-left: 12px;
     column-gap: 65px;
     row-gap: 20px;
 }
+
+.custom-radio-btn {
+    display: none; 
+  }
+  
+  .custom-radio-btn + label {
+    position: relative;
+    padding-left: 39px; 
+    cursor: pointer;
+  }
+  
+  .custom-radio-btn + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px; 
+    height: 30px; 
+    border: 2px solid rgba(42, 71, 100, 0.64); 
+    border-radius: 50%;
+    padding: 10px;
+    background-color: #fff; 
+  }
+  
+  .custom-radio-btn:checked + label:before {
+    background-color:#30577E ; 
+    border-color:#30577E ; 
+  }
+  
+
+  
+  
 .radiobtn{
     width: 30px;
 height: 30px;
@@ -135,6 +167,10 @@ font-size: 25px;
 font-style: normal;
 font-weight: 600;
 line-height: normal;
+}
+radiob input:focus{
+    color: #263238;
+    background-color: #263238;
 }
 .busnes-types{
     color: #2A4764;

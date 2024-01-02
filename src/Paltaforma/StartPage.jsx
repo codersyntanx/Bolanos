@@ -6,6 +6,22 @@ import { Spin, Skeleton } from 'antd';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import Select from 'react-select';
 import { Modal,Input,notification } from 'antd';
+const customStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    borderRadius: '9px',
+    height: '51px',
+    border: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : '1px solid rgba(0, 0, 0, 0.42)',
+    boxShadow: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : 'none',
+  }),
+  menu: (provided) => ({
+    ...provided,
+    overflowY: 'scroll',
+    maxHeight: '150px',
+  }),
+};
+
+
 function StartPage({ changeIcon, handleNavigationClick }) {
     const [selectedOption, setSelectedOption] = useState(null);
     const [bussinesstype, setBussinesstype] = useState(null);
@@ -25,6 +41,58 @@ function StartPage({ changeIcon, handleNavigationClick }) {
     const [appartment, setAppartment] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const[usdotnum,setUsdotnum]=useState("")
+    const[informId, setInformId]=useState(null)
+    const[response, setResponse]=useState("")
+    useEffect(() => {
+      const informationId = localStorage.getItem("mainid");
+      if (informationId && informId !== informationId) {
+        setInformId(informationId);
+      }
+    }, [informId]);
+  
+    useEffect(() => {
+      if (informId !== null) {
+        fetchInformationById();
+      }
+    }, [informId]);
+  
+    const fetchInformationById = async () => {
+      try {
+        const res = await axios.get(`https://serverforbce.vercel.app/api/getinformationbyid/${informId}`);
+        const data = res.data.data;
+  
+        // Update state variables with fetched data
+        setResponse(data);
+        setSelectedOption(data.selectedOption);
+        setBussinesstype(data.bussinesstype);
+        setFullname(data.fullname);
+        setMiddlename(data.middlename);
+        setLastname(data.lastname);
+        setSuffix(data.suffix);
+        setAddress(data.address);
+        setZip(data.zip);
+        setCity(data.city);
+        setDateofBirth(data.dateofBirth);
+  
+        // Extract and set phone number parts
+        if (data.phonenumber) {
+          const phoneNumberParts = data.phonenumber.split('-');
+          setAreaCode(phoneNumberParts[0]);
+          setMiddlePart(phoneNumberParts[1]);
+          setLastPart(phoneNumberParts[2]);
+        }
+  
+        setAppartment(data.appartment);
+        setUsdotnum(data.usdotnum);
+      } catch (error) {
+        console.error('Error fetching information by ID:', error);
+      }
+    };
+  
+
+
+
+
     const handleModalCancel = () => {
              setModalVisible(false);
              setSelectedOption("")
@@ -48,46 +116,71 @@ function StartPage({ changeIcon, handleNavigationClick }) {
         });
       };
     const searchOptions = {
-        componentRestrictions: { country: 'us' }, // Restrict suggestions to the United States
+        componentRestrictions: { country: 'us' }, 
     };
 
 
 
     const handleSelect = async (value) => {
-        try {
-          const results = await geocodeByAddress(value);
-          const latLng = await getLatLng(results[0]);
-      
-          // Access city and zip code from the first result
-          const addressComponents = results[0].address_components;
-          console.log('Address Components:', addressComponents);
-      
-          // Try finding city and zip code with alternative types
-          const cityComponent = addressComponents.find(
-            (component) => component.types.includes('locality')
-          );
-      
-          const zipCodeComponent = addressComponents.find(
-            (component) =>
-              component.types.includes('postal_code') ||
-              component.types.includes('postal_code_suffix') ||
-              component.types.includes('postal_code_prefix')
-          );
-      
-          const city = cityComponent ? cityComponent.long_name : '';
-          const zipCode = zipCodeComponent ? zipCodeComponent.long_name : '';
-      
-          setAddress(value);
-          setCity(city);
-          setZip(zipCode); 
-      
-          console.log('City:', city);
-          console.log('Zip Code:', zipCode);
-        } catch (error) {
-          console.error('Error selecting address:', error);
-          // Handle the error (e.g., show a user-friendly message)
-        }
-      };
+      try {
+        const results = await geocodeByAddress(value);
+        const latLng = await getLatLng(results[0]);
+    
+        // Access city, state, and zip code from the first result
+        const addressComponents = results[0].address_components;
+        console.log('Address Components:', addressComponents);
+    
+        // Try finding city, state, and zip code with alternative types
+        const cityComponent = addressComponents.find(
+          (component) => component.types.includes('locality')
+        );
+    
+        const stateComponent = addressComponents.find(
+          (component) => component.types.includes('administrative_area_level_1')
+        );
+    
+        const countryComponent = addressComponents.find(
+          (component) => component.types.includes('country')
+        );
+    
+        const zipCodeComponent = addressComponents.find(
+          (component) =>
+            component.types.includes('postal_code') ||
+            component.types.includes('postal_code_suffix') ||
+            component.types.includes('postal_code_prefix')
+        );
+    
+        const streetAddress = results[0].formatted_address;
+        console.log(streetAddress);
+    
+        const city = cityComponent ? cityComponent.long_name : '';
+        const state = stateComponent ? stateComponent.long_name : '';
+        const country = countryComponent ? countryComponent.long_name : '';
+        const zipCode = zipCodeComponent ? zipCodeComponent.long_name : '';
+    
+        // Remove city, country, and state from the street address using regex
+        const cleanedStreetAddress = streetAddress.replace(
+          new RegExp(`${city},|${country},|${state},`, 'g'),
+          ''
+        ).trim();
+    
+        setAddress(cleanedStreetAddress);
+        setCity(`${city}, ${state},${country}`);
+        setZip(zipCode);
+    
+        console.log('Street Address:', streetAddress);
+        console.log('City:', city);
+        console.log('State:', state);
+        console.log('Country:', country);
+        console.log('Zip Code:', zipCode);
+      } catch (error) {
+        console.error('Error selecting address:', error);
+        // Handle the error (e.g., show a user-friendly message)
+      }
+    };
+    
+    
+    
       
       
       
@@ -129,91 +222,108 @@ function StartPage({ changeIcon, handleNavigationClick }) {
     };
  
     const handleButtonClick = () => {
-        if (areaCode.length !== 3 || middlePart.length !== 3 || lastPart.length !== 4) {
-            openNotification("error", "Incorrect Phone number");
-            return; // Stop further execution if the phone number is incorrect
-        }
-    
-        setLoading(true);
-    
-        if (
-            selectedOption &&
-            bussinesstype &&
-            fullname &&
-            address &&
-            zip &&
-            city &&
-            dateofBirth
-        ) {
-            // Save data to local storage
-            const userData = {
-                selectedOption,
-                bussinesstype,
-                fullname,
-                middlename,
-                lastname,
-                suffix,
-                address,
-                zip,
-                city,
-                dateofBirth,
-                phonenumber: `${areaCode}-${middlePart}-${lastPart}`, 
-                appartment,
-                usdotnum
-            };
-    
-            axios.post("https://serverforbce.vercel.app/api/postinformation", userData)
-                .then(res => {
-                    if (res.status === 200 && res.data.status === true) {
-                        localStorage.setItem("mainid", res.data.created._id);
-                        changeIcon("fa-regular fa-circle-check green-icon");
-                        handleNavigationClick("vehicles");
-                    } else {
-                        console.error("Unexpected server response:", res);
-                        alert("Error while processing the request. Please try again.");
-                    }
-                })
-                .catch(error => {
-                    console.error("Error during request:", error);
-                    alert("Error during request. Please try again.");
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
-        } else {
-            // Display error alert if fields are not complete
-            alert("Please fill in all required fields.");
-            setLoading(false); // Ensure loading is set to false in case of an error
-        }
-    };
+      if (areaCode.length !== 3 || middlePart.length !== 3 || lastPart.length !== 4) {
+          openNotification("error", "Incorrect Phone number");
+          return; // Stop further execution if the phone number is incorrect
+      }
+  
+      setLoading(true);
+  
+      const requiredFields = [
+          { name: 'selectedOption', label: 'USDOT#' },
+          { name: 'bussinesstype', label: 'Business Type' },
+          { name: 'fullname', label: 'First Name' },
+          { name: 'lastname', label: 'Last Name' },
+          { name: 'suffix', label: 'Suffix' },
+          { name: 'address', label: 'Address' },
+          { name: 'zip', label: 'Zip Code' },
+          { name: 'city', label: 'City' },
+          { name: 'dateofBirth', label: 'Date of Birth' }
+      ];
+  
+      const userData = {
+          selectedOption,
+          bussinesstype,
+          fullname,
+          middlename,
+          lastname,
+          suffix,
+          address,
+          zip,
+          city,
+          dateofBirth,
+          phonenumber: `${areaCode}-${middlePart}-${lastPart}`,
+          appartment,
+          usdotnum
+      };
+  
+      const missingFields = requiredFields.filter(field => !userData[field.name]);
+  
+      if (missingFields.length === 0) {
+          if (informId != null) {
+              axios.put(`https://serverforbce.vercel.app/api/putinformation/${informId}`, userData)
+                  .then((res) => {
+                      if (res.status === 200 && res.data.status === true) {
+                          changeIcon("fa-regular fa-circle-check green-icon");
+                          handleNavigationClick("vehicles");
+                      } else {
+                          console.error("Unexpected server response:", res);
+                          alert("Error while processing the request. Please try again.");
+                      }
+                  })
+                  .catch((error) => {
+                      console.error("Error during request:", error);
+                      alert("Error during request. Please try again.");
+                  })
+                  .finally(() => {
+                      setLoading(false);
+                  });
+          } else {
+              axios.post("https://serverforbce.vercel.app/api/postinformation", userData)
+                  .then((res) => {
+                      if (res.status === 200 && res.data.status === true) {
+                          localStorage.setItem("mainid", res.data.created._id);
+                          changeIcon("fa-regular fa-circle-check green-icon");
+                          handleNavigationClick("vehicles");
+                      } else {
+                          console.error("Unexpected server response:", res);
+                          alert("Error while processing the request. Please try again.");
+                      }
+                  })
+                  .catch((error) => {
+                      console.error("Error during request:", error);
+                      alert("Error during request. Please try again.");
+                  })
+                  .finally(() => {
+                      setLoading(false);
+                  });
+          }
+      } else {
+          // Display error alert with missing field names
+          const missingFieldNames = missingFields.map(field => field.label).join(', ');
+          openNotification("error", `Please fill in the following required fields: ${missingFieldNames}`);
+          setLoading(false); // Ensure loading is set to false in case of an error
+      }
+  };
+  
+  
+  
+
     
 
+    
     const options = [
-        'Contractor',
-        'Dirt.Sand and Gravel',
-        'Landscaper',
-        'Towing',
-        'Trucker',
-      ];
-    
-      const [suggestions, setSuggestions] = useState([]);
-    
-      const handleChange = (e) => {
-        const value = e.target.value;
-        setBussinesstype(value);
-    
-        // Filter options based on the input value
-        const filteredSuggestions = options.filter((option) =>
-          option.toLowerCase().includes(value.toLowerCase())
-        );
-        setSuggestions(filteredSuggestions);
-      };
-    
+      { value: 'Contractor', label: 'Contractor' },
+      { value: 'Dirt.Sand and Gravel', label: 'Dirt.Sand and Gravel' },
+      { value: 'Landscaper', label: 'Landscaper' },
+      { value: 'Towing', label: 'Towing' },
+      { value: 'Trucker', label: 'Trucker' },
+      { value: 'Trucker', label: 'Trucker' },
+      { value: 'Trucker', label: 'Trucker' },
+    ];
       const handleSelected = (selectedOption) => {
-        setBussinesstype(selectedOption);
-        setSuggestions([]);
+        setBussinesstype(selectedOption.value);
       };
-    
 
     return (
         <>
@@ -242,7 +352,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                                 type="radio"
                                 id="example1"
                                 name="radiobtn"
-                                className='radiobtn'
+                                className='custom-radio-btn'
                                 value="Yes"
                                 checked={selectedOption === "Yes"}
                                 onChange={handleRadioChange}
@@ -254,7 +364,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                                 type="radio"
                                 id="example2"
                                 name="radiobtn"
-                                className='radiobtn'
+                                className='custom-radio-btn'
                                 value="No"
                                 checked={selectedOption === "No"}
                                 onChange={handleRadioChange}
@@ -266,7 +376,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                                 type="radio"
                                 id="example3"
                                 name="radiobtn"
-                                className='radiobtn'
+                                className='custom-radio-btn'
                                 value="Not Yet"
                                 checked={selectedOption === "Not Yet"}
                                 onChange={handleRadioChange}
@@ -279,24 +389,14 @@ function StartPage({ changeIcon, handleNavigationClick }) {
             <section className='business-type-section'>
                 <p className="business-type-heading">Most Common Business Types:</p>
                 <div className='business-type row'>
-                    <div className='col-md-2'></div>
-                    <div className='col-md-10'>
-                            <input
-        type="text"
-        className='full-field px-2'
-        value={bussinesstype}
-        onChange={handleChange}
-        placeholder="Type to search..."
-      />
-      <ul className='mainlicom'>
-        {suggestions.map((option, index) => (
-          <li key={index} onClick={() => handleSelected(option)}>
-            {option}
-          </li>
-        ))}
-      </ul>
-                    </div>
-            
+                    <div className='col-md-4'>
+                    <Select
+      options={options}
+      onChange={handleSelected}
+      value={options.find((option) => option.value === bussinesstype)}
+      styles={customStyles}
+    />
+            </div>
                 </div>
 
                 <p className="business-owner-info">Home address/personal information of the business owner</p>
@@ -306,12 +406,12 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                         <p className="name-txt">Business owner name</p>
                         <div className="name-fields">
                             <div className="inner-part">
-                                <input class="form-control form-control-lg full-name" type="text" placeholder="First Name" aria-label=".form-control-lg example" onChange={(e) => { setFullname(e.target.value) }} />
-                                <input class="form-control form-control-lg mi" type="text" placeholder="MI" aria-label=".form-control-lg example" onChange={(e) => { setMiddlename(e.target.value) }} />
+                                <input class="form-control form-control-lg full-name" type="text" placeholder="First Name" aria-label=".form-control-lg example" value={fullname} onChange={(e) => { setFullname(e.target.value) }} />
+                                <input class="form-control form-control-lg mi" type="text" placeholder="MI" aria-label=".form-control-lg example" value={middlename} onChange={(e) => { setMiddlename(e.target.value) }} />
                             </div>
                             <div className="inner-part">
-                                <input class="form-control form-control-lg last-name" type="text" placeholder="Last Name" aria-label=".form-control-lg example" onChange={(e) => { setLastname(e.target.value) }} />
-                                <input class="form-control form-control-lg sufix" type="text" placeholder="Suffix" aria-label=".form-control-lg example" onChange={(e) => { setSuffix(e.target.value) }} />
+                                <input class="form-control form-control-lg last-name" type="text" placeholder="Last Name" aria-label=".form-control-lg example" value={lastname} onChange={(e) => { setLastname(e.target.value) }} />
+                                <input class="form-control form-control-lg sufix" type="text" placeholder="Suffix" aria-label=".form-control-lg example" value={suffix} onChange={(e) => { setSuffix(e.target.value) }} />
                             </div>
                         </div>
                     </div>
@@ -350,7 +450,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                     <div className='name-part'>
                         <p className="name-txt">Apt/Suite/Other:(Optional)</p>
                         <div className="name-fields">
-                            <input onChange={(e) => { setAppartment(e.target.value) }} class="form-control form-control-lg full-field" />
+                            <input value={appartment} onChange={(e) => { setAppartment(e.target.value) }} class="form-control form-control-lg full-field" />
                         </div>
                     </div>
 
@@ -371,7 +471,15 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                     <div className="name-part">
                         <p className="name-txt">Date of Birth:</p>
                         <div className="name-fields">
-                            <input class="form-control form-control-lg full-field" type="date" aria-label=".form-control-lg example" onChange={(e) => { setDateofBirth(e.target.value) }} />
+                        <input
+  className="form-control form-control-lg full-field"
+  type="date"
+  aria-label=".form-control-lg example"
+  value={dateofBirth}
+  onChange={(e) => { setDateofBirth(e.target.value) }}
+  style={{ color: 'transparent' }}
+/>
+
                         </div>
                     </div>
                     <div className="name-part">
