@@ -549,6 +549,8 @@ function StartPage({ changeIcon, handleNavigationClick }) {
         open={modalVisible}
         onOk={handleModalOk}
         onCancel={handleModalCancel}
+        okButtonProps={{ style: { backgroundColor: '#30577E;', color: 'white' } }}
+
       >
           
         {/* Ant Design Input for USDOT number */}

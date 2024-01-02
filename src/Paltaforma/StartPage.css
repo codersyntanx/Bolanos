@@ -11,6 +11,11 @@
     padding: 32px 40px;
     margin: 40px auto;
 }
+:where(.css-dev-only-do-not-override-6j9yrn).ant-modal .ant-modal-footer .ant-btn+.ant-btn:not(.ant-dropdown-trigger) {
+    margin-bottom: 0;
+    margin-inline-start: 8px;
+    background-color: #30577E;
+}
 .numberrow{
     align-items: baseline;
 }
