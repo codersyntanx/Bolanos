@@ -471,7 +471,7 @@ const handleModalOk = async () => {
             </div>
             <div className="row mt-5 ">
               <div className="col-md-4 inputfieldrow">
-                Farthest one-way distance this vehicle typically travels(90% or more of the time)
+                Farthest one-way distance this vehicle typically travels(90% or more of the <br></br> time)
               </div>
               <div className="col-md-4">
                 <input className="text_input px-3" value={distance} onChange={(e) => { setDistance(e.target.value) }} type="text" />
