@@ -485,6 +485,9 @@ text-decoration-line: underline;
 }
 
 @media screen and (max-width: 435px) {
+    .business-type-section{
+        padding: 20px;
+    }
     .radiobtns {
         display: flex;
         justify-content: left;
@@ -509,6 +512,7 @@ text-decoration-line: underline;
 }
 .start-hero-section{
     margin: 20px auto;
+    padding: 20px;
 }
 .radiobtn-part{
     margin-top: 50px;
