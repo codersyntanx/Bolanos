@@ -441,7 +441,7 @@ const handleModalOk = async () => {
               Vehicle Identification Number(VIN)
             </div>
             <div className="row mt-2 lookupvin">
-              <div className="col-md-4">
+              <div className="col-md-4 vintxt">
                 <input className="text_input px-2" value={Vin} onChange={(e) => { setVin(e.target.value) }} type="text" />
               </div>
               <div className="col-md-3">
@@ -469,7 +469,7 @@ const handleModalOk = async () => {
                 <input className="text_input px-3" value={zipCode} onChange={(e) => { setZipCode(e.target.value) }} placeholder="20744" type="text" />
               </div>
             </div>
-            <div className="row mt-4 ">
+            <div className="row mt-5 ">
               <div className="col-md-4 inputfieldrow">
                 Farthest one-way distance this vehicle typically travels(90% or more of the time)
               </div>
@@ -478,9 +478,9 @@ const handleModalOk = async () => {
               </div>
             </div>
 
-            <div className="row mt-3">
+            <div className="row mt-5">
               <div className="col-md-4 inputfieldrow">
-                Does the customer need comprehensive or collision coverage to protect this vehicle in an accident or loss?
+              Do you need comprehensive or collision coverage to protect this vehicle in an accident or loss?
               </div>
               <div className="col-md-7 vehicle_typeans ">
 
@@ -495,11 +495,11 @@ const handleModalOk = async () => {
 
 
 
-            <div className="heading_vehicle_add mt-4">
+            <div className="heading_vehicle_add mt-5">
               Unit Value
             </div>
 
-            <div className="row mt-4 align-items-center">
+            <div className="row mt-5 align-items-center">
               <div className="col-md-4 inputfieldrow">
                 If this vehicle was sold today,how much would it be worth?
               </div>

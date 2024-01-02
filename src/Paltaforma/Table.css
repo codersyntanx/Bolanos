@@ -175,14 +175,18 @@ font-weight: 400;
 line-height: 33px; /* 235.714% */
 letter-spacing: 0.42px;
 }
+.vintxt{
+  width: 37%;
+}
 .inputfieldrow{
   color: #000;
 font-family: Inter;
 font-size: 17px;
 font-style: normal;
 font-weight: 400;
-line-height: 36px; /* 211.765% */
+line-height: 26px; /* 211.765% */
 letter-spacing: 0.34px;
+width: 37%;
 }
 .vehicle_money{
   color: #263238;
@@ -282,6 +286,7 @@ margin-left: auto;
 }
 .inputfieldrow{
   margin-bottom: 10px;
+  width: 100%;
 }
 .typeans{
   flex-wrap: wrap;
