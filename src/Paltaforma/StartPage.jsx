@@ -328,14 +328,20 @@ function StartPage({ changeIcon, handleNavigationClick }) {
 
     
     const options = [
-      { value: 'Contractor', label: 'Contractor' },
-      { value: 'Dirt.Sand and Gravel', label: 'Dirt.Sand and Gravel' },
-      { value: 'Landscaper', label: 'Landscaper' },
+      { value: 'Auto hauler', label: 'Auto hauler' },
+      { value: 'Passengers for hire', label: 'Passengers for hire' },
+      { value: 'General freight hauler', label: 'General freight hauler' },
       { value: 'Towing', label: 'Towing' },
-      { value: 'Trucker', label: 'Trucker' },
-      { value: 'Trucker', label: 'Trucker' },
-      { value: 'Trucker', label: 'Trucker' },
+      { value: 'Salvage', label: 'Salvage' },
+      { value: 'Sand and gravel', label: 'Sand and gravel' },
+      { value: 'Sand', label: 'Sand' },
+      { value: 'Asphalt hauler', label: 'Asphalt hauler' },
+      { value: 'Fracking', label: 'Fracking' },
+      { value: 'Contractors', label: 'Contractors' },
+      { value: 'Building materials', label: 'Building materials' },
+
     ];
+
       const handleSelected = (selectedOption) => {
         setBussinesstype(selectedOption.value);
       };
@@ -489,7 +495,6 @@ function StartPage({ changeIcon, handleNavigationClick }) {
   className="form-control form-control-lg full-field"
   type="date"
   aria-label=".form-control-lg example"
-  value={dateofBirth}
   onChange={(value) => { setDateofBirth(value) }}
   style={{ color: 'black', fontWeight: '500' }}
 />

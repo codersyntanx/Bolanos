@@ -43,6 +43,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
   const [isNewModalVisible, setNewModalVisible] = useState(false);
   const [loading,setLoading]=useState(false)
   const [vinresponse,setVinresponse]=useState("")
+  const [loader, setLoader]=useState(true)
   const openNewModal = () => {
     setNewModalVisible(true);
   };
@@ -201,24 +202,11 @@ const handleModalOk = async () => {
   };
   
   const handleButtonClick = () => {
-    // Check if all fields are filled
-    const requiredFields = ["selectedTruck", "zipCode", "distance", "needCoverage", "vehicleWorth", "vehicalby", "Vin"];
-    const missingFields = [];
+    setLoader(false);
   
-    // Check if all fields are filled
-    requiredFields.forEach(field => {
-      if (!eval(field)) {
-        missingFields.push(field);
-      }
-    });
-  
-    if (missingFields.length > 0) {
-      openNotification('error', `Please fill in the following fields before continuing`);
-      return;
-    }
-  
-    const postData = {
-      informId, // If informId is present, it means you're editing; otherwise, it's a new vehicle
+    // Declare postData before using it
+    let postData = {
+      informId,
       selectedTruck,
       zipCode,
       distance,
@@ -231,29 +219,37 @@ const handleModalOk = async () => {
       Vin,
     };
   
+    // Check if all fields are filled
+    const requiredFields = ["selectedTruck", "zipCode", "distance", "needCoverage", "vehicleWorth", "vehicalby", "Vin"];
+    const missingFields = requiredFields.filter(field => !postData[field]);
+  
+    if (missingFields.length > 0) {
+      openNotification('error', `Please fill in the following fields before continuing`);
+      return;
+    }
+  
     const url = updatevehicle ? `https://serverforbce.vercel.app/api/putvehicle/${vehicleid}` : "https://serverforbce.vercel.app/api/postvehicle";
-
     const axiosMethod = updatevehicle ? axios.put : axios.post;
-    
+  
     axiosMethod(url, postData)
       .then(res => {
         if (res.status === 200 && res.data.status === true) {
-          // Navigate to the next page if needed
           setIsConfirmed(false);
           fetchvehicle();
           setUpdatevehicle(false)
           openNotification('success', informId ? `Vehicle Updated Successfully` : `Vehicle Added Successfully`);
-          setVehicleid("")
-    setSelectedTruck("");
-    setZipCode("");
-    setDistance("");
-    setNeedCoverage("");
-    setVehicleWorth("");
-    setVehicalby("");
-    setVin("");
-    setYear("");
-    setMake("");
-    setModel("");
+          // Clear the form fields
+          setVehicleid("");
+          setSelectedTruck("");
+          setZipCode("");
+          setDistance("");
+          setNeedCoverage("");
+          setVehicleWorth("");
+          setVehicalby("");
+          setVin("");
+          setYear("");
+          setMake("");
+          setModel("");
         } else {
           console.error("Unexpected server response:", res);
           alert("Error while processing the request. Please try again.");
@@ -262,8 +258,14 @@ const handleModalOk = async () => {
       .catch(error => {
         console.error("Error during request:", error);
         alert("Error during request. Please try again.");
+      })
+      .finally(() => {
+        setLoader(true);
       });
   };
+  
+  
+  
   
   const formatNumberWithCommas = (value) => {
     // Remove existing commas and dollar sign
@@ -490,12 +492,14 @@ const handleModalOk = async () => {
                 Farthest one-way distance this vehicle typically travels(90% or more of the <br></br> time)
               </div>
               <div className="col-md-4">
-                <Select
-            value={distance}
-            onChange={(selectedOption) => setDistance(selectedOption)}
-            options={motortruckOptions}
-            styles={customStyles}
-          />
+              <Select
+  value={motortruckOptions.find(option => option.value === distance)}
+  onChange={(selectedOption) => setDistance(selectedOption.value)}
+  options={motortruckOptions}
+  styles={customStyles}
+/>
+
+
               </div>
             </div>
 
@@ -543,9 +547,10 @@ const handleModalOk = async () => {
                 {' '}
                 <i class="fa-solid fa-angle-left"></i>
               </button>
-              <button className="continous_button" onClick={handleButtonClick}>
-              Continue &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
-              </button>
+              <button className="continous_button" onClick={handleButtonClick} disabled={loader === false}>
+  Continue &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
+</button>
+
             </div>
           </div>
         )
