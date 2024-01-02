@@ -357,6 +357,7 @@ text-align: center;
     }
     .Driver_container{
         min-height: max-content;
+        padding: 20px;
     }
     .namepart{
         flex-wrap: wrap;
