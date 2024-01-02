@@ -272,9 +272,10 @@ margin-left: auto;
   }
   .vehicle_typeans{
     width: fit-content;
+    align-items: end;
   }
   .loanlbl {
-    margin-right: 0px;
+    margin-right: 50px;
 }
 .btn_vin{
   width: 100%;

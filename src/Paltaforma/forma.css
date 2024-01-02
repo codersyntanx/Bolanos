@@ -338,7 +338,15 @@ text-align: center;
     }
 }
 @media (max-width: 435px){
-   
+    .add_vehicle{
+        padding: 20px;
+    }
+    input{
+        margin-top: 15px;
+    }
+    .vintxt{
+        width: 100%;
+    }
     .lableforinput{
         margin-bottom: 10px;
     }
