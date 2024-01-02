@@ -59,8 +59,24 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
       description,
     });
   };
+  const formatNumberWithCommas = (value) => {
+    // Remove existing commas and dollar sign
+    const cleanedValue = value.replace(/[$,]/g, '');
 
+    // Format the number with commas
+    const formattedValue = Number(cleanedValue).toLocaleString();
 
+    // Add dollar sign and return the result
+    return `$ ${formattedValue}`;
+  };
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+
+    // Update the state with the formatted value
+    setBodilyInjuryLimit(formatNumberWithCommas(inputValue));
+  };
+console.log(bodilyInjuryLimit)
     return(
         <>
          <div className="small-screen-header">
@@ -175,16 +191,8 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
             <div className="col-md-5">
               <input
                   value={bodilyInjuryLimit}
-
                 className="customer_email_input"
-                onChange={(e) =>{
-                  const inputValue = e.target.value;
-                  if (!inputValue.startsWith('$')) {
-                    setBodilyInjuryLimit("$" +" " + inputValue)
-                  }else{
-                    setBodilyInjuryLimit(inputValue)
-                  }
-                }}
+                onChange={handleInputChange}
                 placeholder="$1,000,000 combined single limit"
               />
                  
