@@ -76,7 +76,6 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
     // Update the state with the formatted value
     setBodilyInjuryLimit(formatNumberWithCommas(inputValue));
   };
-console.log(bodilyInjuryLimit)
     return(
         <>
          <div className="small-screen-header">

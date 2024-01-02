@@ -9,6 +9,15 @@ import unknown from "./images/unknown.png"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import Select from 'react-select';
+const customStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    borderRadius: '9px',
+    height: '51px',
+    border: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : '1px solid rgba(0, 0, 0, 0.42)',
+    boxShadow: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : 'none',
+  }),
+};
 function CoveragesPage({ changeIcon,handleNavigationClick }){
     const [bolidly, setBolidly]=useState(true)
     const [uninsured, setUninsured]=useState("")
@@ -176,6 +185,33 @@ const handleprotect= (selectedOption) => {
   setPersonpro(selectedOption.value);
 
 };
+
+
+
+const motortruckOptions = [
+  { value: 'Not Selected', label: 'Not Selected' },
+  { value: '$ 50,000', label: '$ 50,000' },
+  { value: '$ 100,000', label: '$ 100,000' },
+  { value: '$ 150,000', label: '$ 150,000' },
+  { value: '$ 200,000', label: '$ 200,000' },
+  { value: '$ 300,000', label: '$ 300,000' },
+];
+
+const trailerinterOptions = [
+  { value: 'Not Selected', label: 'Not Selected' },
+  { value: '$ 20k', label: '$ 20k' },
+  { value: '$ 30k', label: '$ 30k' },
+  { value: '$ 40k', label: '$ 40k' },
+  { value: '$ 50k', label: '$ 50k' },
+  { value: '$ 60k', label: '$ 60k' },
+  { value: '$ 70k', label: '$ 70k' },
+];
+
+const generalOptions = [
+  { value: 'Not Selected', label: 'Not Selected' },
+  { value: '$ 1,000,000/1,000,000', label: '$ 1,000,000/1,000,000' },
+  { value: '$ 1,000,000/2,000,000', label: '$ 1,000,000/2,000,000' },
+];
 return(
         <>
          <div className="small-screen-header">
@@ -210,6 +246,7 @@ return(
           <Select
         options={options}
         onChange={handleChange}
+        styles={customStyles}
       />
 
 
@@ -234,8 +271,8 @@ return(
           </div>
           <div className="col-md-5">
           <Select
-        // className="customer_slect"
         options={nontruck}
+        styles={customStyles}
         onChange={handletrucking}
       />
           
@@ -256,8 +293,8 @@ return(
   </div>
   <div className="col-md-5">
   <Select
-        // className="customer_slect"
         options={insured}
+        styles={customStyles}
         onChange={handleinsured}
       />
   </div>
@@ -277,8 +314,8 @@ return(
           </div>
           <div className="col-md-5">
           <Select
-        // className="customer_slect"
         options={protect}
+        styles={customStyles}
         onChange={handleprotect}
       />
           
@@ -287,85 +324,64 @@ return(
         </div>
      </div>
      <div className="Insurance_type">
-     <div className="coverage_heading">
-               Special Coverages related to the Customer’s Business
-        </div>
+      <div className="coverage_heading">Special Coverages related to the Customer’s Business</div>
 
-        <div className="row bluediv2 align-items-center">
-<div className="col-md-1"></div>
+      <div className="row bluediv2 align-items-center">
+        <div className="col-md-1"></div>
         <div className="col-md-3 d-flex jus moto-truck-cargo-txt">
-        Motor Truck Cargo
-        <div className="circle2">
-            <i class="fa-solid fa-question" style={{color:"white"}}></i>
-            </div>
+          Motor Truck Cargo
+          <div className="circle2">
+            <i className="fa-solid fa-question" style={{ color: "white" }}></i>
           </div>
+        </div>
+        <div className="col-md-5 smalinput">
+          <Select
+            value={motortruck}
+            onChange={(selectedOption) => setMotortruck(selectedOption)}
+            options={motortruckOptions}
+            styles={customStyles}
+          />
+        </div>
+      </div>
+
+      <div className="row mt-4 trailer-small-screen">
+        <div className="col-md-1 minussign"></div>
+        <div className="col-md-3 jus d-flex minustext">
+          Trailer Interchange
+          <div className="circle2">
+            <i className="fa-solid fa-question" style={{ color: "white" }}></i>
+          </div>
+        </div>
+       
           <div className="col-md-5 smalinput">
-             <select className="customer_slect" onChange={(e)=>{setMotortruck(e.target.value)}}>
-                <option className="optionval">Not Selected</option>
-                <option className="optionval">$ 50,000</option>
-                <option className="optionval">$ 100,000</option>
-                <option className="optionval">$ 150000</option>
-                <option className="optionval">$ 200000</option>
-                <option className="optionval">$ 300000</option>
-
-             </select>
-          
-
+            <Select
+              value={trailerinter}
+              onChange={(selectedOption) => setTrailerinter(selectedOption)}
+              options={trailerinterOptions}
+              styles={customStyles}
+            />
           </div>
+       
+      </div>
 
-        </div>
-        <div className="row mt-4 trailer-small-screen">
-         <div className="col-md-1 minussign">
-           
-            
-         </div>
-         <div className="col-md-3 jus d-flex minustext">
-            Trailer Interchange   <div className="circle2">
-            <i class="fa-solid fa-question" style={{color:"white"}}></i>
-            </div>
-          </div>
-          <div className="col-md-4">
-          <div className="col-md-5 smalinput">
-             <select className="customer_slect" onChange={(e)=>{setTrailerinter(e.target.value)}}>
-                <option className="optionval">Not Selected</option>
-                <option className="optionval">$ 20k</option>
-                <option className="optionval">$ 30k</option>
-                <option className="optionval">$ 40k</option>
-                <option className="optionval">$ 50k</option>
-                <option className="optionval">$ 60k</option>
-                <option className="optionval">$ 70k</option>
-
-             </select>
-          
-
-          </div>
-        </div>
-   
-
-        </div>
-        <div className="row bluediv2 align-items-center">
-         <div className="col-md-1 circle-outer">
-        
-         </div>
+      <div className="row bluediv2 align-items-center">
+        <div className="col-md-1 circle-outer"></div>
         <div className="col-md-3 jus d-flex gnrlliabtext">
-        General Liabilty &nbsp;&nbsp;&nbsp;
-        <div className="circle2">
-            <i class="fa-solid fa-question" style={{color:"white"}}></i>
-            </div>
+          General Liability &nbsp;&nbsp;&nbsp;
+          <div className="circle2">
+            <i className="fa-solid fa-question" style={{ color: "white" }}></i>
           </div>
-          <div className="col-md-7">
-             <select className="customer_slect2" onChange={(e)=>{setGeneral(e.target.value)}}>
-                <option className="optionval">Not Selected</option>
-                <option className="optionval">$ 1,000,000/1,000,000</option>
-                <option className="optionval">$ 1,000,000/2,000,000</option>
-
-             </select>
-          
-
-          </div>
-        
         </div>
-     </div>
+        <div className="col-md-7">
+          <Select
+            value={general}
+            onChange={(selectedOption) => setGeneral(selectedOption)}
+            options={generalOptions}
+            styles={customStyles}
+          />
+        </div>
+      </div>
+    </div>
      {
   vehicletable.map((vehicle) => {
     // Assuming there is a selectedTruck property in the vehicle object
