@@ -14,12 +14,13 @@ const customStyles = {
     border: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : '1px solid rgba(0, 0, 0, 0.42)',
     boxShadow: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : 'none',
   }),
-  menu: (provided) => ({
+  menuList: (provided) => ({
     ...provided,
-    overflowY: 'scroll',
+    overflowY: 'auto', 
     maxHeight: '150px',
   }),
 };
+
 
 
 function StartPage({ changeIcon, handleNavigationClick }) {
