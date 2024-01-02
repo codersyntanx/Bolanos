@@ -29,7 +29,6 @@ letter-spacing: 0.32px;
     font-family: inter;
 }
 .customer_email{
-    margin-top: 20px;
     color: #263238;
 font-family: Inter;
 font-size: 17px;
@@ -60,6 +59,7 @@ letter-spacing: 0.34px;
 }
 .cstmremail{
     margin-top: 20px;
+    align-items: center;
 }
 .business_heading2{
     color: #263238;
