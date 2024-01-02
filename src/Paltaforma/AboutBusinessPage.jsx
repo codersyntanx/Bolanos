@@ -114,7 +114,7 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
         <div className="customer_email">
         Is the Business Currently insured?<br></br>
         <div className="row">
-            <div className="col-md-4 dimtester forlbl">
+            <div className="col-md-5 dimtester forlbl">
             (Personal Auto policies in the owner’s name also qualify for prior insurance)            </div>
             <div className="col-md-5 d-flex align-items-center">
               <div className="radiobutns">
@@ -149,8 +149,8 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
         <>
           {/* Continuous Coverage Section */}
           <div className="row customercoverage">
-            <div className="col-md-4 forlbl">
-              Has the customer had continuous coverage? <span className="dimtester">(At least 1 year)</span>
+            <div className="col-md-5 forlbl">
+              Has the customer had continuous coverage? <br></br> <span className="dimtester">(At least 1 year)</span>
             </div>
             <div className="col-md-5 d-flex align-items-center">
               <div className="radiobutns">
@@ -220,9 +220,9 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
         Filing Proof of insurances
         </div>
         <div className="row mt-2">
-            <div className="col-md-4 forlbl">
+            <div className="col-md-5 forlbl">
               <span className="interfont">
-               Do you have an MC# or do you plan cross state lines?
+               Do you have an MC# or do you plan cross <br/> state lines?
               </span>
            
 
