@@ -424,7 +424,7 @@ return(
                 <img src={truckImageSrc} alt="your truck" style={{borderRadius:"20px"}} width="100%"/>
             </div>
             <div className="col-md-5 ">
-            <span className="detailing">{vehicle.year},{vehicle.make},{vehicle.model}</span><br></br>
+            <span className="detailing">{vehicle.year}{vehicle.make}{vehicle.model}</span><br></br>
                 <span  className="detail" > {vehicle.Vin} </span><br></br>
             </div>
         </div>
