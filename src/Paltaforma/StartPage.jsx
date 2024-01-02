@@ -310,6 +310,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
                   .then((res) => {
                       if (res.status === 200 && res.data.status === true) {
                           localStorage.setItem("mainid", res.data.created._id);
+                          localStorage.setItem("zipCode",zip)
                           changeIcon("fa-regular fa-circle-check green-icon");
                           handleNavigationClick("vehicles");
                       } else {

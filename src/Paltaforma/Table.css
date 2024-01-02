@@ -53,6 +53,7 @@ line-height: 31px; /* 193.75% */
 letter-spacing: 0.32px;
 }
 
+
 .main_table {
   width: 969px;
  
@@ -60,7 +61,7 @@ letter-spacing: 0.32px;
 
 .main_table td,
 .main_table th {
-  padding-top: 10px; 
+  padding: 10px; 
 }
 .table_small_screen{
   display: none;

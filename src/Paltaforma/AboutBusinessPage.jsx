@@ -25,12 +25,45 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
   const [policyExpirationDate, setPolicyExpirationDate] = useState('');
   const [hasMCNumber, setHasMCNumber] = useState(null);
   const [informId, setInformId] = useState("")
+ const[back, setBack]=useState(null)
   useEffect(() => {
     const informationId = localStorage.getItem("mainid");
     if (informationId) {
       setInformId(informationId);
+      fetchalldata()
     }
-  }, []);
+  }, [informId]);
+  useEffect(() => {
+    fetchalldata()
+    }, [informId]);
+    console.log(customerEmail)
+
+ const fetchalldata =async()=>{
+   if (informId) {
+     await axios.get(`https://serverforbce.vercel.app/api/getbussinessbyinfo/${informId}`)
+        .then(res => {
+          if (res.data.status === true) {
+            const businessData = res.data.data;
+            console.log(businessData)
+              setBack(businessData[0]._id);
+              setCustomerEmail(businessData[0].customerEmail);
+              setCurrentlyInsured(businessData[0].currentlyInsured);
+              setContinuousCoverage(businessData[0].continuousCoverage);
+              setBodilyInjuryLimit(businessData[0].bodilyInjuryLimit);
+              setPolicyExpirationDate(businessData[0].policyExpirationDate);
+              setHasMCNumber(businessData[0].hasMCNumber);
+
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching business data:", error);
+        });
+    }
+ }
+   
+
+  
+  
   const handleButtonClick = () => {
     // Email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,7 +78,6 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
       hasMCNumber !== null
     ) {
       const businessData = {
-        informId,
         customerEmail,
         currentlyInsured,
         continuousCoverage,
@@ -54,24 +86,44 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
         hasMCNumber,
       };
   
-      axios.post("https://serverforbce.vercel.app/api/postbusiness", businessData)
-        .then(res => {
-          if (res.data.status === true) {
-            openNotification('success', 'Data added successfully');
-            changeIcon('fa-regular fa-circle-check green-icon');
-            handleNavigationClick('coverages');
-          }
+      if (back) {
+        // If back data exists, update the existing business data
+        axios.put(`https://serverforbce.vercel.app/api/updatebusiness/${back}`, businessData)
+          .then(res => {
+            if (res.data.status === true) {
+              openNotification('success', 'Data updated successfully');
+              changeIcon('fa-regular fa-circle-check green-icon');
+              handleNavigationClick('coverages');
+            }
+          })
+          .catch(error => {
+            console.error("Error during request:", error);
+            alert("Error during request. Please try again.");
+          });
+      } else {
+        // If back data doesn't exist, add new business data
+        axios.post("https://serverforbce.vercel.app/api/postbusiness", {
+          informId,
+          ...businessData,
         })
-        .catch(error => {
-          console.error("Error during request:", error);
-          alert("Error during request. Please try again.");
-        });
-  
+          .then(res => {
+            if (res.data.status === true) {
+              openNotification('success', 'Data added successfully');
+              changeIcon('fa-regular fa-circle-check green-icon');
+              handleNavigationClick('coverages');
+            }
+          })
+          .catch(error => {
+            console.error("Error during request:", error);
+            alert("Error during request. Please try again.");
+          });
+      }
     } else {
       // Display error alert if fields are not complete or email is not valid
       openNotification('error', 'Please enter a valid email address and complete all required fields.');
     }
   };
+  
   
 
   const openNotification = (type, message, description = '') => {
@@ -231,6 +283,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
                 className="customer_email_input inputflds"
                 onChange={(e) => setPolicyExpirationDate(e.target.value)}
                 placeholder="10/31/.2023"
+                value={policyExpirationDate}
               />
             </div>
           </div>

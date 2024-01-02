@@ -62,6 +62,12 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
   const [loading,setLoading]=useState(false)
   const [vinresponse,setVinresponse]=useState("")
   const [loader, setLoader]=useState(true)
+  useEffect(()=>{
+   const code = localStorage.getItem("zipCode")
+if(code){
+  setZipCode(code)
+}
+  },[])
   const openNewModal = () => {
     setNewModalVisible(true);
   };
@@ -340,11 +346,11 @@ const handleModalOk = async () => {
         <table className='main_table mt-1 mb-5'>
           <thead className='table_header'>
             <tr>
-              <th className='idtr'>Vehicle</th>
+              <th >Vehicle</th>
               <th>Comp</th>
               <th>Coll</th>
               <th>VIN#</th>
-              <th className='idtr'>Stated Amt</th>
+              <th >Stated Amt</th>
               <th>Action</th>
             </tr>
           </thead>
