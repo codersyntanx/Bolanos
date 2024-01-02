@@ -343,7 +343,7 @@ text-align: center;
         margin-bottom: 10px;
     }
     .comontext{
-        height: 220px;
+        height: fit-content;
         text-align: justify;
     }
     .btn_position{
