@@ -2,7 +2,7 @@ import './StartPage.css'
 import "./Start.css"
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Spin, Skeleton } from 'antd';
+import { Spin, Skeleton, DatePicker } from 'antd';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import Select from 'react-select';
 import { Modal,Input,notification } from 'antd';
@@ -472,7 +472,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
                     <div className="name-part">
                         <p className="name-txt">Date of Birth:</p>
                         <div className="name-fields">
-                        <input
+                        <DatePicker
   className="form-control form-control-lg full-field"
   type="date"
   aria-label=".form-control-lg example"
