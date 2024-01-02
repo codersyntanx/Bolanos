@@ -190,7 +190,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
     
        // Check if streetnum and route are objects with long_name property before setting address
 if (streetnum && streetnum.long_name && route && route.long_name) {
-  setAddress(`${streetnum.long_name}, ${route.long_name}`);
+  setAddress(`${streetnum.long_name} ${route.long_name}`);
 } else {
   console.error('Street Number or Route is undefined or missing long_name property.');
 }
@@ -352,6 +352,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
       { value: 'Fracking', label: 'Fracking' },
       { value: 'Contractors', label: 'Contractors' },
       { value: 'Building materials', label: 'Building materials' },
+      { value: 'Household goods', label: 'Household goods' },
 
     ];
 
