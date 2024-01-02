@@ -9,6 +9,9 @@ body {
 .before_press{
     margin-bottom: 100px;
   }
+  .css-1u9des2-indicatorSeparator{
+    display: none;
+  }
 .Header_text{
     display: flex;
     justify-content: center;

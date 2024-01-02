@@ -1,7 +1,19 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { notification,Modal } from 'antd';
-
+import Radio from '@mui/material/Radio';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { styled } from '@mui/system';
+const StyledRadio = styled(Radio)({
+  color: '#30577E',
+  width: '30px',
+  height: '30px',
+  '&.Mui-checked': {
+    color: '#30577E',
+    width: '30px',
+    height: '30px',
+  },
+});
 function DriversPage({ changeIcon, handleNavigationClick }) {
   const [isSectionVisible, setIsSectionVisible] = useState(true);
   const [fullName, setFullName] = useState('');
@@ -363,7 +375,7 @@ const gotonext =()=>{
             </div>
             <div className="row align-items-end">
             <div class="row newdriver align-items-end">
-  <label for="colFormLabelLg" class="col-sm-3 lableforinput">Date of Birth::</label>
+  <label for="colFormLabelLg" class="col-sm-3 lableforinput">Date of Birth:</label>
   <div class="col-sm-8">
     <input type="date" class="form-control " value={dob} onChange={(e)=>{setDob(e.target.value)}}   placeholder="04/28/1995"/>
   </div>
@@ -388,32 +400,24 @@ const gotonext =()=>{
               CDL:    
               </div>
               <div className="col-md-7 vehicle_typeans">
-      {/* "Yes" radio button */}
-      <input
-        className="mx-2 inputfield"
-        type="radio"
-        id="age1"
-        name="age3"
-        value="Yes"
-        checked={selectedValue === 'Yes'}
-        onChange={() => handleRadioChange('Yes')}
-      />
-      <label className="loanlbl" htmlFor="age1">
-        Yes
-      </label>
+   
+      <StyledRadio
+   checked={selectedValue === 'Yes'}
+  onChange={() => handleRadioChange('Yes')}
+  value="Yes"
+  name="radio-buttons"
+  className="inputfield "
+/>
+<label className="loanlbl" htmlFor="age1">Yes</label>
 
-      <input
-        className="mx-2 inputfield"
-        type="radio"
-        id="age2"
-        name="age1"
-        value="No"
-        checked={selectedValue === 'No'}
-        onChange={() => handleRadioChange('No')}
-      />
-      <label className="loanlbl" htmlFor="age2">
-        No
-      </label>
+<StyledRadio
+   checked={selectedValue === 'No'}
+  onChange={() => handleRadioChange('No')}
+  value="No"
+  name="radio-buttons"
+  className="inputfield mx-2"
+/>
+<label className="loanlbl" htmlFor="age2">No</label>
     </div>
             </div>
 {

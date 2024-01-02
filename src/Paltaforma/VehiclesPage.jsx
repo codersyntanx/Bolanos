@@ -12,7 +12,9 @@ import {notification } from 'antd';
 import { Modal as AntModal } from 'antd';
 import Select from 'react-select';
 import axios from "axios";
-
+import Radio from '@mui/material/Radio';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { styled } from '@mui/system';
 const customStyles = {
   control: (provided, state) => ({
     ...provided,
@@ -21,8 +23,24 @@ const customStyles = {
     border: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : '1px solid rgba(0, 0, 0, 0.42)',
     boxShadow: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : 'none',
   }),
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    color: 'black', // Set arrow color
+    borderRight: 'none', // Remove the border to the right of the arrow
+  }),
 };
 
+
+const StyledRadio = styled(Radio)({
+  color: '#30577E',
+  width: '30px',
+  height: '30px',
+  '&.Mui-checked': {
+    color: '#30577E',
+    width: '30px',
+    height: '30px',
+  },
+});
 function VehiclesPage({ changeIcon, handleNavigationClick }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTruck, setSelectedTruck] = useState(null);
@@ -31,7 +49,7 @@ function VehiclesPage({ changeIcon, handleNavigationClick }) {
   const [distance, setDistance] = useState('');
   const [needCoverage, setNeedCoverage] = useState('');
   const [vehicleWorth, setVehicleWorth] = useState('');
-  const [vehicalby, setVehicalby] = useState("Vin")
+  const [vehicalby, setVehicalby] = useState("VIN")
   const [Vin, setVin] = useState("")
   const [year, setYear] = useState("")
   const [make, setMake] = useState("")
@@ -440,15 +458,23 @@ const handleModalOk = async () => {
               </div>
               <div className="col-md-7 vehicle_typeans">
 
-              <input
+              {/* <input
   className="mx-2 inputfield"
   type="radio"
   id="age2"
   name="age1"
   onChange={handleRadio}
   defaultValue={"VIN"}
-  defaultChecked  // Add this attribute
+  defaultChecked  
+/> */}
+<StyledRadio
+  name="radiobtn"
+  value="VIN"
+  checked={vehicalby === 'VIN'}
+  onChange={handleRadio}
+  className="mx-2 inputfield"
 />
+
 
                 <label className="vnloanlbl" htmlFor="age2">VIN</label>
 
@@ -509,11 +535,23 @@ const handleModalOk = async () => {
               </div>
               <div className="col-md-7 inputflds vehicle_typeans ">
 
-                <input className="inputfield " type="radio" id="age1" name="age4" onChange={handleCoverage} defaultValue={"Yes"} />
-                <label className="loanlbl" htmlFor="age1">Yes</label>
+              <StyledRadio
+  checked={needCoverage === 'Yes'}
+  onChange={handleCoverage}
+  value="Yes"
+  name="radio-buttons"
+  className="inputfield "
+/>
+<label className="loanlbl" htmlFor="age1">Yes</label>
 
-                <input className="mx-2 inputfield " type="radio" id="age2" name="age4" onChange={handleCoverage} defaultValue={"Yes"} />
-                <label className="loanlbl" htmlFor="age2">No</label>
+<StyledRadio
+  checked={needCoverage === 'No'}
+  onChange={handleCoverage}
+  value="No"
+  name="radio-buttons"
+  className="inputfield mx-2"
+/>
+<label className="loanlbl" htmlFor="age2">No</label>
 
               </div>
             </div>

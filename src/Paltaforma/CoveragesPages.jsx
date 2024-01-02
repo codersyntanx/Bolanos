@@ -9,6 +9,7 @@ import unknown from "./images/unknown.png"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import Select from 'react-select';
+
 const customStyles = {
   control: (provided, state) => ({
     ...provided,
@@ -16,6 +17,12 @@ const customStyles = {
     height: '51px',
     border: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : '1px solid rgba(0, 0, 0, 0.42)',
     boxShadow: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : 'none',
+  }),
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    color: 'black', // Set arrow color
+    borderRight: 'none', // Remove the border to the right of the arrow
+    fontSize: '20px',
   }),
 };
 function CoveragesPage({ changeIcon,handleNavigationClick }){
@@ -69,12 +76,13 @@ const instead =()=>{
   setBolidly(!bolidly)
 }
 
-const handleComprehensiveChange = (vehicleId,e) => {
-  const selectedValue = e.target.value;
-
-  // Make axios call to update the value in the database
-  updatecomprehensive(vehicleId, selectedValue);
+const handleComprehensiveChange = (vehicleId, selectedOption) => {
+  if (selectedOption) {
+    const selectedValue = selectedOption.value;
+    updatecomprehensive(vehicleId, selectedValue);
+  }
 };
+
 // Function to make axios call and update coverage value in the database
 const updateCoverageValue = (vehicleId, value) => {
   // Make axios call to update the database
@@ -88,11 +96,10 @@ const updateCoverageValue = (vehicleId, value) => {
           console.error('Error updating coverage value:', error);
       });
 };
-const handleCollisionChange = (vehicleId, e) => {
-  const selectedValue = e.target.value;
-
-  // Make axios call to update the value in the database
-  updateCoverageValue(vehicleId, selectedValue);
+const handleCollisionChange = (vehicleId, selectedOption) => {
+  if (selectedOption) {
+    const selectedValue = selectedOption.value;
+  updateCoverageValue(vehicleId, selectedValue);}
 };
 const updatecomprehensive = (vehicleId, value) => {
   // Make axios call to update the database
@@ -212,6 +219,15 @@ const generalOptions = [
   { value: '$ 1,000,000/1,000,000', label: '$ 1,000,000/1,000,000' },
   { value: '$ 1,000,000/2,000,000', label: '$ 1,000,000/2,000,000' },
 ];
+const Compre = [
+  { value: 'Not Selected', label: 'Not Selected' },
+  { value: '$ 1,000 Deductible', label: '$ 1,000 Deductible' },
+  { value: '$ 2,500 Deductible', label: '$ 2,500 Deductible' },
+  { value: '$ 5,000 Deductible', label: '$ 5,000 Deductible' },
+
+];
+
+
 return(
         <>
          <div className="small-screen-header">
@@ -335,8 +351,8 @@ return(
         </div>
         <div className="col-md-5 smalinput">
           <Select
-            value={motortruck}
-            onChange={(selectedOption) => setMotortruck(selectedOption)}
+            value={motortruckOptions.find(option => option.value === motortruck)}
+              onChange={(selectedOption) => setMotortruck(selectedOption.value)}
             options={motortruckOptions}
             styles={customStyles}
           />
@@ -353,8 +369,8 @@ return(
        
           <div className="col-md-5 smalinput">
             <Select
-              value={trailerinter}
-              onChange={(selectedOption) => setTrailerinter(selectedOption)}
+              value={trailerinterOptions.find(option => option.value === trailerinter)}
+              onChange={(selectedOption) => setTrailerinter(selectedOption.value)}
               options={trailerinterOptions}
               styles={customStyles}
             />
@@ -371,8 +387,8 @@ return(
         </div>
         <div className="col-md-7">
           <Select
-            value={general}
-            onChange={(selectedOption) => setGeneral(selectedOption)}
+            value={generalOptions.find(option => option.value === general)}
+              onChange={(selectedOption) => setGeneral(selectedOption.value)}
             options={generalOptions}
             styles={customStyles}
           />
@@ -416,24 +432,31 @@ return(
                 <div className="col-md-4">
                     Comprehensive?
                 </div>
-                <div className="col-md-5">
-                    <select className="customer_slect" onChange={(e) =>handleComprehensiveChange(vehicle._id, e)}>
+                <div className="col-md-4">
+                    {/* <select className="customer_slect" onChange={(e) =>handleComprehensiveChange(vehicle._id, e)}>
                         <option className="optionval">$ 1,000 Deductible</option>
                         <option className="optionval">$ 2,500 Deductible</option>
                         <option className="optionval">$ 5,000 Deductible</option>
-                    </select>
+                    </select> */}
+                   <Select
+  onChange={(selectedOption) => handleComprehensiveChange(vehicle._id, selectedOption)}
+  options={Compre}
+  styles={customStyles}
+/>
+
                 </div>
             </div>
             <div className="row bluediv3 align-items-center">
                 <div className="col-md-4">
                     Collision?
                 </div>
-                <div className="col-md-5">
-  <select className="customer_slect" onChange={(e) => handleCollisionChange(vehicle._id, e)}>
-  <option className="optionval">$ 1,000 Deductible</option>
-                        <option className="optionval">$ 2,500 Deductible</option>
-                        <option className="optionval">$ 5,000 Deductible</option>
-  </select>
+                <div className="col-md-4">
+ 
+  <Select
+  onChange={(selectedOption) => handleCollisionChange(vehicle._id, selectedOption)}
+  options={Compre}
+  styles={customStyles}
+/>
 </div>
             </div>
         <div className="row bluediv4 align-items-center">

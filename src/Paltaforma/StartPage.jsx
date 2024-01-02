@@ -25,15 +25,22 @@ const customStyles = {
     ...provided,
     borderRadius: '9px',
     height: '51px',
-    border: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : '1px solid rgba(0, 0, 0, 0.42)',
+    border: '1px solid rgba(0, 0, 0, 0.42)',
     boxShadow: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : 'none',
   }),
   menuList: (provided) => ({
     ...provided,
-    overflowY: 'auto', 
+    overflowY: 'auto',
     maxHeight: '150px',
   }),
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    color: 'black', // Set arrow color
+    borderRight: 'none', // Remove the border to the right of the arrow
+  }),
 };
+
+
 
 
 
@@ -133,9 +140,6 @@ function StartPage({ changeIcon, handleNavigationClick }) {
     const searchOptions = {
         componentRestrictions: { country: 'us' }, 
     };
-
-
-
     const handleSelect = async (value) => {
       try {
         const results = await geocodeByAddress(value);
@@ -143,12 +147,24 @@ function StartPage({ changeIcon, handleNavigationClick }) {
     
         // Access city, state, and zip code from the first result
         const addressComponents = results[0].address_components;
+    
+        // Log address components for debugging
         console.log('Address Components:', addressComponents);
     
         // Try finding city, state, and zip code with alternative types
         const cityComponent = addressComponents.find(
           (component) => component.types.includes('locality')
         );
+        const streetnum = addressComponents.find(
+          (component) => component.types.includes("street_number")
+        );
+        const route = addressComponents.find(
+          (component) => component.types.includes("route")
+        );
+    
+        // Log streetnum and route for debugging
+        console.log('Street Number Component:', streetnum);
+        console.log('Route Component:', route);
     
         const stateComponent = addressComponents.find(
           (component) => component.types.includes('administrative_area_level_1')
@@ -166,33 +182,29 @@ function StartPage({ changeIcon, handleNavigationClick }) {
         );
     
         const streetAddress = results[0].formatted_address;
-        console.log(streetAddress);
     
         const city = cityComponent ? cityComponent.long_name : '';
         const state = stateComponent ? stateComponent.long_name : '';
         const country = countryComponent ? countryComponent.long_name : '';
         const zipCode = zipCodeComponent ? zipCodeComponent.long_name : '';
     
-        // Remove city, country, and state from the street address using regex
-        const cleanedStreetAddress = streetAddress.replace(
-          new RegExp(`${city},|${country},|${state},`, 'g'),
-          ''
-        ).trim();
+       // Check if streetnum and route are objects with long_name property before setting address
+if (streetnum && streetnum.long_name && route && route.long_name) {
+  setAddress(`${streetnum.long_name}, ${route.long_name}`);
+} else {
+  console.error('Street Number or Route is undefined or missing long_name property.');
+}
+
     
-        setAddress(cleanedStreetAddress);
-        setCity(`${city}, ${state},${country}`);
+        setCity(`${city}, ${state}`);
         setZip(zipCode);
     
-        console.log('Street Address:', streetAddress);
-        console.log('City:', city);
-        console.log('State:', state);
-        console.log('Country:', country);
-        console.log('Zip Code:', zipCode);
       } catch (error) {
         console.error('Error selecting address:', error);
         // Handle the error (e.g., show a user-friendly message)
       }
     };
+    
     
     
     
@@ -509,7 +521,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
           <div className="col-md-2">
             <input
               className="form-control form-control-lg full-field"
-              type="text"
+              type="number"
               maxLength="3"
               onChange={(e) => handleInputChange(e, middlePartInput)}
               value={areaCode}
@@ -519,7 +531,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
           <div className="col-md-2">
             <input
               className="form-control form-control-lg full-field"
-              type="text"
+              type="number"
               maxLength="3"
               onChange={(e) => handleInputChange(e, lastPartInput)}
               value={middlePart}
@@ -532,7 +544,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
           <div className="col-md-2">
             <input
               className="form-control form-control-lg full-field"
-              type="text"
+              type="number"
               maxLength="4"
               onChange={(e) => handleInputChange(e)}
               value={lastPart}

@@ -3,7 +3,19 @@ import { useEffect, useState } from "react";
 import "./business.css"
 import axios from "axios";
 import {notification } from 'antd';
-
+import Radio from '@mui/material/Radio';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { styled } from '@mui/system';
+const StyledRadio = styled(Radio)({
+  color: '#30577E',
+  width: '30px',
+  height: '30px',
+  '&.Mui-checked': {
+    color: '#30577E',
+    width: '30px',
+    height: '30px',
+  },
+});
 function AboutBusinessPage({ changeIcon,handleNavigationClick }){
 
   const [customerEmail, setCustomerEmail] = useState('');
@@ -19,9 +31,13 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
       setInformId(informationId);
     }
   }, []);
- const handleButtonClick = () => {
+  const handleButtonClick = () => {
+    // Email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
     if (
       customerEmail &&
+      emailRegex.test(customerEmail) && // Check if customerEmail is a valid email
       currentlyInsured !== null &&
       // continuousCoverage &&
       // bodilyInjuryLimit &&
@@ -37,21 +53,26 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
         policyExpirationDate,
         hasMCNumber,
       };
-axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
-.then(res=>{
-  if(res.data.status === true){
-    openNotification('success', 'data addedd successfully');
-
-     changeIcon('fa-regular fa-circle-check green-icon');
-      handleNavigationClick('coverages');
-  }
-})
-     
+  
+      axios.post("https://serverforbce.vercel.app/api/postbusiness", businessData)
+        .then(res => {
+          if (res.data.status === true) {
+            openNotification('success', 'Data added successfully');
+            changeIcon('fa-regular fa-circle-check green-icon');
+            handleNavigationClick('coverages');
+          }
+        })
+        .catch(error => {
+          console.error("Error during request:", error);
+          alert("Error during request. Please try again.");
+        });
+  
     } else {
-      // Display error alert if fields are not complete
-      openNotification('error', 'Error Occured');
+      // Display error alert if fields are not complete or email is not valid
+      openNotification('error', 'Please enter a valid email address and complete all required fields.');
     }
   };
+  
 
   const openNotification = (type, message, description = '') => {
     notification[type]({
@@ -119,25 +140,25 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
             <div className="col-md-5 d-flex align-items-center">
               <div className="radiobutns inputflds">
                 <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="currentlyInsured"
-                    className="col-md-1 radio-input"
-                    value="Yes"
-                    onChange={() => setCurrentlyInsured(true)}
-                    checked={currentlyInsured === true}
-                  />
+                 
+                   <StyledRadio
+   checked={currentlyInsured === true}
+   onChange={() => setCurrentlyInsured(true)}
+  value="true"
+  name="currentlyInsured"
+  className="col-md-1 radio-input"
+/>
+
                   Yes
                 </label>
-                <label className="radio-label mx-4">
-                  <input
-                    type="radio"
-                    name="currentlyInsured"
-                    className="col-md-1 radio-input"
-                    value="No"
-                    onChange={() => setCurrentlyInsured(false)}
-                    checked={currentlyInsured === false}
-                  />
+                <label className="radio-label ">
+                <StyledRadio
+   checked={currentlyInsured === false}
+   onChange={() => setCurrentlyInsured(false)}
+  value="false"
+  name="currentlyInsured"
+  className="col-md-1 radio-input"
+/>
                   No
                 </label>
               </div>
@@ -156,7 +177,7 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
               <div className="radiobutns">
                 {/* "Yes" option */}
                 <label className="radio-label">
-                  <input
+                  <StyledRadio
                     type="radio"
                     name="continuousCoverage"
                     className="col-md-1 radio-input"
@@ -168,14 +189,15 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
                 </label>
                 {/* "No" option */}
                 <label className="radio-label mx-4">
-                  <input
-                    type="radio"
-                    name="continuousCoverage"
-                    className="col-md-1 radio-input"
-                    value="No"
-                    onChange={() => setContinuousCoverage(false)}
-                    checked={continuousCoverage === false}
-                  />
+                  
+                  
+               <StyledRadio
+ onChange={() => setContinuousCoverage(false)}
+ checked={continuousCoverage === false}
+  value="Yes"
+  name="continuousCoverage"
+  className="col-md-1 radio-input"
+/>
                   No
                 </label>
               </div>
@@ -230,25 +252,25 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
             <div className="col-md-5 d-flex align-items-center">
             <div className="radiobutns inputflds">
             <label className="radio-label">
-              <input
-                type="radio"
-                name="option3"
-                className="col-md-1 radio-input"
-                value="Yes"
-                onChange={() => setHasMCNumber(true)}
-                checked={hasMCNumber === true}
-              />
+           
+               <StyledRadio
+   onChange={() => setHasMCNumber(true)}
+   checked={hasMCNumber === true}
+  value="Yes"
+  name="radi"
+  className="col-md-1 radio-input"
+/>
               Yes
             </label>
             <label className="radio-label mx-4">
-              <input
-                type="radio"
-                name="option3"
-                className="col-md-1 radio-input"
-                value="No"
-                onChange={() => setHasMCNumber(false)}
-                checked={hasMCNumber === false}
-              />
+          
+              <StyledRadio
+    checked={hasMCNumber === false}
+   onChange={() => setHasMCNumber(false)}
+  value="No"
+  name="radi"
+  className="col-md-1 radio-input"
+/>
               No
             </label>
           </div>
