@@ -477,7 +477,7 @@ function StartPage({ changeIcon, handleNavigationClick }) {
   aria-label=".form-control-lg example"
   value={dateofBirth}
   onChange={(e) => { setDateofBirth(e.target.value) }}
-  style={{ color: 'transparent' }}
+  style={{ color: 'black' }}
 />
 
                         </div>
@@ -549,7 +549,6 @@ function StartPage({ changeIcon, handleNavigationClick }) {
         open={modalVisible}
         onOk={handleModalOk}
         onCancel={handleModalCancel}
-        okButtonProps={{ style: { backgroundColor: '#30577E;', color: 'white' } }}
 
       >
           
