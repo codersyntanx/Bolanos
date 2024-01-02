@@ -583,6 +583,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
         open={modalVisible}
         onOk={handleModalOk}
         onCancel={handleModalCancel}
+        okButtonProps={{ style: { background: '#2a4764', color: 'white' } }}
 
       >
           
