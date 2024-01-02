@@ -327,7 +327,6 @@ return(
       <div className="coverage_heading">Special Coverages related to the Customer’s Business</div>
 
       <div className="row bluediv2 align-items-center">
-        <div className="col-md-1"></div>
         <div className="col-md-3 d-flex jus moto-truck-cargo-txt">
           Motor Truck Cargo
           <div className="circle2">
@@ -345,8 +344,7 @@ return(
       </div>
 
       <div className="row mt-4 trailer-small-screen">
-        <div className="col-md-1 minussign"></div>
-        <div className="col-md-3 jus d-flex minustext">
+        <div className="col-md-3 jus d-flex minustext align-items-center">
           Trailer Interchange
           <div className="circle2">
             <i className="fa-solid fa-question" style={{ color: "white" }}></i>
@@ -365,7 +363,6 @@ return(
       </div>
 
       <div className="row bluediv2 align-items-center">
-        <div className="col-md-1 circle-outer"></div>
         <div className="col-md-3 jus d-flex gnrlliabtext">
           General Liability &nbsp;&nbsp;&nbsp;
           <div className="circle2">

@@ -117,7 +117,7 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
             <div className="col-md-5 dimtester forlbl">
             (Personal Auto policies in the owner’s name also qualify for prior insurance)            </div>
             <div className="col-md-5 d-flex align-items-center">
-              <div className="radiobutns">
+              <div className="radiobutns inputflds">
                 <label className="radio-label">
                   <input
                     type="radio"
@@ -152,7 +152,7 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
             <div className="col-md-5 forlbl">
               Has the customer had continuous coverage? <br></br> <span className="dimtester">(At least 1 year)</span>
             </div>
-            <div className="col-md-5 d-flex align-items-center">
+            <div className="col-md-5 d-flex align-items-center inputflds">
               <div className="radiobutns">
                 {/* "Yes" option */}
                 <label className="radio-label">
@@ -190,7 +190,7 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
             <div className="col-md-5">
               <input
                   value={bodilyInjuryLimit}
-                className="customer_email_input"
+                className="customer_email_input inputflds"
                 onChange={handleInputChange}
                 placeholder="$1,000,000 combined single limit"
               />
@@ -206,7 +206,7 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
             <div className="col-md-5">
               <input
                 type="date"
-                className="customer_email_input"
+                className="customer_email_input inputflds"
                 onChange={(e) => setPolicyExpirationDate(e.target.value)}
                 placeholder="10/31/.2023"
               />
@@ -228,7 +228,7 @@ axios.post("https://serverforbce.vercel.app/api/postbusiness",businessData)
 
             </div>
             <div className="col-md-5 d-flex align-items-center">
-            <div className="radiobutns">
+            <div className="radiobutns inputflds">
             <label className="radio-label">
               <input
                 type="radio"

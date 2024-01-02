@@ -3,6 +3,7 @@
 }
 .Start_Nav{
     margin: 40px 20px;
+    justify-content: space-between;
 }
 .circle_position{
     width: 58px;
@@ -20,10 +21,7 @@ padding: 10px;
 .mainlicom li:hover{
 background-color: aliceblue;
 }
-.Page_Position{
-    width: 90%;
-    margin: auto;
-}
+
 .Page_Name{
     color: #30577E;
 font-family: Inter;

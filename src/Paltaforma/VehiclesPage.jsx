@@ -416,7 +416,7 @@ const handleModalOk = async () => {
                 {selectedTruck}
               </div>
             </div>
-            <div className="row mt-3">
+            <div className="row mt-3 vhclby">
               <div className="col-md-3 vehicle_type">
                 Add Vehicle By
               </div>
@@ -432,7 +432,7 @@ const handleModalOk = async () => {
   defaultChecked  // Add this attribute
 />
 
-                <label className="loanlbl" htmlFor="age2">VIN</label>
+                <label className="vnloanlbl" htmlFor="age2">VIN</label>
 
               </div>
             </div>
@@ -442,7 +442,7 @@ const handleModalOk = async () => {
             </div>
             <div className="row mt-2 lookupvin">
               <div className="col-md-4 vintxt">
-                <input className="text_input px-2" value={Vin} onChange={(e) => { setVin(e.target.value) }} type="text" />
+                <input className="text_input  px-2 inputflds" value={Vin} onChange={(e) => { setVin(e.target.value) }} type="text" />
               </div>
               <div className="col-md-3">
                 <button className="btn_vin" style={{border:"none"}} onClick={lookupvinnumber}>
@@ -466,7 +466,7 @@ const handleModalOk = async () => {
                 Zip Code where the vehicle is located?
               </div>
               <div className="col-md-4">
-                <input className="text_input px-3" value={zipCode} onChange={(e) => { setZipCode(e.target.value) }} placeholder="20744" type="text" />
+                <input className="text_input px-3 inputflds" value={zipCode} onChange={(e) => { setZipCode(e.target.value) }} placeholder="20744" type="text" />
               </div>
             </div>
             <div className="row mt-5 ">
@@ -474,7 +474,7 @@ const handleModalOk = async () => {
                 Farthest one-way distance this vehicle typically travels(90% or more of the <br></br> time)
               </div>
               <div className="col-md-4">
-                <input className="text_input px-3" value={distance} onChange={(e) => { setDistance(e.target.value) }} type="text" />
+                <input className="text_input px-3 inputflds" value={distance} onChange={(e) => { setDistance(e.target.value) }} type="text" />
               </div>
             </div>
 
@@ -482,12 +482,12 @@ const handleModalOk = async () => {
               <div className="col-md-4 inputfieldrow">
               Do you need comprehensive or collision coverage to protect this vehicle in an accident or loss?
               </div>
-              <div className="col-md-7 vehicle_typeans ">
+              <div className="col-md-7 inputflds vehicle_typeans ">
 
-                <input className="inputfield" type="radio" id="age1" name="age4" onChange={handleCoverage} defaultValue={"Yes"} />
+                <input className="inputfield " type="radio" id="age1" name="age4" onChange={handleCoverage} defaultValue={"Yes"} />
                 <label className="loanlbl" htmlFor="age1">Yes</label>
 
-                <input className="mx-2 inputfield" type="radio" id="age2" name="age4" onChange={handleCoverage} defaultValue={"Yes"} />
+                <input className="mx-2 inputfield " type="radio" id="age2" name="age4" onChange={handleCoverage} defaultValue={"Yes"} />
                 <label className="loanlbl" htmlFor="age2">No</label>
 
               </div>
@@ -505,7 +505,7 @@ const handleModalOk = async () => {
               </div>
               <div className="col-md-4">
               <input
-      className="text_input px-3"
+      className="text_input px-3 inputflds"
       value={vehicleWorth}
       placeholder="$45,000"
       type="text"

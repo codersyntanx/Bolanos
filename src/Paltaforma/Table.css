@@ -210,6 +210,9 @@ letter-spacing: 0.2px;
   width: 28px;
   height: 28px;
 }
+.vnloanlbl{
+  margin-right: 120px;
+}
 @media (max-width: 1024px){
   .add_vehicle{
     width: 95%;
@@ -260,6 +263,12 @@ margin-left: auto;
   
 }
 @media (max-width:435px){
+  .vnloanlbl{
+    margin-right: 0px;
+  }
+  .vhclby{
+    justify-content: space-between;
+  }
   .vehicltyp{
     display: flex;
     flex-direction: row;
@@ -272,7 +281,6 @@ margin-left: auto;
   }
   .vehicle_typeans{
     width: fit-content;
-    align-items: end;
   }
   .loanlbl {
     margin-right: 50px;
