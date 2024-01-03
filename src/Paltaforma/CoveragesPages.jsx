@@ -9,7 +9,7 @@ import unknown from "./images/unknown.png"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import Select from 'react-select';
-
+import { notification } from "antd"
 const customStyles = {
   control: (provided, state) => ({
     ...provided,
@@ -41,7 +41,7 @@ const navigate = useNavigate()
 
     const postData = () => {
       if ( !bodilyinsurance || !personpro) {
-        console.error('All fields must be filled');
+        openNotification("error", `Please fill in the following required fields`);
         return;
       }
           const data = {
@@ -71,7 +71,11 @@ const navigate = useNavigate()
         });
     };
 
-    
+    const openNotification = (type, message,) => {
+      notification[type]({
+        message,
+      });
+    };
 const instead =()=>{
   setBolidly(!bolidly)
 }
