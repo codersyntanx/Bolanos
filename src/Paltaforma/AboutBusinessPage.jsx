@@ -62,30 +62,41 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
     }
  }
    
-const verifyemail = async()=>{
-  await axios.post(`https://serverforbce.vercel.app/api/verifyemail/${customerEmail}`)
-  .then(res=>{
-    if(res.data.data.status === "valid"){
-setEmailvarified(true)
-    }
-  })
-}
-  
-  
-  const handleButtonClick = async(e) => {
-    const form = e.target.form;
+ const verifyemail = async (e) => {
+  const form = e.target.form;
 
-    // Manually check form validity
-    if (!form.checkValidity()) {
-      // If form is invalid, show an error message or handle it accordingly
-      openNotification("error", "Please fill in all required fields.");
-      return;
-    }
+  // Manually check form validity
+  if (!form.checkValidity()) {
+    // If form is invalid, show an error message or handle it accordingly
+    openNotification("error", "Please fill in all required fields.");
+    return;
+  }
+
+  e.preventDefault();
+  console.log('Before axios.post');
+  await axios.post(`https://serverforbce.vercel.app/api/verifyemail/${customerEmail}`)
+    .then(res => {
+      console.log('After axios.post');
+      if (res.data.data.status === "valid") {
+        handleButtonClick()
+      }else{
+        openNotification('error', 'Please Enter Valid Email');
+ 
+      }
+    })
+    .catch(error => {
+      console.error('Error in verifyemail:', error);
+    });
+};
+
   
-    e.preventDefault();
+  
+  const handleButtonClick = async() => {
+ 
+  
     // Email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-   await verifyemail()
+ 
 
 
 
@@ -106,7 +117,7 @@ setEmailvarified(true)
         policyExpirationDate,
         hasMCNumber,
       };
-  if(emailvarified === true){
+
       if (back) {
         // If back data exists, update the existing business data
         axios.put(`https://serverforbce.vercel.app/api/updatebusiness/${back}`, businessData)
@@ -140,12 +151,8 @@ setEmailvarified(true)
   }
     
         
-      }else{
-        openNotification('error', 'Please enter a valid email address and complete all required fields.');
-
-      }
+     
     } else {
-      // Display error alert if fields are not complete or email is not valid
       openNotification('error', 'Please enter a valid email address and complete all required fields.');
     }
   };
@@ -193,7 +200,7 @@ setEmailvarified(true)
        </div>
        </div>
        <div className="businesspage">
-        <form onSubmit={handleButtonClick}>
+        <form onSubmit={verifyemail}>
         <span className="business_heading">About The  Business</span>
         <div className="row align-items-center abt-bsns">
           <div className="col-md-4 customer_email forlbl">
@@ -371,7 +378,7 @@ setEmailvarified(true)
               {' '}
               <i class="fa-solid fa-angle-left"></i>
             </button>
-            <button className="continous_button" type="submit" onClick={handleButtonClick}>
+            <button className="continous_button" type="submit" onClick={verifyemail}>
             Continue &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
             </button>
           </div>
