@@ -4,6 +4,33 @@ import { notification,Modal } from 'antd';
 import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { styled } from '@mui/system';
+import Select from 'react-select';
+const states = [
+  "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
+  "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
+  "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan",
+  "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+  "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma",
+  "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas",
+  "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+];
+
+const stateOptions = states.map(state => ({ value: state, label: state }));
+
+const customStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    borderRadius: '9px',
+    height: '51px',
+    border: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : '1px solid rgba(0, 0, 0, 0.42)',
+    boxShadow: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : 'none',
+  }),
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    color: 'black', // Set arrow color
+    borderRight: 'none', // Remove the border to the right of the arrow
+  }),
+};
 const StyledRadio = styled(Radio)({
   color: '#30577E',
   width: '30px',
@@ -244,6 +271,11 @@ const gotonext =()=>{
       openNotification("error","  Please Fill all the blanks" );
     }
   };
+  const handleProtect = (selectedOption) => {
+    setLicenseState(selectedOption.value);
+    
+  };
+  console.log(licenseState)
   return (
     <>
     <div className="small-screen-header">
@@ -384,13 +416,18 @@ const gotonext =()=>{
 <div class="row newdriver align-items-end">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">Driver’s License State:</label>
   <div class="col-sm-8">
-    <input type="text" class="form-control " value={licenseState} onChange={(e)=>{setLicenseState(e.target.value)}}  placeholder="Maryland"/>
+  <Select
+      options={stateOptions}
+      styles={customStyles}
+      onChange={handleProtect}
+    />
   </div>
 
 </div>
 <div class="row newdriver align-items-end">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">License Number:</label>
   <div class="col-sm-8">
+ 
     <input type="text" class="form-control " value={licenseNumber} onChange={(e)=>{setLicenseNumber(e.target.value)}}  placeholder="FRB34JU80005"/>
   </div>
 
