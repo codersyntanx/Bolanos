@@ -451,6 +451,7 @@ const handleModalOk = async () => {
           </div>
         ) : (
           <div className="add_vehicle">
+<form onSubmit={handleButtonClick}>
             <div className="row vehicltyp">
               <div className="col-md-3 vehicle_type">
                 Vehicle Type
@@ -493,7 +494,7 @@ const handleModalOk = async () => {
             </div>
             <div className="row mt-2 lookupvin">
               <div className="col-md-4 vintxt">
-                <input className="text_input  px-2 inputflds" value={Vin} onChange={(e) => { setVin(e.target.value) }} type="text" />
+                <input className="text_input  px-2 inputflds" value={Vin} onChange={(e) => { setVin(e.target.value) }} type="text" required/>
               </div>
               <div className="col-md-3">
                 <button className="btn_vin" style={{border:"none"}} onClick={lookupvinnumber}>
@@ -530,6 +531,7 @@ const handleModalOk = async () => {
   onChange={(selectedOption) => setDistance(selectedOption.value)}
   options={motortruckOptions}
   styles={customStyles}
+  required
 />
 
 
@@ -557,6 +559,7 @@ const handleModalOk = async () => {
   value="No"
   name="radio-buttons"
   className="inputfield mx-2"
+  required
 />
 <label className="loanlbl" htmlFor="age2">No</label>
 
@@ -580,6 +583,7 @@ const handleModalOk = async () => {
       placeholder="$45,000"
       type="text"
       onChange={handleInputChange}
+      required
     />             </div>
             </div>
 
@@ -596,7 +600,7 @@ const handleModalOk = async () => {
   Continue &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
 </button>
 
-            </div>
+            </div></form>
           </div>
         )
       }

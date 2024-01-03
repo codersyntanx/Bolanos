@@ -248,14 +248,10 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
           }
     };
  
-    const handleButtonClick = () => {
-      if (areaCode.length !== 3 || middlePart.length !== 3 || lastPart.length !== 4) {
-          openNotification("error", "Incorrect Phone number");
-          return; // Stop further execution if the phone number is incorrect
-      }
-  
+    const handleButtonClick = (e) => {
+      
+      e.preventDefault();
       setLoading(true);
-  
       const requiredFields = [
           { name: 'selectedOption', label: 'USDOT#' },
           { name: 'bussinesstype', label: 'Business Type' },
@@ -377,17 +373,19 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
                     </div>
                 </div>
             </div>
+            
             <section className='start-hero-section'>
                 <p className="usdotheading">Do you have a USDOT#? </p>
                 <p className="usdotcontent">The number is registered to the your business and displayed on the side of the vehicle. Any business  type could have a USDOT registration.</p>
                 <div className='radiobtn-part'>
-      <form className='radiobtns'>
+      <form  className='radiobtns'>
         <div className='radiob' style={{ width: '34%' }}>
           <StyledRadio
             name='radiobtn'
             value='Yes'
             checked={selectedOption === 'Yes'}
             onChange={handleRadioChange}
+            required
           />
           <label htmlFor='example1' className='radiobtn-label mx-2'>
             Yes
@@ -399,6 +397,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
             value='No'
             checked={selectedOption === 'No'}
             onChange={handleRadioChange}
+            
           />
           <label htmlFor='example2' className='radiobtn-label mx-2'>
             No
@@ -418,9 +417,9 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
       </form>
     </div>
 
-                
             </section>
             <section className='business-type-section'>
+            <form onSubmit={handleButtonClick}>
                 <p className="business-type-heading">Most Common Business Types:</p>
                 <div className='business-type row'>
                     <div className='col-md-5'>
@@ -429,6 +428,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
       onChange={handleSelected}
       value={options.find((option) => option.value === bussinesstype)}
       styles={customStyles}
+      required
     />
             </div>
                 </div>
@@ -439,12 +439,12 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
                         <p className="name-txt">Business owner name</p>
                         <div className="name-fields">
                             <div className="inner-part">
-                                <input class="form-control form-control-lg full-name" type="text" placeholder="First Name" aria-label=".form-control-lg example" value={fullname} onChange={(e) => { setFullname(e.target.value) }} />
+                                <input class="form-control form-control-lg full-name" type="text" placeholder="First Name" aria-label=".form-control-lg example" value={fullname} onChange={(e) => { setFullname(e.target.value) }} required />
                                 <input class="form-control form-control-lg mi" type="text" placeholder="MI" aria-label=".form-control-lg example" value={middlename} onChange={(e) => { setMiddlename(e.target.value) }} />
                             </div>
                             <div className="inner-part">
-                                <input class="form-control form-control-lg last-name" type="text" placeholder="Last Name" aria-label=".form-control-lg example" value={lastname} onChange={(e) => { setLastname(e.target.value) }} />
-                                <input class="form-control form-control-lg sufix" type="text" placeholder="Suffix" aria-label=".form-control-lg example" value={suffix} onChange={(e) => { setSuffix(e.target.value) }} />
+                                <input class="form-control form-control-lg last-name" type="text" placeholder="Last Name" aria-label=".form-control-lg example" value={lastname} onChange={(e) => { setLastname(e.target.value) }} required/>
+                                <input class="form-control form-control-lg sufix" type="text" placeholder="Suffix" aria-label=".form-control-lg example" value={suffix} onChange={(e) => { setSuffix(e.target.value) }} required />
                             </div>
                         </div>
                     </div>
@@ -498,7 +498,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
                     <div className="name-part">
                         <p className="name-txt">City:</p>
                         <div className="name-fields">
-                            <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" value={city} readOnly/>
+                            <input class="form-control form-control-lg full-field" type="text" aria-label=".form-control-lg example" value={city}  readOnly/>
                         </div>
                     </div>
                     <div className="name-part">
@@ -510,6 +510,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
   aria-label=".form-control-lg example"
   onChange={(value) => { setDateofBirth(value) }}
   style={{ color: 'black', fontWeight: '500' }}
+  required
 />
 
 
@@ -524,9 +525,11 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
               className="form-control form-control-lg full-field"
               type="number"
               maxLength="3"
+              required
               onChange={(e) => handleInputChange(e, middlePartInput)}
               value={areaCode}
               name="areaCode"
+             
             />
           </div>
           <div className="col-md-2">
@@ -537,6 +540,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
               onChange={(e) => handleInputChange(e, lastPartInput)}
               value={middlePart}
               name="middlePart"
+              required
               ref={(input) => {
                 middlePartInput = input;
               }}
@@ -550,6 +554,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
               onChange={(e) => handleInputChange(e)}
               value={lastPart}
               name="lastPart"
+              required
               ref={(input) => {
                 lastPartInput = input;
               }}
@@ -570,13 +575,13 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
                         {' '}
                         <i class="fa-solid fa-angle-left"></i>
                     </button>
-                    <button className="continous_button" onClick={handleButtonClick}>
+                    <button className="continous_button" type="submit" onClick={handleButtonClick}>
                         <Spin spinning={loading}>
 
                             Continue &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i></Spin>
                     </button>
                 </div>
-            </section>
+                </form>  </section>
             <Modal
         title="USDOT number"
         open={modalVisible}
@@ -591,6 +596,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
           value={usdotnum}
           onChange={(e) => setUsdotnum(e.target.value)}
           placeholder="Enter USDOT number"
+          
         />
       </Modal>
         </>

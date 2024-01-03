@@ -61,10 +61,23 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
     }
  }
    
+// const verifyemail = async()=>{
+//   await axios.post(`https://serverforbce.vercel.app/api/getbussinessbyinfo/${customerEmail}`)
+//   .then
+// }
+  
+  
+  const handleButtonClick = (e) => {
+    const form = e.target.form;
 
+    // Manually check form validity
+    if (!form.checkValidity()) {
+      // If form is invalid, show an error message or handle it accordingly
+      openNotification("error", "Please fill in all required fields.");
+      return;
+    }
   
-  
-  const handleButtonClick = () => {
+    e.preventDefault();
     // Email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
@@ -167,6 +180,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
        </div>
        </div>
        <div className="businesspage">
+        <form onSubmit={handleButtonClick}>
         <span className="business_heading">About The  Business</span>
         <div className="row align-items-center abt-bsns">
           <div className="col-md-4 customer_email forlbl">
@@ -178,6 +192,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
               placeholder="Email Address"
               value={customerEmail}
               onChange={(e) => setCustomerEmail(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -198,6 +213,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
   value="true"
   name="currentlyInsured"
   className="col-md-1 radio-input"
+  required
 />
 
                   Yes
@@ -313,6 +329,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
   value="Yes"
   name="radi"
   className="col-md-1 radio-input"
+  required
 />
               Yes
             </label>
@@ -341,11 +358,11 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
               {' '}
               <i class="fa-solid fa-angle-left"></i>
             </button>
-            <button className="continous_button" onClick={handleButtonClick}>
+            <button className="continous_button" type="submit" onClick={handleButtonClick}>
             Continue &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
             </button>
           </div>
-       </div>
+          </form></div>
         </>
     )
 }

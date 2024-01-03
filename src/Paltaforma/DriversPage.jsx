@@ -203,7 +203,18 @@ const gotonext =()=>{
 
   // ... (previous useEffect and functions)
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (e) => {
+    const form = e.target.form;
+
+    // Manually check form validity
+    if (!form.checkValidity()) {
+      // If form is invalid, show an error message or handle it accordingly
+      openNotification("error", "Please fill in all required fields.");
+      return;
+    }
+  
+    e.preventDefault();
+   
     if (
       fullName &&
       lastName &&
@@ -389,28 +400,30 @@ const gotonext =()=>{
         {!isSectionVisible && (
           <div className="after_press">
             <p className="question">A few  more questions about  Driver #{vehicletable.length + 1}</p>
+            <form onSubmit={handleButtonClick}>
             <div className="row newdriver">
+             
               <label className="col-sm-3 lableforinput" htmlFor="fullName">
                 Name:
               </label>
               <div className='namepart col-sm-8'>
               <div className="fnam">
-                <input type="text" className="form-control" id="fullName" placeholder="First Name" value={fullName} onChange={(e)=>{setFullName(e.target.value)}} />
+                <input type="text" className="form-control" id="fullName" placeholder="First Name" value={fullName} onChange={(e)=>{setFullName(e.target.value)}} required/>
               </div>
               <div className="nmi">
                 <input type="text" className="form-control" id="middleInitial" placeholder="MI" value={middleInitial} onChange={(e)=>{setMiddleInitial(e.target.value)}}/>
               </div>
               <div className="lnam">
-                <input type="text" className="form-control" id="lastName" placeholder="Last Name" value={lastName} onChange={(e)=>{setLastName(e.target.value)}} />
+                <input type="text" className="form-control" id="lastName" placeholder="Last Name" value={lastName} onChange={(e)=>{setLastName(e.target.value)}} required/>
               </div>
               </div>
              
-            </div>
+              </div>
             <div className="row align-items-center">
             <div class="row newdriver align-items-end">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">Date of Birth:</label>
   <div class="col-sm-8">
-    <input type="date" class="form-control " value={dob} onChange={(e)=>{setDob(e.target.value)}}   placeholder="04/28/1995"/>
+    <input type="date" class="form-control " value={dob} onChange={(e)=>{setDob(e.target.value)}}   placeholder="04/28/1995" required/>
   </div>
 
 </div>
@@ -421,6 +434,7 @@ const gotonext =()=>{
       options={stateOptions}
       styles={customStyles}
       onChange={handleProtect}
+      required
     />
   </div>
 
@@ -429,7 +443,7 @@ const gotonext =()=>{
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">License Number:</label>
   <div class="col-sm-8">
  
-    <input type="text" class="form-control " value={licenseNumber} onChange={(e)=>{setLicenseNumber(e.target.value)}}  placeholder="FRB34JU80005"/>
+    <input type="text" class="form-control " value={licenseNumber} onChange={(e)=>{setLicenseNumber(e.target.value)}}  placeholder="FRB34JU80005" required/>
   </div>
 
 </div>
@@ -445,6 +459,7 @@ const gotonext =()=>{
   value="Yes"
   name="radio-buttons"
   className="inputfield "
+  required
 />
 <label className="loanlbl" htmlFor="age1">Yes</label>
 
@@ -502,7 +517,7 @@ const gotonext =()=>{
             Continue &nbsp;&nbsp;<i className="fa-solid fa-arrow-right"></i>
             </button>
           </div>
-          </div>
+          </form> </div>
           
         )}
       </div>
