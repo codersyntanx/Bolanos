@@ -24,6 +24,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
   const [bodilyInjuryLimit, setBodilyInjuryLimit] = useState('');
   const [policyExpirationDate, setPolicyExpirationDate] = useState('');
   const [hasMCNumber, setHasMCNumber] = useState(null);
+  const [emailvarified, setEmailvarified]= useState(false)
   const [informId, setInformId] = useState("")
  const[back, setBack]=useState(null)
   useEffect(() => {
@@ -61,13 +62,17 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
     }
  }
    
-// const verifyemail = async()=>{
-//   await axios.post(`https://serverforbce.vercel.app/api/getbussinessbyinfo/${customerEmail}`)
-//   .then
-// }
+const verifyemail = async()=>{
+  await axios.post(`https://serverforbce.vercel.app/api/verifyemail/${customerEmail}`)
+  .then(res=>{
+    if(res.data.data.status === "valid"){
+setEmailvarified(true)
+    }
+  })
+}
   
   
-  const handleButtonClick = (e) => {
+  const handleButtonClick = async(e) => {
     const form = e.target.form;
 
     // Manually check form validity
@@ -80,7 +85,10 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
     e.preventDefault();
     // Email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
+   await verifyemail()
+
+
+
     if (
       customerEmail &&
       emailRegex.test(customerEmail) && // Check if customerEmail is a valid email
@@ -98,7 +106,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
         policyExpirationDate,
         hasMCNumber,
       };
-  
+  if(emailvarified === true){
       if (back) {
         // If back data exists, update the existing business data
         axios.put(`https://serverforbce.vercel.app/api/updatebusiness/${back}`, businessData)
@@ -125,11 +133,16 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
               changeIcon('fa-regular fa-circle-check green-icon');
               handleNavigationClick('coverages');
             }
-          })
-          .catch(error => {
+          })  .catch(error => {
             console.error("Error during request:", error);
             alert("Error during request. Please try again.");
           });
+  }
+    
+        
+      }else{
+        openNotification('error', 'Please enter a valid email address and complete all required fields.');
+
       }
     } else {
       // Display error alert if fields are not complete or email is not valid
