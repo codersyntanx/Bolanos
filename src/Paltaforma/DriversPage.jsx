@@ -171,11 +171,21 @@ const handleModalCancel = () => {
   setModalVisible(false);
   setDeleteId(null);
 };
-const gotonext =()=>{
-  changeIcon('fa-regular fa-circle-check green-icon');
-  handleNavigationClick('about');
-}
+// const gotonext =()=>{
+//   changeIcon('fa-regular fa-circle-check green-icon');
+//   handleNavigationClick('about');
+// }
 
+const gotonext =()=>{
+  if(vehicletable.length > 0){
+    changeIcon('fa-regular fa-circle-check green-icon');
+  handleNavigationClick('about');
+  }else{
+    openNotification('error', 'Please add atleast one Driver');
+
+  }
+  
+}
   // Update Driver
   const handleUpdate = (driverId) => {
     const driverToUpdate = vehicletable.find((driver) => driver._id === driverId);

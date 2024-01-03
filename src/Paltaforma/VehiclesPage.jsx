@@ -125,8 +125,14 @@ e.preventDefault()
     setIsModalOpen(false);
   };
 const gotonext =()=>{
-  changeIcon('fa-regular fa-circle-check green-icon');
+  if(vehicletable.length > 0){
+    changeIcon('fa-regular fa-circle-check green-icon');
   handleNavigationClick('drivers');
+  }else{
+    openNotification('error', 'Please add atleast one vehicle');
+
+  }
+  
 }
   const truckData = [
     { title: 'Truck Tractor ', image: truck },
