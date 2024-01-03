@@ -434,7 +434,6 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
                 </div>
 
                 <p className="business-owner-info">Home address/personal information of the business owner</p>
-
                 <div className='owner-info-form'>
                     <div className="name-part">
                         <p className="name-txt">Business owner name</p>

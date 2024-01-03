@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import "./coverage.css"
-import truck from "./images/Rectangle 346270192.png"
+import trucker from "./images/finall.png"
 import truck2 from "./images/Rectangle 346270202.png"
 import truck3 from "./images/Rectangle 346270212.png"
 import truck4 from "./images/Rectangle 346270222.png"
@@ -402,7 +402,7 @@ return(
 
     // Create an object to map selectedTruck values to corresponding images
     const truckImages = {
-      'Truck Tractor': truck,
+      'Truck Tractor ': trucker,
       'Box Truck': truck2,
       'Pickup Truck': truck3,
       'Flatbed Truck': truck4,
