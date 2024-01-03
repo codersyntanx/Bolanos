@@ -35,11 +35,12 @@
   display: flex;
   align-items: center;
   column-gap: 10px;
-}
-.table_header {
+}   
+/* .table_header {
   height: 59px;
   background: #2a4764;
   border-radius: 9px; 
+ 
 }
 
 .table_header th {
@@ -49,23 +50,50 @@ font-family: Inter;
 font-size: 16px;
 font-style: normal;
 font-weight: 500;
-line-height: 31px; /* 193.75% */
+line-height: 31px; 
 letter-spacing: 0.32px;
+}      */
+
+
+.table_small_screen{
+  display: none;
+}
+/* Apply border-radius to the top corners of thead */
+.main_table thead th:first-child {
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
+
 }
 
+.main_table thead th:last-child {
+  border-top-right-radius: 9px;
+  border-bottom-right-radius: 9px;
 
+}
+
+/* Style the th elements within the thead */
+.main_table th {
+  padding: 10px;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 31px; /* 193.75% */
+  letter-spacing: 0.32px;
+  background: #2a4764;
+}
+
+/* Style the rest of the table */
 .main_table {
   width: 969px;
- 
 }
 
 .main_table td,
 .main_table th {
-  padding: 10px; 
+  padding: 10px;
 }
-.table_small_screen{
-  display: none;
-}
+
 .closebtn{
 width: 91px;
 height: 50px;

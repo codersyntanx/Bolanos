@@ -240,7 +240,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
                   Yes
                 </label>
                 {/* "No" option */}
-                <label className="radio-label mx-4">
+                <label className="radio-label ">
                   
                   
                <StyledRadio
@@ -315,7 +315,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
 />
               Yes
             </label>
-            <label className="radio-label mx-4">
+            <label className="radio-label mx-1">
           
               <StyledRadio
     checked={hasMCNumber === false}
