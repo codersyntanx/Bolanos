@@ -86,8 +86,9 @@ if(code){
     setVehicalby(event.target.value);
   };
 
-  const lookupvinnumber = () => {
+  const lookupvinnumber = (e) => {
     // Set loading to true when the function starts
+e.preventDefault()
     setLoading(true);
     openNewModal()
     // Perform the API request
@@ -466,15 +467,7 @@ const handleModalOk = async () => {
               </div>
               <div className="col-md-7 vehicle_typeans">
 
-              {/* <input
-  className="mx-2 inputfield"
-  type="radio"
-  id="age2"
-  name="age1"
-  onChange={handleRadio}
-  defaultValue={"VIN"}
-  defaultChecked  
-/> */}
+         
 <StyledRadio
   name="radiobtn"
   value="VIN"
