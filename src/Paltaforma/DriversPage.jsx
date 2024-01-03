@@ -533,9 +533,11 @@ const gotonext =()=>{
       </div>
       <Modal
         title="Confirm Deletion"
-        visible={modalVisible}
+        open={modalVisible}
         onOk={handleModalOk}
         onCancel={handleModalCancel}
+        okButtonProps={{ style: { background: '#2a4764', color: 'white' } }}
+
       >
         <p>Are you sure you want to remove this driver?</p>
       </Modal>
