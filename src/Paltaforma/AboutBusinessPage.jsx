@@ -192,7 +192,6 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
             <div className="col-md-5 d-flex align-items-center">
               <div className="radiobutns inputflds">
                 <label className="radio-label">
-                 
                    <StyledRadio
    checked={currentlyInsured === true}
    onChange={() => setCurrentlyInsured(true)}
@@ -240,7 +239,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
                   Yes
                 </label>
                 {/* "No" option */}
-                <label className="radio-label ">
+                <label className="radio-label mx-1">
                   
                   
                <StyledRadio
@@ -252,6 +251,8 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
 />
                   No
                 </label>
+                
+                
               </div>
             </div>
           </div>
