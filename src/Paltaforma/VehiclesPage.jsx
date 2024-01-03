@@ -249,6 +249,7 @@ const handleModalOk = async () => {
   
     if (missingFields.length > 0) {
       openNotification('error', `Please fill in the following fields before continuing`);
+      setLoader(true);
       return;
     }
   
