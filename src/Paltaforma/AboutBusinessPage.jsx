@@ -24,7 +24,6 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
   const [bodilyInjuryLimit, setBodilyInjuryLimit] = useState('');
   const [policyExpirationDate, setPolicyExpirationDate] = useState('');
   const [hasMCNumber, setHasMCNumber] = useState(null);
-  const [emailvarified, setEmailvarified]= useState(false)
   const [informId, setInformId] = useState("")
  const[back, setBack]=useState(null)
   useEffect(() => {
@@ -37,7 +36,6 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
   useEffect(() => {
     fetchalldata()
     }, [informId]);
-    console.log(customerEmail)
 
  const fetchalldata =async()=>{
    if (informId) {
@@ -53,15 +51,15 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
               setBodilyInjuryLimit(businessData[0].bodilyInjuryLimit);
               setPolicyExpirationDate(businessData[0].policyExpirationDate);
               setHasMCNumber(businessData[0].hasMCNumber);
-
           }
+         
         })
         .catch(error => {
           console.error("Error fetching business data:", error);
         });
     }
  }
-   
+   console.log(policyExpirationDate)
  const verifyemail = async (e) => {
   const form = e.target.form;
 
@@ -182,6 +180,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
     // Update the state with the formatted value
     setBodilyInjuryLimit(formatNumberWithCommas(inputValue));
   };
+  console.log(currentlyInsured)
     return(
         <>
          <div className="small-screen-header">
@@ -230,8 +229,8 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
                    <StyledRadio
    checked={currentlyInsured === true}
    onChange={() => setCurrentlyInsured(true)}
-  value="true"
-  name="currentlyInsured"
+   value={currentlyInsured}
+   name="currentlyInsured"
   className="col-md-1 radio-input"
   required
 />
@@ -242,12 +241,15 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
                 <StyledRadio
    checked={currentlyInsured === false}
    onChange={() => setCurrentlyInsured(false)}
-  value="false"
+  value={currentlyInsured}
   name="currentlyInsured"
   className="col-md-1 radio-input"
 />
                   No
                 </label>
+            
+
+
               </div>
             </div>
           </div>
@@ -346,8 +348,8 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
                <StyledRadio
    onChange={() => setHasMCNumber(true)}
    checked={hasMCNumber === true}
-  value="Yes"
-  name="radi"
+   value={hasMCNumber}
+   name="radi"
   className="col-md-1 radio-input"
   required
 />
@@ -358,7 +360,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
               <StyledRadio
     checked={hasMCNumber === false}
    onChange={() => setHasMCNumber(false)}
-  value="No"
+  value={hasMCNumber}
   name="radi"
   className="col-md-1 radio-input"
 />
