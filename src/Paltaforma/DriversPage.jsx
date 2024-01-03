@@ -406,7 +406,7 @@ const gotonext =()=>{
               </div>
              
             </div>
-            <div className="row align-items-end">
+            <div className="row align-items-center">
             <div class="row newdriver align-items-end">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">Date of Birth:</label>
   <div class="col-sm-8">
@@ -414,7 +414,7 @@ const gotonext =()=>{
   </div>
 
 </div>
-<div class="row newdriver align-items-end">
+<div class="row newdriver align-items-center">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">Driver’s License State:</label>
   <div class="col-sm-8">
   <Select
@@ -425,7 +425,7 @@ const gotonext =()=>{
   </div>
 
 </div>
-<div class="row newdriver align-items-end">
+<div class="row newdriver align-items-center">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">License Number:</label>
   <div class="col-sm-8">
  
@@ -461,7 +461,7 @@ const gotonext =()=>{
 {
   selectedValue === "Yes" ?(
     <> 
-     <div className="row align-items-end newdriver">
+     <div className="row align-items-center newdriver">
       <label htmlFor="colFormLabelLg" className="col-sm-3 lableforinput">CDL Experience:</label>
       <div className="col-sm-2 cdlexp">
         <input type="text" className="form-control" value={expyear} onChange={(e) => { setExpyear(e.target.value) }} placeholder="Year" />

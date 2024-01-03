@@ -199,7 +199,7 @@ margin-left: auto;
   }
   .newdriver{
     margin-top: 30px;
-    align-items: flex-end;
+    align-items: center;
   }
   .newdriver input:focus{
 box-shadow: none;
