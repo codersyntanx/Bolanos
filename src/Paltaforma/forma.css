@@ -29,6 +29,8 @@ body {
 .green-icon{
     color: #34C153;
     font-weight: bolder;
+    background-color: white;
+  border-radius: 50%;
 }
 .main_header_section {
     display: flex;
