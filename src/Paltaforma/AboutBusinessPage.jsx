@@ -75,7 +75,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
   await axios.post(`https://serverforbce.vercel.app/api/verifyemail/${customerEmail}`)
     .then(res => {
       console.log('After axios.post');
-      if (res.data.data.status === "valid") {
+      if (res.data.data.status != "invalid") {
         handleButtonClick()
       }else{
         openNotification('error', 'Please Enter Valid Email');
@@ -237,7 +237,7 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
 
                   Yes
                 </label>
-                <label className="radio-label ">
+                <label className="radio-label">
                 <StyledRadio
    checked={currentlyInsured === false}
    onChange={() => setCurrentlyInsured(false)}

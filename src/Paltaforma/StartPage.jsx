@@ -257,7 +257,6 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
           { name: 'bussinesstype', label: 'Business Type' },
           { name: 'fullname', label: 'First Name' },
           { name: 'lastname', label: 'Last Name' },
-          { name: 'suffix', label: 'Suffix' },
           { name: 'address', label: 'Address' },
           { name: 'zip', label: 'Zip Code' },
           { name: 'city', label: 'City' },
