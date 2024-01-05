@@ -182,10 +182,7 @@ const handleModalCancel = () => {
   setModalVisible(false);
   setDeleteId(null);
 };
-// const gotonext =()=>{
-//   changeIcon('fa-regular fa-circle-check green-icon');
-//   handleNavigationClick('about');
-// }
+
 
 const gotonext =()=>{
   if(vehicletable.length > 0){
@@ -222,7 +219,6 @@ const gotonext =()=>{
     }
   };
 
-  // ... (previous useEffect and functions)
 
   const handleButtonClick = (e) => {
     const form = e.target.form;
@@ -282,8 +278,6 @@ const gotonext =()=>{
             setSelectedValue("");
             setExpyear("");
             setExpmonth("");
-            setInformId("");
-
             fetchdriver();
             setIsSectionVisible(true);
 
@@ -308,7 +302,6 @@ const gotonext =()=>{
     setLicenseState(selectedOption.value);
     
   };
-  console.log(licenseState)
   return (
     <>
     <div className="small-screen-header">
