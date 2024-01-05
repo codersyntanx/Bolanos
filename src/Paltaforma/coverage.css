@@ -150,8 +150,9 @@ border-radius: 50%;
     margin-left: 8px;
     margin-top: 7px
 }
-.jus{
+.jus {
     justify-content: space-between;
+    column-gap: 20px;
 }
 .circle2{
     width: 30px;
@@ -228,6 +229,9 @@ letter-spacing: 0.3px;
    
 }
 @media (max-width: 435px){
+    .bluediv3{
+        padding: 10px;
+    }
     .coverage_first{
         padding: 20px;
     }
@@ -262,6 +266,7 @@ letter-spacing: 0.3px;
         display: flex;
         flex-direction: row;
         align-items: center;
+        padding: 10px;
     }
     .minussign{
         width: fit-content;

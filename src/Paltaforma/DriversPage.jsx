@@ -33,6 +33,15 @@ const customStyles = {
     color: 'black', // Set arrow color
     borderRight: 'none', // Remove the border to the right of the arrow
   }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected ? '#2a4764' : 'white', // Set background color for selected option
+    color: state.isSelected ? 'white' : 'black', // Set text color for selected option
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: 'black', // Set text color for the selected value
+  }),
 };
 const StyledRadio = styled(Radio)({
   color: '#30577E',
@@ -435,7 +444,11 @@ const gotonext =()=>{
             <div class="row newdriver align-items-end">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">Date of Birth:</label>
   <div class="col-sm-8">
-    <input type="date" class="form-control" value={dob} onChange={(e)=>{setDob(e.target.value)}}   
+    <input type="date" class="form-control"
+     style={{
+      color: dob !== '' ? 'black' : 'grey',
+    }}
+    value={dob} onChange={(e)=>{setDob(e.target.value)}}   
      required/>
   </div>
 

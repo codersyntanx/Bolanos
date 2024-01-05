@@ -321,8 +321,10 @@ function AboutBusinessPage({ changeIcon,handleNavigationClick }){
                 type="date"
                 className="customer_email_input inputflds"
                 onChange={(e) => setPolicyExpirationDate(e.target.value)}
-                placeholder="10/31/.2023"
                 value={policyExpirationDate}
+                style={{
+                  color: policyExpirationDate !== '' ? 'black' : 'grey',
+                }}
               />
             </div>
           </div>

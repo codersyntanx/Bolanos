@@ -40,6 +40,15 @@ const customStyles = {
     color: 'black', // Set arrow color
     borderRight: 'none', // Remove the border to the right of the arrow
   }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected ? '#2a4764' : 'white', // Set background color for selected option
+    color: state.isSelected ? 'white' : 'black', // Set text color for selected option
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: 'black', // Set text color for the selected value
+  }),
 };
 
 
@@ -505,14 +514,17 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
                     <div className="name-part">
                         <p className="name-txt">Date of Birth:</p>
                         <div className="name-fields">
-                        <DatePicker
+                        <input
   className="form-control form-control-lg full-field"
   type="date"
   aria-label=".form-control-lg example"
-  onChange={(value) => { setDateofBirth(value) }}
-  style={{ color: 'black', fontWeight: '500' }}
-  required
+  onChange={(e) => { setDateofBirth(e.target.value) }}
+  style={{
+    color: dateofBirth !== '' ? 'black' : 'grey',
+  }} 
+   required
 />
+
 
 
                         </div>

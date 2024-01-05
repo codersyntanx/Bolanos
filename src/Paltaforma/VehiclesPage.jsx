@@ -31,6 +31,15 @@ const customStyles = {
     color: 'black', // Set arrow color
     borderRight: 'none', // Remove the border to the right of the arrow
   }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected ? '#2a4764' : 'white', // Set background color for selected option
+    color: state.isSelected ? 'white' : 'black', // Set text color for selected option
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: 'black', // Set text color for the selected value
+  }),
 };
 
 
