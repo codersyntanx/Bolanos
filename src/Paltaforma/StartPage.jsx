@@ -522,6 +522,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
   className="form-control form-control-lg full-field"
   type="date"
   aria-label=".form-control-lg example"
+  value={dateofBirth}
   onChange={(e) => { setDateofBirth(e.target.value) }}
   style={{
     color: dateofBirth !== '' ? 'black' : 'grey',
