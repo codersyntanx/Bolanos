@@ -486,10 +486,10 @@ text-decoration-line: underline;
 
 @media screen and (max-width: 435px) {
     .numberrow{
-        column-gap: 50px;
+        column-gap: 30px;
     }
     .numberfields{
-        width: 100px !important;
+        width: 80px !important;
     }
     .business-type-section{
         padding: 20px;
