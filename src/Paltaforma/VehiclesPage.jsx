@@ -24,6 +24,7 @@ const customStyles = {
     boxShadow: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : 'none',
     color:"black",
     fontWeight:"450"
+    
   }),
   dropdownIndicator: (provided) => ({
     ...provided,

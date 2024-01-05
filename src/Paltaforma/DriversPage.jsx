@@ -435,7 +435,8 @@ const gotonext =()=>{
             <div class="row newdriver align-items-end">
   <label for="colFormLabelLg" class="col-sm-3 lableforinput">Date of Birth:</label>
   <div class="col-sm-8">
-    <input type="date" class="form-control " value={dob} onChange={(e)=>{setDob(e.target.value)}}   placeholder="04/28/1995" required/>
+    <input type="date" class="form-control" value={dob} onChange={(e)=>{setDob(e.target.value)}}   
+     required/>
   </div>
 
 </div>

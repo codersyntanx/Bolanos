@@ -3,10 +3,11 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type="date"]::placeholder {
-    color: rgb(244, 241, 241);
+
+.form-control::placeholder{
+    color: rgb(134, 132, 132);
+ 
   }
-  
 input[type="number"] {
   -moz-appearance: textfield;
 }
