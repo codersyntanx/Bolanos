@@ -262,6 +262,10 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
     const handleButtonClick = (e) => {
       
       e.preventDefault();
+      if (areaCode.length !== 3 || middlePart.length !== 3 || lastPart.length !== 4) {
+        openNotification("error", "Fill all the Blank");
+        return;
+    }
       setLoading(true);
       const requiredFields = [
           { name: 'selectedOption', label: 'USDOT#' },
