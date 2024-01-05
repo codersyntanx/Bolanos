@@ -27,6 +27,8 @@ const customStyles = {
     height: '51px',
     border: '1px solid rgba(0, 0, 0, 0.42)',
     boxShadow: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : 'none',
+    color:"black",
+    fontWeight:"450"
   }),
   menuList: (provided) => ({
     ...provided,
@@ -521,7 +523,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
         <div className="row numberrow">
           <div className="col-md-2">
             <input
-              className="form-control form-control-lg full-field"
+              className="form-control form-control-lg full-field numberfields"
               type="number"
               maxLength="3"
               required
@@ -533,7 +535,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
           </div>
           <div className="col-md-2">
             <input
-              className="form-control form-control-lg full-field"
+              className="form-control form-control-lg full-field numberfields"
               type="number"
               maxLength="3"
               onChange={(e) => handleInputChange(e, lastPartInput)}
@@ -547,7 +549,7 @@ if (streetnum && streetnum.long_name && route && route.long_name) {
           </div>
           <div className="col-md-2">
             <input
-              className="form-control form-control-lg full-field"
+              className="form-control form-control-lg full-field numberfields"
               type="number"
               maxLength="4"
               onChange={(e) => handleInputChange(e)}

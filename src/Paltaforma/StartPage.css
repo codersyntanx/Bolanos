@@ -485,6 +485,12 @@ text-decoration-line: underline;
 }
 
 @media screen and (max-width: 435px) {
+    .numberrow{
+        column-gap: 50px;
+    }
+    .numberfields{
+        width: 100px !important;
+    }
     .business-type-section{
         padding: 20px;
     }

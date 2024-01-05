@@ -22,6 +22,8 @@ const customStyles = {
     height: '51px',
     border: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : '1px solid rgba(0, 0, 0, 0.42)',
     boxShadow: state.isFocused ? '1px solid rgba(0, 0, 0, 0.42)' : 'none',
+    color:"black",
+    fontWeight:"450"
   }),
   dropdownIndicator: (provided) => ({
     ...provided,
