@@ -332,24 +332,32 @@ const gotonext =()=>{
         <table className='main_table mt-5 mb-5'>
           <thead className='table_header'>
             <tr>
-              <th className='idtr'>Driver Name</th>
+              <th>Driver Name</th>
+              <th>Date of Birth </th>
+              <th>State</th>
               <th>License Number</th>
-              <th>Action</th>
+              <th> CDL/Non-CDL</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {vehicletable.map((row, index) => (
               <tr key={index}>
-                <td className="tabltd">{row.fullName}</td>
+                <td > {row.fullName}</td>
+                <td >{row.dob}</td>
+                <td >{row.licenseState}</td>
                 <td>{row.licenseNumber}</td>
-                <td>
-                  <button className='btn' onClick={() => handleUpdate(row._id)}>
+                <td className="d-flex align-items-center ">{row.selectedValue}
+                <div style={{marginLeft:"auto"}}>
+                      <button className='btn' onClick={() => handleUpdate(row._id)}>
                     <i className="fa-solid fa-pencil"></i>
                   </button>
                   <button className='btn' onClick={() => handleDelete(row._id)}>
                     <i className="fa-solid fa-user-xmark"></i>
                   </button>
+                </div>
                 </td>
+               
               </tr>
             ))}
           </tbody>
@@ -363,21 +371,34 @@ const gotonext =()=>{
                         <>
                           <table>
                             <tr className="border-bottom">
-                              <td className="table_heading_secction">Driver Name</td>
-                              <td className="table_description">{row.fullName}</td>
+                              <td className="table_heading_secction">{row.fullName}</td>
+                              <td className='d-flex justify-content-end'>     <button className='btn' onClick={() => handleUpdate(row._id)}>
+                    <i className="fa-solid fa-pencil"></i>
+                  </button>               <button className='btn tabltd' onClick={() => handleDelete(row._id)}><i class="fa-solid fa-user-xmark"></i></button>
+</td>
 
                             </tr>
+                            <tr >
+                              <td className="table_heading_secction">Date of Birth</td>
+                              <td className="table_description tabltd">
+                                {row.dob}</td>
+                            </tr> 
+                            <tr >
+                              <td className="table_heading_secction">State</td>
+                              <td className="table_description tabltd">
+                                {row.licenseState}</td>
+                            </tr> 
                             <tr >
                               <td className="table_heading_secction">License Number</td>
                               <td className="table_description tabltd">
                                 {row.licenseNumber}</td>
                             </tr> 
-                            <tr>
-                            <td className="table_heading_secction ">Action</td>
-                               <td className='deletebtn'>
-                  <button className='btn tabltd' onClick={() => handleDelete(row._id)}><i class="fa-solid fa-user-xmark"></i></button>
-                </td>
-                              </tr>  
+                            <tr >
+                              <td className="table_heading_secction"> CDL/Non-CDL</td>
+                              <td className="table_description tabltd">
+                                {row.selectedValue}</td>
+                            </tr> 
+                            
                           </table>
                         </>
                       )

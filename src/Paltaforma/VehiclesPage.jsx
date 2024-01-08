@@ -371,7 +371,7 @@ const handleModalOk = async () => {
               <th>Coll</th>
               <th>VIN#</th>
               <th >Stated Amt</th>
-              <th>Action</th>
+              {/* <th>Action</th> */}
             </tr>
           </thead>
           <tbody>
@@ -383,17 +383,18 @@ const handleModalOk = async () => {
                 <td>{row.needCoverage}</td>
                 <td>{row.needCoverage}</td>
                 <td>{row.Vin}</td>
-                <td >
+                <td className="d-flex align-items-center ">
                   {row.vehicleWorth}
-                </td>
-                <td>
-                <button className="btn" onClick={() => handleEdit(row)}>
+                  <div style={{marginLeft:"auto"}}>
+                  <button className="btn" onClick={() => handleEdit(row)}>
   <i className="fa-regular fa-pen-to-square"></i>
 </button>
 <button className="btn" onClick={() => handleDelete(row._id)}>
 <i class="fa-solid fa-trash-can"></i>
 </button>
+                  </div>
                 </td>
+                
               </tr>
             ))}
           </tbody>
@@ -407,8 +408,13 @@ const handleModalOk = async () => {
                         <>
                           <table>
                             <tr style={{borderBottom:"1px solid black"}}>
-                              <td className="table_heading_secction">Vehicle</td>
-                              <td className="table_description">{row.year} {row.make} {row.model} </td>
+                              <td >{row.year} {row.make} {row.model} </td>
+                              <td className="d-flex justify-content-end">  <button className="btn" onClick={() => handleEdit(row)}>
+  <i className="fa-regular fa-pen-to-square"></i>
+</button>
+<button className="btn" onClick={() => handleDelete(row._id)}>
+<i class="fa-solid fa-trash-can"></i>
+</button></td>
                             </tr>
                             <tr >
                               <td className="table_heading_secction">Comp</td>
@@ -427,17 +433,7 @@ const handleModalOk = async () => {
                               <td className="table_description tabltd">
                                 {row.vehicleWorth}</td>
                             </tr>
-                            <tr >
-                              <td className="table_heading_secction">Action</td>
-                              <td className="table_description tabltd">
-                              <button className="btn" onClick={() => handleEdit(row)}>
-  <i className="fa-regular fa-pen-to-square"></i>
-</button>
-<button className="btn" onClick={() => handleDelete(row._id)}>
-<i class="fa-solid fa-trash-can"></i>
-</button>
-                               </td>
-                            </tr>
+                          
                           </table>
                         </>
                       )
