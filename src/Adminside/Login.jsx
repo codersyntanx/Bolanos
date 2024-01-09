@@ -9,11 +9,15 @@ const LoginPage = ({ setLoggedIn }) => {
 
   const handleLogin = () => {
     // Add logic for checking email and password
-    if (email === 'test@gmail.com' && password === '123') {
+    if (email === 'sergio@bceins.com' && password === 'Master@5667') {
       setLoggedIn(true);
       navigate('/dashboard'); // Use navigate to go to the dashboard page
-    } else {
+    } else if(email === 'sbolanos@bceins.com' && password === 'Melvin@') {
+      setLoggedIn(true);
+      navigate('/dashboard'); 
+    }else{
       message.error('Invalid email or password');
+
     }
   };
 
